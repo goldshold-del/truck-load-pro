@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b1517">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Truck Profit">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Truck Profit &amp; Rate Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0b1517;--bg2:#12373a;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.1);--tx:#f2f7f7;--mu:#8fa7a9;--teal:#3fe6d0;--blue:#4aa8ff;--purple:#a78bfa;--orange:#ff7a3d;--green:#3ddc97;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:radial-gradient(120% 60% at 50% 0,var(--bg2),var(--bg) 70%) fixed;color:var(--tx);font-family:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:500px;margin:0 auto;padding:16px 14px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin:4px 0 14px}
+h1{font-size:22px;font-weight:800;margin:0;letter-spacing:-.4px}
+h1 span{color:var(--teal)}
+.ghost{background:none;border:1px solid var(--line);color:var(--mu);border-radius:99px;padding:7px 13px;font:600 13px Manrope,sans-serif;cursor:pointer}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{flex:1;padding:10px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:600 14px Manrope,sans-serif;cursor:pointer}
+.tab.on{border-color:var(--teal);color:var(--teal)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:14px;backdrop-filter:blur(8px)}
+.card h3{margin:0 0 10px;font-size:15px}
+.rings{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:10px;align-items:center}
+.rings .big{grid-row:span 2}
+.ring{position:relative;aspect-ratio:1;width:100%}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .tr{stroke:rgba(255,255,255,.1)}
+.ring .v{transition:stroke-dasharray .5s}
+.ring .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.t b{font-size:17px;font-weight:800;line-height:1}
+.big .t b{font-size:26px}
+.t small{font-size:10px;color:var(--mu);margin-top:3px;font-weight:600}
+.verdict{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.verdict h2{margin:0;font-size:18px}
+.verdict p{margin:3px 0 0;color:var(--mu);font-size:13px}
+.pill{padding:6px 12px;border-radius:14px;font-weight:800;font-size:13px;white-space:nowrap}
+.vit{display:grid;grid-template-columns:repeat(5,1fr);text-align:center;gap:4px;margin-top:14px}
+.vit div{font-size:11px;color:var(--mu);font-weight:600}
+.vit b{display:block;color:var(--tx);font-size:14px;margin:4px 0}
+.dot{display:block;width:9px;height:9px;border-radius:50%;margin:0 auto}
+.dot.g{background:var(--green);clip-path:polygon(50% 0,100% 100%,0 100%);width:11px;height:10px;border-radius:0}
+.dot.o{background:var(--blue)}.dot.r{background:var(--orange)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m{background:rgba(0,0,0,.22);border-radius:16px;padding:12px}
+.m small{color:var(--mu);font-size:12px}
+.m b{display:block;font-size:20px;margin-top:3px}
+.m i{font-style:normal;font-size:12px;color:var(--mu)}
+.row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0 3px}
+.row span:first-child{color:var(--mu)}
+.bk{height:6px;border-radius:4px;background:rgba(255,255,255,.08);margin-bottom:4px;overflow:hidden}
+.bk i{display:block;height:100%;background:var(--teal);border-radius:4px}
+.f{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
+.f:first-of-type{border-top:0}
+.f label{font-size:14px;flex:1}
+.in{display:flex;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:0 10px;width:140px}
+.in span{color:var(--mu);font-size:12px}
+.in input{width:100%;min-width:0;background:none;border:0;color:var(--tx);font:700 16px Manrope,sans-serif;padding:10px 6px;text-align:right;outline:0}
+.in:focus-within{border-color:var(--teal)}
+.note{color:var(--mu);font-size:12px;line-height:1.5;margin-top:4px}
+.hide{display:none}
+.ghost.on{border-color:var(--teal);color:var(--teal)}
+.save{width:100%;margin-top:10px;padding:14px;border:0;border-radius:16px;background:#3a8fb5;color:#fff;font:800 15px Manrope,sans-serif;cursor:pointer}
+textarea{width:100%;margin-top:10px;background:rgba(0,0,0,.25);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:8px;font:12px monospace}
+.prt{display:none;margin:0 0 12px}
+@media print{:root{--tx:#000;--mu:#444;--line:#bbb}body{background:#fff;color:#000}.tabs,.top,.noprint,.tools{display:none!important}.prt{display:block}.card{background:none;backdrop-filter:none;break-inside:avoid}.m{background:#f2f2f2}body.printing .wk:not(.pr){display:none}}
+@media (prefers-reduced-motion:reduce){.ring .v{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><h1>Truck <span>Profit</span></h1><button class="ghost" id="rst">Reset</button></div>
+<div class="tabs"><button class="tab on" data-p="p1">Summary</button><button class="tab" data-p="p2">Inputs</button><button class="tab" data-p="p3">Costs</button><button class="tab" data-p="p4">Loads</button></div>
+
+<section id="p1">
+<div class="card"><div class="rings">
+<div class="ring big" id="rNet"></div><div class="ring" id="rMar"></div><div class="ring" id="rRate"></div><div class="ring" id="rBe"></div><div class="ring" id="rPpm"></div>
+</div></div>
+<div class="card">
+<div class="verdict"><div><h2 id="vt"></h2><p id="vs"></p></div><span class="pill" id="vp"></span></div>
+<div class="vit" id="vit"></div>
+</div>
+<div class="card"><h3>Save this load</h3><div class="two"><div class="in" style="width:auto"><input id="lname" type="text" placeholder="Load or broker" style="text-align:left"></div><div class="in" style="width:auto"><input id="ldate" type="date" style="text-align:left"></div></div><button class="save" id="save">Save to Loads</button><p class="note" id="smsg"></p></div>
+<div class="card"><h3>What to counter with</h3><div class="two" id="cta"></div></div>
+<div class="card"><h3>Projections</h3>
+<div class="f"><label for="lpw">Loads like this per week</label><div class="in"><input id="lpw" type="number" inputmode="decimal" value="3" step="any"></div></div>
+<div class="two" id="proj" style="margin-top:10px"></div></div>
+</section>
+
+<section id="p2" class="hide"><div id="form"></div><p class="note">Fixed costs are entered per week. Each load is charged its share: total miles (loaded + deadhead) divided by your weekly miles. Driver pay, fuel, maintenance and tires use loaded + deadhead miles. Dispatch % comes out of gross revenue. Estimates only, not financial advice.</p></section>
+
+<section id="p3" class="hide">
+<div class="card"><h3>Cost breakdown</h3><div id="bk"></div></div>
+<div class="card"><h3>Weekly fixed costs</h3><p class="note" id="fxn" style="margin:0 0 6px"></p><div id="fx"></div></div>
+<div class="card"><h3>Numbers</h3><div id="mets"></div></div>
+</section>
+
+<section id="p4" class="hide">
+<h2 class="prt">Truck Profit weekly report</h2>
+<div class="card tools"><div class="two"><button class="ghost on" id="fa">Active</button><button class="ghost" id="fr">Archived</button><button class="ghost" id="pa">Print all</button><button class="ghost" id="ex">Export CSV</button></div><textarea id="csv" class="hide" readonly rows="6" aria-label="CSV export"></textarea></div>
+<div id="wk"></div>
+</section>
+</div>
+
+<script>
+const G=[
+["Load",[["gross","Gross revenue","2000","$"],["loaded","Loaded miles","1000","mi"],["dead","Deadhead miles","0","mi"]]],
+["Fuel",[["diesel","Diesel price","4.10","$/gal"],["mpg","Truck MPG","7","mpg"]]],
+["Pay",[["driver","Driver pay per mile","0.65","$/mi"],["disp","Company / dispatch %","10","%"]]],
+["Fixed costs (per week)",[["wmi","Miles per week","5000","mi"],["truck","Truck payment","1600","$"],["ins","Insurance","800","$"],["trailer","Trailer rental","450","$"],["eld","ELD","75","$"],["ifta","IFTA","200","$"],["tolls","Tolls","300","$"],["misc","Miscellaneous","795","$"]]],
+["Wear (per mile)",[["maint","Maintenance","0.15","$/mi"],["tires","Tires","0.04","$/mi"]]],
+["Target",[["tm","Target profit margin","15","%"]]]];
+const D={};let store=null;
+try{store=JSON.parse(localStorage.getItem("tpc3")||"null")}catch(e){}
+const $=id=>document.getElementById(id);
+const n=id=>{const v=parseFloat($(id).value);return isNaN(v)?0:v};
+const $$=(x,d=0)=>(x<0?"-":"")+"$"+Math.abs(x).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pc=x=>(x*100).toFixed(1)+"%";
+$("form").innerHTML=G.map(([t,fs])=>'<div class="card"><h3>'+t+'</h3>'+fs.map(([id,l,d,u])=>{D[id]=d;const v=store&&store[id]!=null?store[id]:d;return '<div class="f"><label for="'+id+'">'+l+'</label><div class="in"><input id="'+id+'" type="number" inputmode="decimal" step="any" value="'+v+'"><span>'+u+'</span></div></div>'}).join("")+'</div>').join("");
+
+const C=2*Math.PI*42;
+function ring(el,pct,color,val,label){
+  pct=Math.max(0,Math.min(1,pct));
+  $(el).innerHTML='<svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="42"/><circle class="v" cx="50" cy="50" r="42" stroke="'+color+'" stroke-dasharray="'+(pct*C)+' '+C+'"/></svg><div class="t"><b>'+val+'</b><small>'+label+'</small></div>';
+}
+function lvl(v,good,ok){return v>=good?"g":v>=ok?"o":"r"}
+
+function calc(){
+  const gross=n("gross"),L=n("loaded"),Dh=n("dead"),M=L+Dh,mpg=n("mpg")||1,d=n("disp")/100,tm=n("tm")/100;
+  const fuel=M/mpg*n("diesel"),drv=M*n("driver"),dsp=gross*d,mnt=M*n("maint"),tr=M*n("tires");
+  const wm=n("wmi")||5000,share=M/wm,fx=id=>n(id)*share;
+  const items=[["Fuel",fuel],["Driver pay",drv],["Dispatch",dsp],["Truck payment",fx("truck")],["Insurance",fx("ins")],["Trailer rental",fx("trailer")],["Maintenance",mnt],["Tires",tr],["Tolls",fx("tolls")],["ELD",fx("eld")],["IFTA",fx("ifta")],["Misc",fx("misc")]];
+  const cost=items.reduce((a,i)=>a+i[1],0),net=gross-cost,margin=gross?net/gross:0,other=cost-dsp;
+  const be=(1-d)>0?other/(1-d):0,tg=(1-d-tm)>0?other/(1-d-tm):0;
+  return{gross,L,Dh,M,tm,share,wm,items,cost,net,margin,be,tg,fuel,drv,dsp,rate:L?gross/L:0,beRpm:L?be/L:0,cpm:M?cost/M:0,ppm:L?net/L:0};
+}
+
+function render(){
+  const r=calc();
+  const prog=r.tm?r.margin/r.tm:0;
+  const col=r.margin>=r.tm?"var(--teal)":r.margin>0.02?"var(--blue)":"var(--orange)";
+  ring("rNet",prog,col,(r.net>0?"+":"")+$$(r.net),"NET PROFIT");
+  ring("rMar",r.margin/0.4,"var(--blue)",pc(r.margin),"MARGIN");
+  ring("rRate",r.rate/3.5,"var(--purple)",$$(r.rate,2),"RATE/MI");
+  ring("rBe",r.beRpm/3.5,"var(--orange)",$$(r.beRpm,2),"BREAK-EVEN");
+  ring("rPpm",r.ppm/1.5,"var(--green)",$$(r.ppm,2),"PROFIT/MI");
+  const t=$("vt"),p=$("vp");
+  if(r.margin>=r.tm){t.textContent="Take it";p.textContent="On target";p.style.cssText="background:rgba(61,220,151,.18);color:var(--green)"}
+  else if(r.margin>0.02){t.textContent="Negotiate";p.textContent="Below target";p.style.cssText="background:rgba(74,168,255,.18);color:var(--blue)"}
+  else if(r.margin>=-0.02){t.textContent="Break-even";p.textContent="No profit";p.style.cssText="background:rgba(255,122,61,.18);color:var(--orange)"}
+  else{t.textContent="Pass";p.textContent="Loss";p.style.cssText="background:rgba(255,122,61,.18);color:var(--orange)"}
+  $("vs").textContent=$$(r.gross)+" load · "+r.L.toLocaleString()+" loaded mi · target "+pc(r.tm);
+  const fp=r.gross?r.fuel/r.gross:0,dp=r.M?r.Dh/r.M:0,drp=r.gross?r.drv/r.gross:0;
+  const v=[["MARGIN",pc(r.margin),lvl(r.margin,r.tm,0.02)],["VS B/E",$$(r.rate-r.beRpm,2),lvl(r.rate-r.beRpm,0.3,0)],["FUEL",Math.round(fp*100)+"%",lvl(0.35-fp,0.1,0)],["DEADHEAD",Math.round(dp*100)+"%",lvl(0.25-dp,0.15,0.05)],["DRIVER",Math.round(drp*100)+"%",lvl(0.4-drp,0.1,0)]];
+  $("vit").innerHTML=v.map(x=>'<div>'+x[0]+'<b>'+x[1]+'</b><i class="dot '+x[2]+'"></i></div>').join("");
+  $("cta").innerHTML='<div class="m"><small>Break-even price</small><b>'+$$(r.be)+'</b><i>'+(r.L?$$(r.be/r.L,2)+"/mi":"")+'</i></div><div class="m"><small>For '+pc(r.tm)+' margin</small><b>'+$$(r.tg)+'</b><i>'+(r.L?$$(r.tg/r.L,2)+"/mi":"")+'</i></div>';
+  const w=n("lpw"),wk=r.net*w;
+  $("proj").innerHTML=[["Weekly revenue",$$(r.gross*w),0],["Weekly profit",$$(wk),wk],["Monthly revenue",$$(r.gross*w*52/12),0],["Monthly profit",$$(wk*52/12),wk]].map(x=>'<div class="m"><small>'+x[0]+'</small><b style="'+(x[2]?"color:"+(x[2]<0?"var(--orange)":"var(--green)"):"")+'">'+x[1]+'</b></div>').join("");
+  $("bk").innerHTML=r.items.filter(i=>i[1]>0).sort((a,b)=>b[1]-a[1]).map(([a,b])=>'<div class="row"><span>'+a+'</span><span>'+$$(b)+'</span></div><div class="bk"><i style="width:'+(r.cost?b/r.cost*100:0)+'%"></i></div>').join("");
+  const mk=[["Total operating cost",$$(r.cost)],["Cost per mile",$$(r.cpm,2)+"/mi"],["Rate per mile",$$(r.rate,2)+"/mi"],["Break-even RPM",$$(r.beRpm,2)+"/mi"],["Profit per mile",$$(r.ppm,2)+"/mi"],["Total miles",r.M.toLocaleString()]];
+  $("mets").innerHTML=mk.map(([a,b])=>'<div class="row"><span>'+a+'</span><span>'+b+'</span></div>').join("");
+  const fl=[["Truck payment","truck"],["Insurance","ins"],["Trailer rental","trailer"],["ELD","eld"],["IFTA","ifta"],["Tolls","tolls"],["Miscellaneous","misc"]];
+  $("fxn").textContent="This load uses "+pc(r.share)+" of your "+r.wm.toLocaleString()+" weekly miles ("+r.M.toLocaleString()+" mi).";
+  $("fx").innerHTML=fl.map(([a,id])=>{const w=n(id);return '<div class="row"><span>'+a+' · '+$$(w)+'/wk · '+$$(w/r.wm,3)+'/mi</span><span>'+$$(w*r.share,2)+'</span></div>'}).join("");
+  try{const o={};document.querySelectorAll("#form input").forEach(e=>o[e.id]=e.value);localStorage.setItem("tpc3",JSON.stringify(o))}catch(e){}
+}
+document.querySelectorAll("input").forEach(e=>e.addEventListener("input",render));
+$("rst").onclick=()=>{for(const k in D)$(k).value=D[k];$("lpw").value=3;render()};
+function show(id){["p1","p2","p3","p4"].forEach(p=>$(p).classList.toggle("hide",p!==id));if(id==="p4")renderLoads();document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.p===id));window.scrollTo(0,0)}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>show(b.dataset.p)));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const wkOf=s=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()-(d.getDay()+6)%7);return iso(d)};
+const fd=s=>new Date(s+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let loads=[],view=0,pend=0;
+try{loads=JSON.parse(localStorage.getItem("tpl3")||"[]")}catch(e){}
+const persist=()=>{try{localStorage.setItem("tpl3",JSON.stringify(loads))}catch(e){}};
+$("ldate").value=iso(new Date());
+$("save").onclick=()=>{
+  const r=calc(),d=$("ldate").value||iso(new Date());
+  loads.push({id:Date.now(),date:d,name:$("lname").value.trim()||"Load",gross:r.gross,L:r.L,Dh:r.Dh,M:r.M,cost:r.cost,net:r.net,arch:0});
+  persist();$("lname").value="";$("smsg").textContent="Saved to the week of "+fd(wkOf(d))+".";
+};
+function renderLoads(){
+  $("fa").classList.toggle("on",!view);$("fr").classList.toggle("on",!!view);
+  const g={};
+  loads.filter(l=>!!l.arch===!!view).forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  const ks=Object.keys(g).sort().reverse();
+  if(!ks.length){$("wk").innerHTML='<div class="card"><p class="note" style="margin:0">'+(view?"No archived weeks yet.":"No saved loads yet. Enter a load, then tap Save to Loads on the Summary tab.")+'</p></div>';return}
+  $("wk").innerHTML=ks.map(k=>{
+    const a=g[k].sort((x,y)=>x.date<y.date?-1:1),s=f=>a.reduce((t,l)=>t+l[f],0);
+    const gr=s("gross"),co=s("cost"),ne=s("net"),mi=s("M"),lm=s("L");
+    const e=new Date(k+"T12:00:00");e.setDate(e.getDate()+6);
+    const cl=ne<0?"var(--orange)":"var(--green)";
+    return '<div class="card wk" data-k="'+k+'"><div class="verdict"><h3 style="margin:0">'+fd(k)+' – '+fd(iso(e))+'</h3><div class="noprint"><button class="ghost" data-a="pr" data-k="'+k+'">Print</button> <button class="ghost" data-a="ar" data-k="'+k+'">'+(view?"Restore":"Archive")+'</button></div></div>'+
+    '<div class="two" style="margin:12px 0"><div class="m"><small>Revenue</small><b>'+$$(gr)+'</b></div><div class="m"><small>Net profit</small><b style="color:'+cl+'">'+$$(ne)+'</b></div><div class="m"><small>Margin</small><b>'+pc(gr?ne/gr:0)+'</b></div><div class="m"><small>Miles · loads</small><b>'+mi.toLocaleString()+' · '+a.length+'</b></div></div>'+
+    '<p class="note" style="margin:0 0 6px">Cost '+$$(co)+' · rate '+$$(lm?gr/lm:0,2)+'/mi loaded · profit '+$$(mi?ne/mi:0,2)+'/mi total</p>'+
+    a.map(l=>'<div class="row"><span>'+fd(l.date)+' · '+esc(l.name)+' · '+l.M.toLocaleString()+' mi</span><span style="color:'+(l.net<0?"var(--orange)":"var(--green)")+'">'+$$(l.net)+' <button class="ghost noprint" data-a="del" data-id="'+l.id+'">'+(pend===l.id?"Sure?":"✕")+'</button></span></div>').join("")+'</div>';
+  }).join("");
+}
+function printIt(k){
+  document.querySelectorAll(".wk").forEach(w=>w.classList.toggle("pr",!k||w.dataset.k===k));
+  document.body.classList.add("printing");
+  window.onafterprint=()=>document.body.classList.remove("printing");
+  try{window.print()}catch(e){}
+  setTimeout(()=>document.body.classList.remove("printing"),4000);
+}
+$("wk").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;const a=b.dataset.a,k=b.dataset.k;
+  if(a==="del"){const id=+b.dataset.id;if(pend===id){loads=loads.filter(l=>l.id!==id);pend=0;persist()}else pend=id}
+  else if(a==="ar"){loads.forEach(l=>{if(wkOf(l.date)===k&&!!l.arch===!!view)l.arch=view?0:1});persist()}
+  else if(a==="pr"){printIt(k);return}
+  renderLoads();
+};
+$("fa").onclick=()=>{view=0;renderLoads()};
+$("fr").onclick=()=>{view=1;renderLoads()};
+$("pa").onclick=()=>printIt("");
+$("ex").onclick=()=>{
+  const q=s=>{s=String(s);if(/^[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const t="week,date,name,status,revenue,cost,net,margin_pct,loaded_mi,deadhead_mi,total_mi\n"+loads.slice().sort((a,b)=>a.date<b.date?-1:1).map(l=>[wkOf(l.date),l.date,q(l.name),l.arch?"archived":"active",l.gross.toFixed(2),l.cost.toFixed(2),l.net.toFixed(2),(l.gross?l.net/l.gross*100:0).toFixed(1),l.L,l.Dh,l.M].join(",")).join("\n");
+  $("csv").value=t;$("csv").classList.remove("hide");
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-loads-"+iso(new Date())+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
+};
+render();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
