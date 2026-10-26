@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#070f12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Truck Profit">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Truck Profit &amp; Rate Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#070f12;--card:#0e1a1f;--card2:#12232a;--line:rgba(255,255,255,.08);--tx:#f1f6f6;--mu:#8ea4a8;--teal:#2fd9c4;--blue:#4aa8ff;--purple:#a78bfa;--orange:#ff8a4c;--red:#ff5d5d;--green:#3ddc97;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--tx);font:14px/1.45 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
+.app{max-width:500px;margin:0 auto;padding:14px 14px 120px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin:2px 0 16px}
+h1{font-size:22px;font-weight:800;margin:0;letter-spacing:-.4px;line-height:1.1}h1 span{color:var(--teal)}
+.sub{margin:4px 0 0;font-size:12px;color:var(--mu)}
+.ctl{display:flex;gap:6px;flex-shrink:0}
+.ghost{background:none;border:1px solid var(--line);color:var(--mu);border-radius:12px;padding:0 14px;min-height:44px;font:600 13px Manrope,sans-serif;cursor:pointer}
+.top .ghost{min-height:36px;padding:0 10px;font-size:12px;border-radius:10px}
+select.ghost{background:var(--card2);color:var(--tx)}
+.ghost.on{border-color:var(--teal);color:var(--teal)}
+.tabs{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,500px);display:flex;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(7,15,18,.97);border-top:1px solid var(--line);z-index:20}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;border:0;border-radius:14px;background:none;color:var(--mu);font:700 11px Manrope,sans-serif;cursor:pointer;transition:background .2s,color .2s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--teal);background:rgba(47,217,196,.1)}
+.tab.start{flex:1.35;background:linear-gradient(135deg,var(--teal),#23a9bd);color:#04191b}
+.tab.start.on{box-shadow:inset 0 0 0 2px #fff;background:linear-gradient(135deg,var(--teal),#23a9bd);color:#04191b}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.card h3{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--mu)}
+.verdict{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.verdict h3,.card.wk .verdict h3{margin:0;font-size:15px;letter-spacing:0;text-transform:none;color:var(--tx)}
+.hero{border-radius:18px;padding:20px 18px 16px;margin-bottom:12px;background:linear-gradient(160deg,#10302f,#0b1a1f);border:1px solid rgba(47,217,196,.3);transition:border-color .3s}
+.hero[data-n="-"]{border-color:rgba(255,138,76,.45)}
+.hero .l{display:block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--mu)}
+.hn{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin:4px 0 0;color:var(--green);transition:color .3s;font-variant-numeric:tabular-nums}
+.hero[data-n="-"] .hn{color:var(--orange)}
+.hs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.hs b{display:block;font-size:18px;font-variant-numeric:tabular-nums}.hs small{display:block;font-size:11px;color:var(--mu);margin-top:2px}
+.dec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.dbadge{display:block;text-align:center;padding:16px 10px;border-radius:14px;font-size:26px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;transition:background .3s,color .3s}
+.dsub{text-align:center;color:var(--mu);font-size:13px;margin:8px 0 0}
+.d3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.d3 small{display:block;font-size:11px;color:var(--mu)}.d3 b{display:block;font-size:18px;font-variant-numeric:tabular-nums}
+[data-s=above] .dbadge,[data-s=above] .sb,.s-above{background:rgba(61,220,151,.28);color:#7dffc0}
+[data-s=met] .dbadge,[data-s=met] .sb,.s-met,[data-s=take] .dbadge,[data-s=take] .sb,.s-take{background:rgba(61,220,151,.16);color:var(--green)}
+[data-s=neg] .dbadge,[data-s=neg] .sb,.s-neg{background:rgba(74,168,255,.16);color:var(--blue)}
+[data-s=be] .dbadge,[data-s=be] .sb,.s-be{background:rgba(255,138,76,.16);color:var(--orange)}
+[data-s=pass] .dbadge,[data-s=pass] .sb,.s-pass{background:rgba(255,93,93,.16);color:var(--red)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m{background:var(--card2);border-radius:14px;padding:12px;min-width:0}
+.m small{display:block;color:var(--mu);font-size:12px;font-weight:600}
+.m b{display:block;font-size:22px;margin-top:4px;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+.m i{font-style:normal;font-size:12px;color:var(--mu)}
+.m p{margin:6px 0 0;font-size:12px;color:var(--mu);line-height:1.4}
+.m.hl{background:rgba(47,217,196,.1);box-shadow:inset 0 0 0 1px rgba(47,217,196,.35)}.m.hl b{color:var(--teal);font-size:26px}
+.m.wd{grid-column:1/-1}.m.xl b{font-size:26px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.stats small{display:block;font-size:11px;color:var(--mu)}.stats b{display:block;font-size:14px}
+.sec{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--mu);margin:16px 0 8px}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:14px;padding:6px 0 3px}
+.row span:first-child{color:var(--mu)}
+.row.sh{margin-top:14px;padding:0 0 6px;font-size:11px;letter-spacing:.8px;text-transform:uppercase}.row.sh b{color:var(--mu)}
+.bk{height:6px;border-radius:4px;background:rgba(255,255,255,.07);margin-bottom:4px;overflow:hidden}
+.bk i{display:block;height:100%;background:var(--teal);border-radius:4px;transition:width .3s}
+.cb{margin-bottom:12px}.cr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.cr>span:first-child{font-weight:600}.cr b{font-size:16px}.cr em{font-style:normal;color:var(--mu);font-size:12px;margin-inline-start:8px}
+details.dt summary{cursor:pointer;color:var(--teal);font-weight:700;font-size:13px;min-height:44px;display:flex;align-items:center}
+.f{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.f:first-of-type{border-top:0}.f.fx{flex-direction:column;align-items:stretch;gap:6px}.fxc{display:flex;gap:8px}.fxc .in{flex:1;width:auto}.ps{min-height:48px;min-width:112px;border-radius:12px;background:#08141a;color:var(--tx);border:1px solid var(--line);padding:0 10px;font:700 14px Manrope,sans-serif}.eq{margin:0;font-size:12px;color:var(--mu);min-height:0}.eq:empty{display:none}
+.f label{font-size:14px;flex:1}
+.in{display:flex;align-items:center;background:#08141a;border:1px solid var(--line);border-radius:12px;padding:0 12px;width:150px;min-height:48px}
+.in span{color:var(--mu);font-size:12px;font-weight:700}
+.in input{width:100%;min-width:0;background:none;border:0;color:var(--tx);font:700 18px Manrope,sans-serif;padding:10px 6px;text-align:right;outline:0}
+.in input[type=datetime-local]{font-size:15px}
+.in:focus-within{border-color:var(--teal)}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end}.qf label{display:block;font-size:12px;color:var(--mu);font-weight:600;margin-bottom:6px}
+.qf .in{width:100%;min-height:58px;padding:0 8px}.qf .in input{font-size:20px;padding:10px 2px}
+.stk{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(14,26,31,.97);border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.stk small{display:block;font-size:11px;color:var(--mu)}.stk b{font-size:17px;font-variant-numeric:tabular-nums}
+.sb,.bd{font-size:12px;font-weight:800;padding:6px 10px;border-radius:10px;text-transform:uppercase;white-space:nowrap;transition:background .3s,color .3s}
+.note{color:var(--mu);font-size:12px;line-height:1.5;margin-top:4px}
+.hide{display:none}
+.save{width:100%;margin-top:12px;min-height:52px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--teal),#23a9bd);color:#04191b;font:800 16px Manrope,sans-serif;cursor:pointer}
+textarea{width:100%;margin-top:10px;background:#08141a;color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:8px;font:12px monospace}
+.prt{display:none;margin:0 0 12px}
+#pv h3{margin:16px 0 6px;text-transform:none;letter-spacing:0;font-size:15px;color:var(--tx)}#pv h3:first-child{margin-top:0}#pv p,#pv li{font-size:14px;line-height:1.6;color:var(--mu);margin:0 0 6px}#pv ul{padding-inline-start:20px;margin:0}
+.tg{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:8px;margin-bottom:6px}
+.k-be small,.k-go small{display:block}
+.k-be{border-inline-start:3px solid var(--orange)}.k-go{border-inline-start:3px solid var(--green)}
+.k-be .tg{color:var(--orange);background:rgba(255,138,76,.15)}.k-go .tg{color:var(--green);background:rgba(61,220,151,.15)}
+.k-be b{color:var(--orange)}.k-go b{color:var(--green)}
+.ask{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.4);border-radius:14px;padding:14px;margin-bottom:10px}
+.ask .tg{color:var(--purple);background:rgba(167,139,250,.18)}
+.ask small{display:block;font-size:12px;color:var(--mu)}
+.ask b{display:block;font-size:36px;color:var(--purple);letter-spacing:-.8px;line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums}
+.ask i{font-style:normal;font-size:12px;color:var(--mu)}.ask p{margin:4px 0 0;font-size:12px;color:var(--mu);line-height:1.4}
+.good{background:linear-gradient(160deg,rgba(61,220,151,.18),rgba(61,220,151,.06));border:1px solid rgba(61,220,151,.5);border-radius:14px;padding:16px;margin-bottom:10px;text-align:center}
+.good .tg{color:var(--green);background:rgba(61,220,151,.18);text-transform:uppercase;font-size:11px}
+.good .gj{display:block;font-size:26px;color:var(--green);letter-spacing:.3px;text-transform:uppercase;margin:8px 0 6px;line-height:1.2}
+.good p{margin:0 0 4px;font-size:13px;color:var(--mu)}.good p.nn{font-size:15px;font-weight:800;color:var(--tx);margin:6px 0 12px}
+.good .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:12px;border-top:1px solid rgba(61,220,151,.25)}
+.good .g2 small{display:block;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mu)}.good .g2 b{display:block;font-size:26px;font-variant-numeric:tabular-nums}
+.good .gd{margin-top:10px;font-size:18px;font-weight:800;color:var(--green);text-transform:uppercase}
+.cp{flex-shrink:0;min-height:48px;min-width:76px;border-radius:12px;border:1px solid var(--purple);background:rgba(167,139,250,.14);color:var(--purple);font:800 14px Manrope,sans-serif;cursor:pointer}
+.sw{position:relative;direction:ltr;padding:6px 0;margin-top:12px}
+.sc{display:flex;height:10px;border-radius:6px;overflow:hidden}.sc i{display:block;height:100%}
+.sw u{position:absolute;top:0;bottom:0;width:4px;margin-left:-2px;background:#fff;border-radius:2px;text-decoration:none}
+.st{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}.st span:first-child{color:var(--mu)}.st b{font-size:16px}
+.vit{display:grid;grid-template-columns:repeat(5,1fr);text-align:center;gap:4px}
+.vit div{font-size:11px;color:var(--mu);font-weight:600}
+.vit b{display:block;color:var(--tx);font-size:14px;margin:4px 0}
+.dot{display:block;width:9px;height:9px;border-radius:50%;margin:0 auto}
+.dot.g{background:var(--green);clip-path:polygon(50% 0,100% 100%,0 100%);width:11px;height:10px;border-radius:0}
+.dot.o{background:var(--blue)}.dot.r{background:var(--orange)}
+.lc{background:var(--card2);border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.lc summary{list-style:none;cursor:pointer;padding:12px;min-height:44px}.lc summary::-webkit-details-marker{display:none}
+.lh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.lh b{display:block;font-size:16px}.lh small{color:var(--mu);font-size:12px}
+.lg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.lg.l5{grid-template-columns:repeat(3,1fr)}.bd.s-ar{background:rgba(255,255,255,.08);color:var(--mu)}.lc.sn{margin-bottom:10px}.ld .sec:first-child{margin-top:10px}.lg small{display:block;font-size:11px;color:var(--mu)}.lg b{display:block;font-size:14px;font-variant-numeric:tabular-nums}
+.ld{padding:4px 12px 12px;border-top:1px solid var(--line);animation:fd .2s ease}
+.ld .stats{border-top:0;margin-top:8px;padding-top:0}
+.ghost.dl{color:var(--orange);border-color:rgba(255,138,76,.35);margin-top:8px}
+.wkb{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@keyframes fd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.97);opacity:.6}100%{transform:none;opacity:1}}
+.pop{animation:pop .25s ease}
+[dir=rtl] .m b,[dir=rtl] .hn,[dir=rtl] .hs b,[dir=rtl] .d3 b,[dir=rtl] .vit b,[dir=rtl] .ask b,[dir=rtl] .row span:last-child,[dir=rtl] .lg b,[dir=rtl] .stk b{direction:ltr;unicode-bidi:isolate}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{:root{--tx:#000;--mu:#444;--line:#bbb}body{background:#fff;color:#000}.tabs,.top,.noprint,.tools,.stk{display:none!important}.prt{display:block}.card{background:none;break-inside:avoid;border-color:#bbb}.m,.lc{background:#f2f2f2}.card h3{color:#444}body.printing .wk:not(.pr){display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div><h1>Truck <span>Profit</span></h1><p class="sub">Load Profit &amp; Rate Calculator</p></div><div class="ctl"><select id="lang" class="ghost" aria-label="Language"><option value="en">EN</option><option value="es">ES</option><option value="fa">فارسی</option><option value="tr">TR</option><option value="ru">RU</option><option value="uz">UZ</option></select><button class="ghost" id="rst">Reset</button></div></div>
+<div class="tabs"><button class="tab on" data-p="p1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Summary</span></button><button class="tab start" data-p="p2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg><span>Inputs</span></button><button class="tab" data-p="p3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M15 9.5c0-1.2-1.3-2-3-2s-3 .8-3 2 1.3 1.8 3 2.2 3 1 3 2.3-1.3 2-3 2-3-.8-3-2"/></svg><span>Costs</span></button><button class="tab" data-p="p4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Loads</span></button></div>
+
+<section id="p1">
+<div class="hero" id="hero" data-s="take" data-n="+"><small class="l">NET PROFIT</small><div class="hn" id="hNet"></div><div class="hs"><div><b id="hMg"></b><small>Margin</small></div><div><b id="hAm"></b><small>All-mile RPM</small></div><div><b id="hNp"></b><small>Net / all mile</small></div></div></div>
+<div class="dec" id="dec" data-s="take"><span class="dbadge" id="vt"></span><p class="dsub" id="vp"></p><div class="d3"><div><small>Current offer</small><b id="dO"></b></div><div><small>Minimum</small><b id="dM"></b></div><div><small>Target</small><b id="dT"></b></div></div></div>
+<div class="card"><h3>Negotiation</h3><div id="cta"></div></div>
+<div class="card"><div class="two" id="rt"></div><div class="stats" id="rs"></div></div>
+<div class="card"><h3>Save this load</h3><div class="two"><div class="in" style="width:auto"><input id="lname" type="text" placeholder="Load or broker" style="text-align:left"></div><div class="in" style="width:auto"><input id="ldate" type="date" style="text-align:left"></div></div><button class="save" id="save">Save to Loads</button><p class="note" id="smsg"></p></div>
+</section>
+
+<section id="p2" class="hide"><div class="stk" id="stk" data-s="take"><div><small>Net</small><b id="sNet"></b></div><div><small>All-mile</small><b id="sAm"></b></div><span class="sb" id="sDec"></span></div><div id="form"></div><p class="note">Fixed costs are entered per week. Each load is charged its share: total miles (loaded + deadhead) divided by your weekly miles. Driver pay, fuel, maintenance and tires use loaded + deadhead miles. Dispatch % comes out of gross revenue. Estimates only, not financial advice.</p></section>
+
+<section id="p3" class="hide">
+<div class="two" style="margin-bottom:14px"><button class="ghost on" id="c1">This load</button><button class="ghost" id="c2">This week</button></div>
+<div id="cL">
+<div class="card"><h3>Cost breakdown</h3><div id="bk"></div></div>
+<div class="card"><h3>Load health</h3><div class="vit" id="vit"></div></div>
+</div>
+<div id="cW" class="hide"></div>
+</section>
+
+<section id="p4" class="hide">
+<h2 class="prt">Truck Profit weekly report</h2>
+<div class="card tools"><div class="two"><button class="ghost on" id="fa">Active</button><button class="ghost" id="fr">Archived</button><button class="ghost" id="pa">Print all</button><button class="ghost" id="ex">Export CSV</button></div><textarea id="csv" class="hide" readonly rows="6" aria-label="CSV export"></textarea></div>
+<div class="card tools hide" id="acc"><h3>Cloud sync</h3><p class="note" id="acs" style="margin:0 0 6px"></p><div id="acf"><div class="f"><label for="em">Email</label><div class="in"><input id="em" type="email" autocomplete="username" style="text-align:left"></div></div><div class="f"><label for="pw">Password</label><div class="in"><input id="pw" type="password" autocomplete="current-password" style="text-align:left"></div></div><div class="two" style="margin-top:10px"><button class="ghost" id="si">Sign in</button><button class="ghost" id="su">Create account</button></div></div><button class="ghost hide" id="so">Sign out</button></div>
+<div id="wk"></div>
+</section>
+<section id="p5" class="hide"><div class="card" id="pv"></div><button class="save" id="pvb">Back</button></section>
+<p class="note" style="text-align:center;margin-top:18px"><a href="#privacy" id="pvl" style="color:var(--mu)">Privacy</a></p>
+</div>
+
+<script>
+const G=[
+["Quick input",[["gross","Gross revenue","2000","$"],["loaded","Loaded miles","1000","mi"],["dead","Deadhead miles","0","mi"]],1],
+["Trip expenses (this load)",[["tollL","Tolls for this load","0","$"],["park","Parking","0","$"],["scale","Scale","0","$"],["lump","Lumper","0","$"],["wash","Washout","0","$"],["othx","Other trip expense","0","$"]]],
+["Truck",[["diesel","Diesel price","4.10","$/gal"],["mpg","Truck MPG","7","mpg"]]],
+["Pay & fees",[["driver","Driver pay per mile","0.65","$/mi"],["cfee","Company fee %","0","%"],["dfee","Dispatch fee %","10","%"],["fact","Factoring / Quick Pay %","0","%"]]],
+["Monthly fixed costs",[["fBob","Bobtail / physical damage insurance","1600","m"],["fTruck","Truck payment","6400","m","truck"],["fTrailer","Trailer payment","1950","m","trailer"],["fMonO","Other monthly costs","0","m"]],2],
+["Weekly fixed costs",[["fCargo","Cargo insurance","180","w"],["fEld","ELD","75","w","eld"],["fAdm","Weekly company/admin charges","0","w"],["fWkO","Other weekly costs","0","w","misc"]],2],
+["Fixed cost allocation",[["wmi","Miles per week","5000","mi"]]],
+["Wear (per mile)",[["maint","Maintenance","0.15","$/mi"],["tires","Tires","0.04","$/mi"]]],
+["Target",[["tm","Target profit margin","15","%"]]]];
+const D={};let store=null;
+try{store=JSON.parse(localStorage.getItem("tpc3")||"null")}catch(e){}
+const $=id=>document.getElementById(id);
+const n=id=>{const v=parseFloat($(id).value);return isNaN(v)?0:v};
+const $$=(x,d=0)=>(x<0?"-":"")+"$"+Math.abs(x).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pc=x=>(x*100).toFixed(1)+"%";
+const fld=([id,l,d,u,t])=>{D[id]=d;const v=store&&store[id]!=null?store[id]:d;return{id,l,h:t?'<div class="in" style="width:auto"><input id="'+id+'" type="datetime-local" value="'+v+'" style="text-align:left"></div>':'<div class="in"><input id="'+id+'" type="number" inputmode="decimal" step="any" value="'+v+'"><span>'+u+'</span></div>'}};
+const fixRow=([id,l,d,pd,lg])=>{const own=store&&store[id]!=null,lv=!own&&lg&&store&&store[lg]!=null?store[lg]:null,v=own?store[id]:lv!=null?lv:d,per=store&&store[id+"_p"]!=null?store[id+"_p"]:(lv!=null?"w":pd);D[id]=d;D[id+"_p"]=pd;
+return '<div class="f fx"><label for="'+id+'">'+l+'</label><div class="fxc"><div class="in"><input id="'+id+'" type="number" inputmode="decimal" step="any" value="'+v+'"><span>$</span></div><select id="'+id+'_p" class="ps"><option value="m"'+(per==="m"?" selected":"")+'>Monthly</option><option value="w"'+(per==="w"?" selected":"")+'>Weekly</option></select></div><p class="eq u" id="'+id+'_e"></p></div>'};
+$("form").innerHTML=G.map(([t,fs,q])=>{if(q===2)return '<div class="card"><h3>'+t+'</h3>'+fs.map(fixRow).join("")+(t==="Monthly fixed costs"?'<p class="note">Monthly amounts are converted to a weekly equivalent (monthly ÷ 4.345).</p>':'')+'</div>';const a=fs.map(fld);return '<div class="card"><h3>'+t+'</h3>'+(q?'<div class="qg">'+a.map(x=>'<div class="qf"><label for="'+x.id+'">'+x.l+'</label>'+x.h+'</div>').join("")+'</div>':a.map(x=>'<div class="f"><label for="'+x.id+'">'+x.l+'</label>'+x.h+'</div>').join(""))+(t==="Fixed cost allocation"?'<div class="row" style="margin-top:8px"><span>Total weekly fixed cost</span><b id="twf"></b></div>':'')+'</div>'}).join("");
+
+const C=2*Math.PI*42;
+function ring(el,pct,color,val,label){
+  pct=Math.max(0,Math.min(1,pct));
+  $(el).innerHTML='<svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="42"/><circle class="v" cx="50" cy="50" r="42" stroke="'+color+'" stroke-dasharray="'+(pct*C)+' '+C+'"/></svg><div class="t"><b>'+val+'</b><small>'+label+'</small></div>';
+}
+function lvl(v,good,ok){return v>=good?"g":v>=ok?"o":"r"}
+
+const FXL=[["Bobtail insurance","fBob"],["Truck payment","fTruck"],["Trailer payment","fTrailer"],["Other monthly costs","fMonO"],["Cargo insurance","fCargo"],["ELD","fEld"],["Weekly company/admin","fAdm"],["Other weekly costs","fWkO"]];
+const WK=4.345,per=id=>($(id+"_p")||{}).value==="m"?"m":"w";
+function dur(){return 0}
+function dur0(){const a=$("pick").value,b=$("deliv").value;if(!a||!b)return 0;const t=(new Date(b)-new Date(a))/864e5;return t>0?t:0}
+function calc(){
+  const gross=n("gross"),L=n("loaded"),Dh=n("dead"),M=L+Dh,mpg=n("mpg")||1,tm=n("tm")/100;
+  const cf=n("cfee")/100,df=n("dfee")/100,ff=n("fact")/100,f=cf+df+ff;
+  const wm=n("wmi")||5000,share=M/wm;
+  const fuel=M/mpg*n("diesel"),drv=M*n("driver");
+  const vitems=[["Fuel",fuel],["Driver pay",drv],["Maintenance",M*n("maint")],["Tires",M*n("tires")],["Company fee",gross*cf],["Dispatch fee",gross*df],["Factoring",gross*ff],["Tolls",n("tollL")],["Parking",n("park")],["Scale",n("scale")],["Lumper",n("lump")],["Washout",n("wash")],["Other trip expense",n("othx")]];
+  const fixW=FXL.map(([a,id])=>[a,per(id)==="m"?n(id)/WK:n(id),per(id)]),fixed=fixW.map(([a,v])=>[a,v*share]);
+  const sm=x=>x.reduce((t,i)=>t+i[1],0),vc=sm(vitems),fc=sm(fixed),cost=vc+fc,net=gross-cost,margin=gross?net/gross:0;
+  const other=cost-gross*f,be=(1-f)>0?other/(1-f):0,tg=(1-f-tm)>0?other/(1-f-tm):0,ask=tg*1.05,days=dur();
+  return{gross,L,Dh,M,tm,share,wm,vitems,fixW,fixed,vc,fc,cost,net,margin,be,tg,ask,days,fuel,drv,rate:L?gross/L:0,arpm:M?gross/M:0,npm:M?net/M:0,ppd:days?net/days:0,beAm:M?be/M:0};
+}
+const mt=(l,v,c,h,x)=>'<div class="m'+(h?' hl':'')+(x?' '+x:'')+'"><small>'+l+'</small><b'+(c?' style="color:'+c+'"':'')+'>'+v+'</b></div>';
+const stt=(l,v)=>'<div><small>'+l+'</small><b>'+v+'</b></div>';
+function setT(el,t){if(el.textContent!==t){el.textContent=t;el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}}
+function cbHTML(c){const S=c.reduce((t,i)=>t+i[1],0),T=S||1;return '<div class="row" style="padding-bottom:14px"><span>Total operating cost</span><b style="font-size:22px">'+$$(S)+'</b></div>'+c.filter(i=>i[1]>0).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<div class="cb"><div class="cr"><span>'+k+'</span><span><b>'+$$(v)+'</b><em>'+Math.round(v/T*100)+'%</em></span></div><div class="bk"><i style="width:'+(v/T*100)+'%"></i></div></div>').join("")}
+function bkHTML(vr,fr,old){
+  const f=a=>a.filter(i=>i[1]>0).sort((x,y)=>y[1]-x[1]),sm=a=>a.reduce((t,i)=>t+i[1],0);
+  vr=f(vr);fr=f(fr);const v=sm(vr),x=sm(fr),T=(v+x+(old||0))||1;
+  const sec=(t,a,u)=>a.length?'<div class="row sh"><b>'+t+'</b><b>'+$$(u)+'</b></div>'+a.map(([k,q])=>'<div class="row"><span>'+k+'</span><span>'+$$(q)+'</span></div><div class="bk"><i style="width:'+(q/T*100)+'%"></i></div>').join(""):"";
+  return sec("Variable costs",vr,v)+sec("Estimated fixed cost share",fr,x)+(old>0?'<div class="row" style="margin-top:12px"><span>Earlier loads (no breakdown)</span><span>'+$$(old)+'</span></div>':"");
+}
+function render(){
+  const r=calc(),neg=r.net<0,nc=neg?"var(--orange)":"var(--green)";
+  const hasT=r.tg>0,reached=hasT&&r.gross>=r.tg-0.005,diff=r.gross-r.tg,isAbove=reached&&diff>=1;
+  const st=r.gross<r.be-0.005?"pass":reached?(isAbove?"above":"met"):"neg";
+  const em=(e,t)=>'<span class="e">'+e+'</span> <span>'+t+'</span>';
+  const nm={pass:["⛔","Pass","Below break-even"],neg:["🤝","Negotiate","Between break-even and target"],met:["✅","Target met","Meets your target"],above:["💰","Above target","No broker negotiation needed."]}[st];
+  ["dec","stk","hero"].forEach(i=>$(i).dataset.s=st);$("hero").dataset.n=neg?"-":"+";
+  FXL.forEach(([a,id])=>{const e=$(id+"_e");if(e)e.textContent=per(id)==="m"?"≈ "+$$(n(id)/WK,2)+" / week":""});
+  if($("twf"))$("twf").textContent=$$(r.fixW.reduce((t,i)=>t+i[1],0),2);
+  const nt=(r.net>0?"+":"")+$$(r.net);
+  setT($("hNet"),nt);$("hMg").textContent=pc(r.margin);$("hAm").textContent=$$(r.arpm,2);$("hNp").textContent=$$(r.npm,2);
+  $("vt").innerHTML=em(nm[0],nm[1]);$("vp").textContent=nm[2];
+  $("dO").textContent=$$(r.gross);$("dM").textContent=$$(r.be);$("dT").textContent=$$(r.tg);
+  $("sNet").textContent=nt;$("sAm").textContent=$$(r.arpm,2);$("sDec").innerHTML=em(nm[0],nm[1]);
+  $("rt").innerHTML=mt("All-mile RPM",$$(r.arpm,2),0,1)+mt("Net / all mile",$$(r.npm,2),nc,1)+mt("Loaded RPM",$$(r.rate,2),0,0,"wd");
+  $("rs").innerHTML=stt("Gross revenue",$$(r.gross))+stt("Total operating cost",$$(r.cost));
+  const fp=r.gross?r.fuel/r.gross:0,dp=r.M?r.Dh/r.M:0,drp=r.gross?r.drv/r.gross:0;
+  const v=[["MARGIN",pc(r.margin),lvl(r.margin,r.tm,0.02)],["VS B/E",$$(r.arpm-r.beAm,2),lvl(r.arpm-r.beAm,0.3,0)],["FUEL",Math.round(fp*100)+"%",lvl(0.35-fp,0.1,0)],["DEADHEAD",Math.round(dp*100)+"%",lvl(0.25-dp,0.15,0.05)],["DRIVER",Math.round(drp*100)+"%",lvl(0.4-drp,0.1,0)]];
+  $("vit").innerHTML=v.map(x=>'<div>'+x[0]+'<b>'+x[1]+'</b><i class="dot '+x[2]+'"></i></div>').join("");
+  const mx=Math.max(r.ask,r.gross)*1.08||1,pp=v=>Math.max(0,Math.min(100,v/mx*100));
+  const sc=r.gross<r.be?["Below break-even","var(--orange)"]:r.gross<r.tg?["Between break-even and target","var(--blue)"]:["At or above target","var(--green)"];
+  const pm=x=>r.M?'<i>'+$$(x/r.M,2)+'/mi</i>':'';
+  const GOOD='<div class="good"><span class="tg">'+(isAbove?em("💰","Above target"):em("✅","Target met"))+'</span><b class="gj">'+em("✅","Good to go")+'</b><p>Your current offer already meets or exceeds your target.</p><p class="nn">'+em("💰","No broker negotiation needed.")+'</p><div class="g2"><div><small>Current offer</small><b>'+$$(r.gross)+'</b></div><div><small>Target</small><b>'+$$(r.tg)+'</b></div></div><div class="gd">'+(isAbove?'<span class="u">+'+$$(diff)+'</span> <span>Above target</span>':'<span>On target</span>')+'</div></div>';
+  $("cta").innerHTML=(reached?GOOD:'<div class="ask"><div><span class="tg">'+em("🤝","ASK BROKER")+'</span><small>Suggested broker counter offer</small><b>'+$$(r.ask)+'</b>'+pm(r.ask)+'<p>About 5% above your good price, so you have room to negotiate.</p></div><button class="cp" id="cp" type="button" data-v="'+Math.round(r.ask)+'">Copy</button></div>')+'<div class="two"><div class="m k-be"><span class="tg">MINIMUM</span><small>Minimum I should take</small><b>'+$$(r.be)+'</b>'+pm(r.be)+'<p>Below this you lose money.</p></div><div class="m k-go"><span class="tg">GOOD PRICE</span><small>Good price</small><b>'+$$(r.tg)+'</b>'+pm(r.tg)+'<p>A good price: you reach your target margin.</p></div></div><div class="sw"><div class="sc"><i style="width:'+pp(r.be)+'%;background:var(--orange)"></i><i style="width:'+(pp(r.tg)-pp(r.be))+'%;background:var(--blue)"></i><i style="flex:1;background:var(--green)"></i></div><u style="left:'+pp(r.gross)+'%"></u></div><div class="st"><span>Your offer</span><b>'+$$(r.gross)+'</b><span style="color:'+sc[1]+'">'+sc[0]+'</span></div>';
+  const V=r.vitems.map(i=>i[1]);
+  const cats=[["Fuel",V[0]],["Driver",V[1]],["Fees",V[4]+V[5]+V[6]],["Maintenance",V[2]+V[3]],["Estimated fixed cost share",r.fc],["Trip expenses",V[7]+V[8]+V[9]+V[10]+V[11]+V[12]]];
+  $("bk").innerHTML=cbHTML(cats)+'<details class="dt"><summary>Details</summary>'+bkHTML(r.vitems,r.fixed,0)+'</details><p class="note">Estimated fixed cost share: a mileage-based share of your recurring fixed costs (weekly equivalent). It is not a cost that belongs to this specific load.</p>';
+  try{const o={};document.querySelectorAll("#form input,#form select").forEach(e=>o[e.id]=e.value);localStorage.setItem("tpc3",JSON.stringify(o))}catch(e){}
+  renderWeek();
+}
+document.querySelectorAll("input,#form select").forEach(e=>e.addEventListener("input",render));
+$("rst").onclick=()=>{for(const k in D)$(k).value=D[k];render()};
+function show(id){["p1","p2","p3","p4","p5"].forEach(p=>$(p).classList.toggle("hide",p!==id));if(id==="p5")renderPv();if(id==="p4")renderLoads();if(id==="p2")document.querySelector(".tab.start").classList.remove("pulse");document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.p===id));window.scrollTo(0,0)}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>show(b.dataset.p)));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const wkOf=s=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()-(d.getDay()+6)%7);return iso(d)};
+const fd=s=>new Date(s+"T12:00:00").toLocaleDateString(({en:"en-US",es:"es-US",fa:"fa-u-ca-gregory",tr:"tr-TR",ru:"ru-RU",uz:"uz-Latn-UZ"})[lang]||"en-US",{month:"short",day:"numeric"});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let loads=[],view=0,pend=0;
+try{loads=JSON.parse(localStorage.getItem("tpl3")||"[]")}catch(e){}
+let snaps=[];try{snaps=JSON.parse(localStorage.getItem("tpa3")||"[]")}catch(e){}
+const persist=()=>{try{localStorage.setItem("tpl3",JSON.stringify(loads));localStorage.setItem("tpa3",JSON.stringify(snaps))}catch(e){}qpush();renderWeek()};
+const endOf=k=>{const e=new Date(k+"T12:00:00");e.setDate(e.getDate()+6);return iso(e)};
+const widOf=k=>k+"_"+endOf(k);
+const fdy=x=>{const d=x.length>10?new Date(x):new Date(x+"T12:00:00");return d.toLocaleDateString(({en:"en-US",es:"es-US",fa:"fa-u-ca-gregory",tr:"tr-TR",ru:"ru-RU",uz:"uz-Latn-UZ"})[lang]||"en-US",{month:"short",day:"numeric",year:"numeric"})};
+const emo=(e,t)=>'<span class="e">'+e+'</span> <span>'+t+'</span>';
+let lm="";
+let cw=0,cmode=0;
+function weekPL(a){
+  const nw=a.filter(l=>l.v===2),od=a.filter(l=>l.v!==2),sm=x=>x.reduce((t,i)=>t+i[1],0),sf=f=>a.reduce((t,l)=>t+l[f],0);
+  const vm={};nw.forEach(l=>l.items.forEach(i=>{vm[i[0]]=(vm[i[0]]||0)+i[1]}));
+  const last=nw.reduce((q,l)=>!q||l.id>q.id?l:q,null),fm=last?last.fx:[];
+  const fmM=fm.filter(i=>i[2]==="m"),fmW=fm.filter(i=>i[2]!=="m"),fcM=sm(fmM),fcW=sm(fmW);
+  const vr=Object.keys(vm).map(k=>[k,vm[k]]),vc=sm(vr),fc=sm(fm),oc=od.reduce((t,l)=>t+l.cost,0);
+  const rev=sf("gross"),tot=vc+fc+oc,net=rev-tot,L=sf("L"),Dh=sf("Dh"),M=L+Dh;
+  return{n:a.length,rev,vr,fm,fmM,fmW,fcM,fcW,vc,fc,oc,tot,net,mg:rev?net/rev:0,L,Dh,M,lr:L?rev/L:0,ar:M?rev/M:0,np:M?net/M:0};
+}
+function secHTML(t,a,u,T){a=a.filter(i=>i[1]>0).sort((x,y)=>y[1]-x[1]);return a.length?'<div class="row sh"><b>'+t+'</b><b>'+$$(u)+'</b></div>'+a.map(([k,q])=>'<div class="row"><span>'+k+'</span><span>'+$$(q)+'</span></div><div class="bk"><i style="width:'+(q/T*100)+'%"></i></div>').join(""):""}
+function wkBK(P){const T=P.tot||1;return secHTML("Variable costs",P.vr,P.vc,T)+secHTML("Monthly costs — weekly equivalent",P.fmM,P.fcM,T)+secHTML("Weekly costs",P.fmW,P.fcW,T)+(P.fc>0?'<div class="row" style="margin-top:14px"><b>Total weekly fixed cost</b><b>'+$$(P.fc)+'</b></div>':'')+(P.oc>0?'<div class="row" style="margin-top:12px"><span>Earlier loads (no breakdown)</span><span>'+$$(P.oc)+'</span></div>':'')}
+function wkTiles(P){
+  const c=P.net<0?"var(--orange)":"var(--green)";
+  return '<div class="two" style="margin:12px 0 10px">'+mt("Revenue",$$(P.rev),0,0,"xl")+mt("Net profit",$$(P.net),c,0,"xl")+mt("Profit margin",pc(P.mg))+mt("Total miles",P.M.toLocaleString())+'</div><div class="two">'+mt("Loaded RPM",$$(P.lr,2))+mt("All-mile RPM",$$(P.ar,2),0,1)+mt("Net profit / mile",$$(P.np,2),c,1)+mt("Number of loads",P.n)+'</div><div class="stats">'+stt("Variable costs",$$(P.vc))+stt("Total weekly fixed cost",$$(P.fc))+stt("Total operating cost",$$(P.tot))+stt("Loaded miles",P.L.toLocaleString())+stt("Deadhead miles",P.Dh.toLocaleString())+'</div>';
+}
+function renderWeek(){
+  $("c1").classList.toggle("on",!cmode);$("c2").classList.toggle("on",!!cmode);
+  $("cL").classList.toggle("hide",!!cmode);$("cW").classList.toggle("hide",!cmode);
+  if(!cmode)return;
+  const b=new Date(iso(new Date())+"T12:00:00");b.setDate(b.getDate()+cw*7);
+  const k=wkOf(iso(b)),e=new Date(k+"T12:00:00");e.setDate(e.getDate()+6);
+  const sn=snaps.find(x=>x.wid===widOf(k)),a=sn?sn.loads:loads.filter(l=>!l.arch&&wkOf(l.date)===k),P=sn?sn.P:weekPL(a);
+  let h='<div class="card"><div class="verdict"><button class="ghost" data-w="-1" aria-label="Previous week">&lsaquo;</button><h3 style="margin:0" class="u">'+fd(k)+' – '+fd(iso(e))+'</h3><button class="ghost" data-w="1" aria-label="Next week">&rsaquo;</button></div>';
+  if(!a.length)h+='<p class="note" style="margin:12px 0 0">No loads saved this week yet.</p></div>';
+  else h+=wkTiles(P)+'</div><div class="card"><h3>Week cost breakdown</h3>'+wkBK(P)+'<p class="note">Fixed costs are counted once for the whole week. Monthly costs use their weekly equivalent.</p></div>';
+  h+='<p class="note">Only saved loads are counted. Save a load on the Summary tab to add it to the week.</p>';
+  $("cW").innerHTML=h;
+}
+$("c1").onclick=()=>{cmode=0;renderWeek()};
+$("c2").onclick=()=>{cmode=1;cw=0;renderWeek()};
+$("cW").onclick=e=>{const x=e.target.closest("[data-w]");if(x){cw+=+x.dataset.w;renderWeek()}};
+
+$("ldate").value=iso(new Date());
+$("save").onclick=()=>{
+  const r=calc(),d=$("ldate").value||iso(new Date());
+  if(snaps.some(x=>x.wid===widOf(wkOf(d)))){$("smsg").textContent="That week is already archived. Choose a date in the current week.";return}
+  const rd=a=>a.map(i=>i.length>2?[i[0],Math.round(i[1]*10000)/10000,i[2]]:[i[0],Math.round(i[1]*10000)/10000]);
+  loads.push({v:2,id:Date.now(),date:d,name:$("lname").value.trim()||"Load",gross:r.gross,L:r.L,Dh:r.Dh,M:r.M,cost:r.cost,net:r.net,items:rd(r.vitems),fx:rd(r.fixW),arch:0});
+  persist();$("lname").value="";$("smsg").textContent="Saved to the week of "+fd(wkOf(d))+".";
+};
+const opn={};
+function lStat(l){
+  const tm=n("tm")/100,mg=l.gross?l.net/l.gross:0;
+  if(l.v===2){const pf=l.items.filter(i=>i[0]==="Company fee"||i[0]==="Dispatch fee"||i[0]==="Factoring").reduce((t,i)=>t+i[1],0),f=l.gross?pf/l.gross:0,be=f<1?(l.cost-pf)/(1-f):0,tg=(1-f-tm)>0?(l.cost-pf)/(1-f-tm):0;
+    if(l.gross<be-0.005)return"pass";if(tg>0&&l.gross>=tg-0.005)return l.gross-tg>=1?"above":"met";return"neg"}
+  return mg<0?"pass":mg<tm?"neg":"above";
+}
+function ldet(l){const vi=(l.items||[]).filter(i=>i[1]>0.005),vs=vi.reduce((t,i)=>t+i[1],0),fs=l.cost-vs;return '<div style="margin-top:6px">'+vi.map(i=>'<div class="row"><span>'+i[0]+'</span><span>'+$$(i[1])+'</span></div>').join("")+(fs>0.005?'<div class="row"><span>Estimated fixed cost share</span><span>'+$$(fs)+'</span></div>':'')+'</div>'}
+function lcHTML(l,fz){
+  const s=fz&&l.st?l.st:lStat(l),nm={neg:"Negotiate",met:"Target met",above:"Above target",pass:"Pass"}[s],am=l.M?l.gross/l.M:0,c=l.net<0?"var(--orange)":"var(--green)";
+  const tw='';
+  return '<details class="lc" data-id="'+l.id+'"'+(opn[l.id]?' open':'')+'><summary><div class="lh"><div><b class="u">'+esc(l.name)+'</b><small class="u">'+fd(l.date)+'</small></div><span class="bd s-'+s+'">'+nm+'</span></div><div class="lg">'+stt("Miles",'<span class="u">'+l.M.toLocaleString()+' mi</span>')+stt("Gross",$$(l.gross))+'<div><small>Net</small><b style="color:'+c+'">'+(l.net>0?"+":"")+$$(l.net)+'</b></div>'+stt("All-mile RPM",$$(am,2))+'</div></summary><div class="ld"><div class="stats">'+stt("Loaded miles",l.L.toLocaleString())+stt("Deadhead miles",l.Dh.toLocaleString())+stt("Total operating cost",$$(l.cost))+'</div>'+ldet(l)+tw+(fz?'':'<button class="ghost dl noprint" data-a="del" data-id="'+l.id+'">'+(pend===l.id?"Sure?":"Delete")+'</button>')+'</div></details>';
+}
+$("wk").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.id)opn[d.dataset.id]=d.open},true);
+function copyTxt(t){try{if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t)}catch(e){}return new Promise((ok,no)=>{const a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();try{document.execCommand("copy")?ok():no()}catch(e){no()}a.remove()})}
+$("cta").onclick=e=>{const b=e.target.closest("#cp");if(!b)return;copyTxt("$"+(+b.dataset.v).toLocaleString("en-US")).then(()=>{b.textContent="Copied";setTimeout(()=>{b.textContent="Copy"},1600)},()=>{})};
+function mkSnap(k,a,auto){
+  const P=weekPL(a);P.pd=P.net/7;const wid=widOf(k);
+  return{wid,start:k,end:endOf(k),at:new Date().toISOString(),auto:!!auto,P,loads:a.map(l=>Object.assign({},l,{arch:1,wid,st:lStat(l)}))};
+}
+function autoArchive(){
+  const cur=wkOf(iso(new Date())),g={};let ch=false;
+  loads.forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  Object.keys(g).sort().forEach(k=>{
+    const wid=widOf(k),a=g[k],flagged=a.some(l=>l.arch);
+    if(snaps.some(x=>x.wid===wid)){a.forEach(l=>{if(!l.arch||l.wid!==wid){l.arch=1;l.wid=wid;ch=true}});return}
+    if(k>=cur){if(flagged){a.forEach(l=>{if(l.arch){l.arch=0;delete l.wid;ch=true}})}return}
+    snaps.push(mkSnap(k,a,!flagged));a.forEach(l=>{l.arch=1;l.wid=wid});ch=true;
+  });
+  if(ch){snaps.sort((x,y)=>x.start<y.start?-1:1);persist();renderLoads()}
+  return ch;
+}
+const R=(l,v,c)=>'<div class="row"><span>'+l+'</span><b'+(c?' style="color:'+c+'"':'')+'>'+v+'</b></div>';
+const VN=["Fuel","Driver pay","Company fee","Dispatch fee","Factoring","Maintenance","Tires","Tolls","Parking","Scale","Lumper","Washout","Other trip expense"];
+function snHTML(sn){
+  const P=sn.P,c=P.net<0?"var(--orange)":"var(--green)",vm={};P.vr.forEach(i=>vm[i[0]]=i[1]);
+  const T=P.tot||1;
+  return '<details class="lc sn wk" data-k="'+sn.start+'" data-id="'+sn.wid+'"'+(opn[sn.wid]?' open':'')+'><summary><div class="lh"><div><b class="u">'+fd(sn.start)+' – '+fdy(sn.end)+'</b><small><span>Archived on</span> <span class="u">'+fdy(sn.at)+'</span></small></div><span class="bd '+(sn.auto?'s-above':'s-ar')+'">'+(sn.auto?emo("✅","Auto archived"):'<span>Archived</span>')+'</span></div><div class="lg l5">'+stt("Gross revenue",$$(P.rev))+'<div><small>Net profit</small><b style="color:'+c+'">'+(P.net>0?"+":"")+$$(P.net)+'</b></div>'+stt("Margin",pc(P.mg))+stt("Total miles",P.M.toLocaleString())+stt("Loads",P.n)+'</div></summary><div class="ld">'+
+  '<div class="sec">Weekly report</div>'+R("Gross revenue",$$(P.rev))+R("Net profit",$$(P.net),c)+R("Profit margin",pc(P.mg))+R("Loaded miles",P.L.toLocaleString())+R("Deadhead miles",P.Dh.toLocaleString())+R("Total miles",P.M.toLocaleString())+R("Loaded RPM",$$(P.lr,2))+R("All-mile RPM",$$(P.ar,2))+R("Net profit / mile",$$(P.np,2),c)+R("Profit per day (7-day average)",$$(P.pd==null?P.net/7:P.pd))+
+  '<div class="sec">Variable costs</div>'+VN.map(k=>R(k,$$(vm[k]||0))).join("")+
+  '<div class="sec">Fixed costs</div>'+R("Weekly fixed costs",$$(P.fcW))+R("Monthly costs — weekly equivalent",$$(P.fcM))+R("Total weekly fixed cost",$$(P.fc))+(P.oc>0?R("Earlier loads (no breakdown)",$$(P.oc)):"")+
+  '<div class="row" style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px"><span>Total operating cost</span><b style="font-size:18px">'+$$(P.tot)+'</b></div>'+R("Number of loads",P.n)+
+  secHTML("Monthly costs — weekly equivalent",P.fmM,P.fcM,T)+secHTML("Weekly costs",P.fmW,P.fcW,T)+
+  '<div class="sec">Loads</div>'+sn.loads.slice().sort((x,y)=>x.date<y.date?-1:1).map(l=>lcHTML(l,1)).join("")+
+  '<div class="wkb noprint" style="margin-top:12px"><button class="ghost" data-a="pr" data-k="'+sn.start+'">Print</button><button class="ghost" data-a="sh" data-k="'+sn.start+'">Share</button><button class="ghost" data-a="xc" data-k="'+sn.start+'">Export CSV</button></div></div></details>';
+}
+function renderLoads(){
+  $("fa").classList.toggle("on",!view);$("fr").classList.toggle("on",!!view);
+  const mg=lm?'<div class="card"><p class="note" style="margin:0;color:var(--tx)">'+lm+'</p></div>':"";lm="";
+  if(view){
+    const L=snaps.slice().sort((x,y)=>x.start<y.start?1:-1);
+    $("wk").innerHTML=mg+(L.length?L.map(snHTML).join(""):'<div class="card"><p class="note" style="margin:0">No archived weeks yet.</p></div>');return;
+  }
+  const g={};
+  loads.filter(l=>!l.arch).forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  const ks=Object.keys(g).sort().reverse();
+  if(!ks.length){$("wk").innerHTML=mg+'<div class="card"><p class="note" style="margin:0">No saved loads yet. Enter a load, then tap Save to Loads on the Summary tab.</p></div>';return}
+  $("wk").innerHTML=mg+ks.map(k=>{
+    const a=g[k].sort((x,y)=>x.date<y.date?-1:1),P=weekPL(a);
+    return '<div class="card wk" data-k="'+k+'"><div class="verdict"><h3>'+fd(k)+' – '+fdy(endOf(k))+'</h3></div>'+wkTiles(P)+
+    '<div class="sec">Loads</div><p class="note" style="margin:0 0 8px">Amounts next to each load are that load\'s estimate.</p>'+a.map(l=>lcHTML(l)).join("")+
+    wkBK(P)+'<p class="note">Fixed costs are counted once for the whole week. Monthly costs use their weekly equivalent.</p>'+
+    '<div class="wkb noprint" style="margin-top:12px"><button class="ghost" data-a="pr" data-k="'+k+'">Print</button><button class="ghost" data-a="sh" data-k="'+k+'">Share</button><button class="ghost" data-a="ar" data-k="'+k+'">Archive</button></div></div>';
+  }).join("");
+}
+function repText(P,a,w,e){
+  return fd(w)+" - "+fdy(e)+"\nRevenue "+$$(P.rev)+" | Variable "+$$(P.vc)+" | Fixed "+$$(P.fc)+" | Total cost "+$$(P.tot)+"\nNet "+$$(P.net)+" | Margin "+pc(P.mg)+" | Loads "+P.n+"\nMiles: loaded "+P.L.toLocaleString()+", deadhead "+P.Dh.toLocaleString()+", total "+P.M.toLocaleString()+"\nRPM: loaded "+$$(P.lr,2)+" | all-mile "+$$(P.ar,2)+" | net/mile "+$$(P.np,2)+"\n"+a.map(l=>"- "+fd(l.date)+" "+l.name+": "+$$(l.net)+" ("+l.M.toLocaleString()+" mi)").join("\n");
+}
+function shareIt(k){
+  let t;
+  if(view)t=snaps.filter(x=>!k||x.start===k).sort((x,y)=>x.start<y.start?1:-1).map(x=>repText(x.P,x.loads.slice().sort((a,b)=>a.date<b.date?-1:1),x.start,x.end)).join("\n\n");
+  else{
+    const ks=[...new Set(loads.filter(l=>!l.arch&&(!k||wkOf(l.date)===k)).map(l=>wkOf(l.date)))].sort().reverse();
+    t=ks.map(w=>{const a=loads.filter(l=>wkOf(l.date)===w&&!l.arch).sort((x,y)=>x.date<y.date?-1:1);return repText(weekPL(a),a,w,endOf(w))}).join("\n\n");
+  }
+  if(!t)return;
+  if(navigator.share){navigator.share({title:"Truck Profit report",text:t}).catch(()=>{})}
+  else{$("csv").value=t;$("csv").classList.remove("hide")}
+}
+function snExport(k){
+  const sn=snaps.find(x=>x.start===k);if(!sn)return;const P=sn.P,vm={};P.vr.forEach(i=>vm[i[0]]=i[1]);
+  const q=x=>{x=String(x);if(/^[=+\-@]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'};
+  const f=v=>(+v).toFixed(2);
+  const L=[["Week ID",sn.wid],["Archived",sn.at.slice(0,10)+(sn.auto?" (auto)":" (manual)")],["Gross revenue",f(P.rev)],["Net profit",f(P.net)],["Profit margin %",(P.mg*100).toFixed(1)],["Loaded miles",P.L],["Deadhead miles",P.Dh],["Total miles",P.M],["Loaded RPM",f(P.lr)],["All-mile RPM",f(P.ar)],["Net profit per mile",f(P.np)],["Profit per day (7-day avg)",f(P.pd==null?P.net/7:P.pd)]].concat(VN.map(x=>[x,f(vm[x]||0)]),[["Weekly fixed costs",f(P.fcW)],["Monthly fixed costs (weekly equivalent)",f(P.fcM)],["Total weekly fixed cost",f(P.fc)],["Total operating cost",f(P.tot)],["Number of loads",P.n]]);
+  const t=L.map(r=>q(r[0])+","+q(r[1])).join("\n")+"\n\ndate,name,revenue,est_cost,est_net,loaded_mi,deadhead_mi,total_mi\n"+sn.loads.slice().sort((a,b)=>a.date<b.date?-1:1).map(l=>[l.date,q(l.name),f(l.gross),f(l.cost),f(l.net),l.L,l.Dh,l.M].join(",")).join("\n");
+  $("csv").value=t;$("csv").classList.remove("hide");
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-week-"+sn.start+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
+}
+function printIt(k){
+  if(navigator.standalone||matchMedia("(display-mode: standalone)").matches||!window.print){shareIt(k);return}
+  document.querySelectorAll(".wk").forEach(w=>w.classList.toggle("pr",!k||w.dataset.k===k));
+  const ds=[...document.querySelectorAll("#wk details")].filter(d=>d.closest(".wk.pr"));ds.forEach(d=>{d.dataset.wo=d.open?"1":"";d.open=true});
+  const done=()=>{document.body.classList.remove("printing");ds.forEach(d=>{d.open=!!d.dataset.wo})};
+  document.body.classList.add("printing");
+  window.onafterprint=done;
+  setTimeout(()=>{try{window.print()}catch(e){}},150);
+  setTimeout(done,8000);
+}
+$("wk").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;const a=b.dataset.a,k=b.dataset.k;
+  if(a==="del"){const id=+b.dataset.id;if(pend===id){loads=loads.filter(l=>l.id!==id);pend=0;persist()}else pend=id}
+  else if(a==="ar"){const wid=widOf(k);
+    if(snaps.some(x=>x.wid===wid))lm="This week is already archived.";
+    else if(k>=wkOf(iso(new Date())))lm="This week isn't finished yet. It will be archived automatically after Sunday.";
+    else{const arr=loads.filter(l=>wkOf(l.date)===k);if(arr.length){snaps.push(mkSnap(k,arr,false));snaps.sort((x,y)=>x.start<y.start?-1:1);arr.forEach(l=>{l.arch=1;l.wid=wid});persist();lm="Week archived."}}}
+  else if(a==="xc"){snExport(k);return}
+  else if(a==="sh"){shareIt(k);return}
+  else if(a==="pr"){printIt(k);return}
+  renderLoads();
+};
+$("fa").onclick=()=>{view=0;renderLoads()};
+$("fr").onclick=()=>{view=1;renderLoads()};
+$("pa").onclick=()=>printIt("");
+$("ex").onclick=()=>{
+  const q=s=>{s=String(s);if(/^[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const t="week,date,name,status,revenue,cost,net,margin_pct,loaded_mi,deadhead_mi,total_mi\n"+loads.slice().sort((a,b)=>a.date<b.date?-1:1).map(l=>[wkOf(l.date),l.date,q(l.name),l.arch?"archived":"active",l.gross.toFixed(2),l.cost.toFixed(2),l.net.toFixed(2),(l.gross?l.net/l.gross*100:0).toFixed(1),l.L,l.Dh,l.M].join(",")).join("\n");
+  $("csv").value=t;$("csv").classList.remove("hide");
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-loads-"+iso(new Date())+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
+};
+const RAW=`Share|Compartir|اشتراک‌گذاری
+MINIMUM|MÍNIMO|حداقل
+GOOD PRICE|PRECIO BUENO|قیمت مناسب
+Below this you lose money.|Por debajo de esto pierdes dinero.|زیر این قیمت ضرر می‌کنید.
+A good price: you reach your target margin.|Buen precio: alcanzas tu margen meta.|قیمت مناسب: به حاشیهٔ سود هدف می‌رسید.
+Your offer|Tu oferta|پیشنهاد فعلی
+Below break-even|Bajo el equilibrio|زیر سر به سر
+Between break-even and target|Entre equilibrio y meta|بین سر به سر و هدف
+At or above target|En la meta o más|در هدف یا بالاتر
+Privacy|Privacidad|حریم خصوصی
+Back|Atrás|بازگشت
+Truck|Camión|کامیون
+Profit|Ganancia|سود
+Reset|Restablecer|بازنشانی
+Summary|Resumen|خلاصه
+Inputs|Datos|ورودی‌ها
+Costs|Costos|هزینه‌ها
+Loads|Cargas|بارها
+NET PROFIT|GANANCIA NETA|سود خالص
+MARGIN|MARGEN|حاشیه سود
+RATE/MI|TARIFA/MI|نرخ/مایل
+BREAK-EVEN|EQUILIBRIO|سر به سر
+PROFIT/MI|GANANCIA/MI|سود/مایل
+Take it|Aceptar|قبول کن
+On target|En la meta|مطابق هدف
+Negotiate|Negociar|مذاکره کن
+Below target|Bajo la meta|زیر هدف
+Break-even|Equilibrio|سر به سر
+No profit|Sin ganancia|بدون سود
+Pass|Rechazar|رد کن
+Loss|Pérdida|ضرر
+VS B/E|VS EQ.|نسبت به سر به سر
+FUEL|COMBUSTIBLE|سوخت
+DEADHEAD|VACÍO|خالی
+DRIVER|CHOFER|راننده
+DRIVER PAY|PAGO CHOFER|دستمزد راننده
+Save this load|Guardar esta carga|ذخیرهٔ این بار
+Load or broker|Carga o broker|نام بار یا بروکر
+Save to Loads|Guardar en Cargas|ذخیره در بارها
+What to counter with|Contraoferta sugerida|پیشنهاد برای مذاکره
+Break-even price|Precio de equilibrio|قیمت سر به سر
+Projections|Proyecciones|پیش‌بینی
+Loads like this per week|Cargas como esta por semana|تعداد بار مشابه در هفته
+Weekly revenue|Ingreso semanal|درآمد هفتگی
+Weekly profit|Ganancia semanal|سود هفتگی
+Monthly revenue|Ingreso mensual|درآمد ماهانه
+Monthly profit|Ganancia mensual|سود ماهانه
+Fixed costs are entered per week. Each load is charged its share: total miles (loaded + deadhead) divided by your weekly miles. Driver pay, fuel, maintenance and tires use loaded + deadhead miles. Dispatch % comes out of gross revenue. Estimates only, not financial advice.|Los costos fijos se ingresan por semana. Cada carga paga su parte: millas totales (con carga + vacías) entre tus millas semanales. Pago al chofer, combustible, mantenimiento y llantas usan millas con carga + vacías. El % de despacho sale del ingreso bruto. Solo estimaciones, no es asesoría financiera.|هزینه‌های ثابت هفتگی وارد می‌شوند. هر بار به نسبت مایل خود (کل مایل پر و خالی تقسیم بر مایل هفتگی) سهم می‌پردازد. دستمزد راننده، سوخت، تعمیرات و لاستیک با مایل پر و خالی حساب می‌شوند. درصد دیسپچ از درآمد کل کم می‌شود. فقط تخمینی است، نه مشاورهٔ مالی.
+Cost breakdown|Desglose de costos|تفکیک هزینه‌ها
+Weekly report|Informe semanal|گزارش هفتگی
+Auto archived|Archivado automáticamente|بایگانی خودکار
+Archived on|Archivado el|بایگانی در
+This week is already archived.|Esta semana ya está archivada.|این هفته قبلاً بایگانی شده است.
+This week isn't finished yet. It will be archived automatically after Sunday.|Esta semana aún no termina. Se archivará automáticamente después del domingo.|این هفته هنوز تمام نشده است. بعد از یکشنبه به‌صورت خودکار بایگانی می‌شود.
+Week archived.|Semana archivada.|هفته بایگانی شد.
+That week is already archived. Choose a date in the current week.|Esa semana ya está archivada. Elige una fecha de la semana actual.|آن هفته قبلاً بایگانی شده است. تاریخی در هفته‌ی جاری انتخاب کنید.
+Profit per day (7-day average)|Ganancia por día (promedio de 7 días)|سود روزانه (میانگین ۷ روز)
+Target met|Meta alcanzada|هدف محقق شد
+Above target|Sobre la meta|بالاتر از هدف
+Meets your target|Cumple tu meta|به هدف شما می‌رسد
+Good to go|Listo para aceptar|آماده قبول
+Your current offer already meets or exceeds your target.|Tu oferta actual ya alcanza o supera tu meta.|پیشنهاد فعلی شما همین حالا به هدف شما رسیده یا از آن بالاتر است.
+No broker negotiation needed.|No hace falta negociar con el broker.|نیازی به مذاکره با بروکر نیست.
+Monthly fixed costs|Costos fijos mensuales|هزینه‌های ثابت ماهانه
+Fixed cost allocation|Asignación de costos fijos|تخصیص هزینه‌های ثابت
+Bobtail / physical damage insurance|Seguro bobtail / daños físicos|بیمه بابتیل / خسارت فیزیکی
+Trailer payment|Pago del remolque|قسط تریلر
+Other monthly costs|Otros costos mensuales|سایر هزینه‌های ماهانه
+Cargo insurance|Seguro de carga|بیمه بار
+Weekly company/admin charges|Cargos semanales de empresa/administración|هزینه‌های هفتگی شرکت/اداری
+Other weekly costs|Otros costos semanales|سایر هزینه‌های هفتگی
+Bobtail insurance|Seguro bobtail|بیمه بابتیل
+Weekly company/admin|Empresa/admin semanal|شرکت/اداری هفتگی
+Monthly|Mensual|ماهانه
+Weekly|Semanal|هفتگی
+Monthly amounts are converted to a weekly equivalent (monthly ÷ 4.345).|Los montos mensuales se convierten a su equivalente semanal (mensual ÷ 4.345).|مبالغ ماهانه به معادل هفتگی تبدیل می‌شوند (ماهانه ÷ ۴٫۳۴۵).
+Total weekly fixed cost|Costo fijo semanal total|جمع هزینه ثابت هفتگی
+Monthly costs — weekly equivalent|Costos mensuales — equivalente semanal|هزینه‌های ماهانه — معادل هفتگی
+Weekly costs|Costos semanales|هزینه‌های هفتگی
+Estimated fixed cost share|Parte estimada de costos fijos|سهم تخمینی هزینه ثابت
+Estimated fixed cost share: a mileage-based share of your recurring fixed costs (weekly equivalent). It is not a cost that belongs to this specific load.|Parte estimada de costos fijos: una porción según millas de tus costos fijos recurrentes (equivalente semanal). No es un costo propio de esta carga.|سهم تخمینی هزینه ثابت: سهمی بر اساس مایل از هزینه‌های ثابت تکرارشونده (معادل هفتگی). این هزینه به‌طور اختصاصی متعلق به همین بار نیست.
+Fixed costs are counted once for the whole week. Monthly costs use their weekly equivalent.|Los costos fijos se cuentan una vez por semana. Los mensuales usan su equivalente semanal.|هزینه‌های ثابت فقط یک بار برای کل هفته حساب می‌شوند. هزینه‌های ماهانه با معادل هفتگی‌شان وارد می‌شوند.
+Load Profit & Rate Calculator|Calculadora de ganancia y tarifa por carga|محاسبه سود و نرخ بار
+Current offer|Oferta actual|پیشنهاد فعلی
+Minimum|Mínimo|حداقل
+Copy|Copiar|کپی
+Copied|Copiado|کپی شد
+Net / all mile|Neto / milla total|خالص / مایل کل
+Net|Neto|خالص
+All-mile|Todas las millas|کل مایل
+Quick input|Entrada rápida|ورود سریع
+Trip time|Horario del viaje|زمان سفر
+Load health|Estado de la carga|وضعیت بار
+Driver|Chofer|راننده
+Fees|Comisiones|کارمزدها
+Fixed cost share|Parte de costos fijos|سهم هزینه ثابت
+Trip expenses|Gastos del viaje|هزینه‌های سفر
+Details|Detalles|جزئیات
+Miles|Millas|مایل
+Gross|Bruto|درآمد
+Delete|Eliminar|حذف
+Amounts next to each load are that load's estimate.|Los montos junto a cada carga son su estimación.|مبلغ کنار هر بار، تخمین همان بار است.
+Pickup date/time|Recogida (fecha/hora)|تاریخ/ساعت بارگیری
+Delivery date/time|Entrega (fecha/hora)|تاریخ/ساعت تحویل
+Trip expenses (this load)|Gastos del viaje (esta carga)|هزینه‌های سفر (این بار)
+Tolls for this load|Peajes de esta carga|عوارض این بار
+Parking|Estacionamiento|پارکینگ
+Scale|Báscula|باسکول
+Lumper|Descarga (lumper)|هزینه تخلیه (Lumper)
+Washout|Lavado|شست‌وشوی تریلر
+Other trip expense|Otro gasto del viaje|سایر هزینه‌های سفر
+Company fee %|Comisión de la empresa %|کارمزد شرکت %
+Dispatch fee %|Comisión de despacho %|کارمزد دیسپچ %
+Factoring / Quick Pay %|Factoring / Pago rápido %|فکتورینگ / کوییک‌پی %
+Pay & fees|Pago y comisiones|دستمزد و کارمزدها
+Loaded RPM|RPM cargado|نرخ هر مایل (پر)
+All-mile RPM|RPM todas las millas|نرخ هر مایل (کل)
+Net profit / all mile|Ganancia neta / milla total|سود خالص / هر مایل کل
+Net profit / mile|Ganancia neta / milla|سود خالص / مایل
+Profit margin|Margen de ganancia|حاشیه سود
+Profit per day|Ganancia por día|سود روزانه
+Trip duration|Duración del viaje|مدت سفر
+ALL-MILE RPM|RPM TOTAL|نرخ/مایل کل
+NET/ALL MILE|NETO/MILLA|خالص/مایل کل
+Negotiation|Negociación|مذاکره
+Minimum I should take|Mínimo que debo aceptar|حداقلی که باید قبول کنم
+Good price|Buen precio|قیمت مناسب
+ASK BROKER|PEDIR|پیشنهاد به بروکر
+Suggested broker counter offer|Contraoferta sugerida al broker|پیشنهاد متقابل پیشنهادی به بروکر
+About 5% above your good price, so you have room to negotiate.|Aprox. 5 % sobre tu buen precio, para tener margen de negociación.|حدود ۵٪ بالاتر از قیمت مناسب، تا جای مذاکره بماند.
+Variable costs|Costos variables|هزینه‌های متغیر
+Fixed costs|Costos fijos|هزینه‌های ثابت
+Fixed costs here are estimated by this load's share of your weekly miles.|Los costos fijos aquí se estiman según la parte de tus millas semanales que usa esta carga.|هزینه‌های ثابت اینجا بر اساس سهم این بار از مایل هفتگی تخمین زده می‌شوند.
+Weekly fixed costs are counted once for the whole week.|Los costos fijos semanales se cuentan una sola vez por semana.|هزینه‌های ثابت هفته فقط یک بار برای کل هفته حساب می‌شوند.
+Number of loads|Número de cargas|تعداد بارها
+Company fee|Comisión empresa|کارمزد شرکت
+Dispatch fee|Comisión despacho|کارمزد دیسپچ
+Factoring|Factoring|فکتورینگ
+Add pickup and delivery times in Inputs to see profit per day.|Agrega recogida y entrega en Inputs para ver la ganancia por día.|برای دیدن سود روزانه، زمان بارگیری و تحویل را در Inputs وارد کنید.
+This load|Esta carga|این بار
+This week|Esta semana|این هفته
+Week cost breakdown|Desglose de costos semanal|تفکیک هزینه‌های هفته
+Earlier loads (no breakdown)|Cargas anteriores (sin desglose)|بارهای قبلی (بدون تفکیک)
+No loads saved this week yet.|Aún no hay cargas guardadas esta semana.|هنوز باری در این هفته ذخیره نشده است.
+Loads saved|Cargas guardadas|بارهای ذخیره‌شده
+Only saved loads are counted. Save a load on the Summary tab to add it to the week.|Solo se cuentan las cargas guardadas. Guarda una carga en la pestaña Summary para añadirla a la semana.|فقط بارهای ذخیره‌شده حساب می‌شوند. برای افزودن به هفته، یک بار را در تب Summary ذخیره کنید.
+Weekly fixed costs|Costos fijos semanales|هزینه‌های ثابت هفتگی
+Numbers|Números|اعداد
+Total operating cost|Costo operativo total|کل هزینهٔ عملیاتی
+Cost per mile|Costo por milla|هزینه به‌ازای مایل
+Rate per mile|Tarifa por milla|نرخ به‌ازای مایل
+Break-even RPM|RPM de equilibrio|نرخ سر به سر مایل
+Profit per mile|Ganancia por milla|سود به‌ازای مایل
+Total miles|Millas totales|کل مایل
+Fuel|Combustible|سوخت
+Driver pay|Pago al chofer|دستمزد راننده
+Dispatch|Despacho|دیسپچ
+Maintenance|Mantenimiento|تعمیرات
+Tires|Llantas|لاستیک
+Misc|Varios|متفرقه
+Active|Activas|فعال
+Archived|Archivadas|آرشیو
+Print all|Imprimir todo|چاپ همه
+Export CSV|Exportar CSV|خروجی CSV
+Truck Profit weekly report|Reporte semanal de Truck Profit|گزارش هفتگی Truck Profit
+Print|Imprimir|چاپ
+Archive|Archivar|آرشیو
+Restore|Restaurar|بازگردانی
+Revenue|Ingresos|درآمد
+Net profit|Ganancia neta|سود خالص
+Margin|Margen|حاشیه سود
+Miles · loads|Millas · cargas|مایل · بار
+Sure?|¿Seguro?|مطمئنی؟
+No archived weeks yet.|Aún no hay semanas archivadas.|هنوز هفتهٔ آرشیوشده‌ای نیست.
+No saved loads yet. Enter a load, then tap Save to Loads on the Summary tab.|Aún no hay cargas guardadas. Ingresa una carga y toca Guardar en Cargas en la pestaña Resumen.|هنوز باری ذخیره نشده. اطلاعات بار را وارد کنید و در تب خلاصه روی «ذخیره در بارها» بزنید.
+Load|Carga|بار
+Pay|Pago|دستمزد
+Fixed costs (per week)|Costos fijos (por semana)|هزینه‌های ثابت (هفتگی)
+Wear (per mile)|Desgaste (por milla)|فرسایش (هر مایل)
+Target|Meta|هدف
+Gross revenue|Ingreso bruto|درآمد کل
+Loaded miles|Millas con carga|مایل پر
+Deadhead miles|Millas vacías|مایل خالی
+Diesel price|Precio del diésel|قیمت دیزل
+Truck MPG|MPG del camión|مصرف کامیون (MPG)
+Driver pay per mile|Pago al chofer por milla|دستمزد راننده هر مایل
+Company / dispatch %|Compañía / despacho %|شرکت / دیسپچ ٪
+Miles per week|Millas por semana|مایل در هفته
+~Truck payment|Pago del camión|قسط کامیون
+~Insurance|Seguro|بیمه
+~Trailer rental|Renta de remolque|اجارهٔ تریلر
+~Tolls|Peajes|عوارض
+~Miscellaneous|Varios|متفرقه
+ELD|ELD|ELD
+IFTA|IFTA|IFTA
+Target profit margin|Margen de ganancia meta|حاشیهٔ سود هدف
+~loaded mi · target|millas con carga · meta|مایل پر · هدف
+~load ·|carga ·|بار ·
+~For|Para|برای
+~margin|margen|حاشیه
+~Cost|Costo|هزینه
+~rate|tarifa|نرخ
+~/mi loaded · profit|/mi con carga · ganancia|/مایل پر · سود
+~/mi total|/mi total|/مایل کل
+~This load uses|Esta carga usa|این بار مصرف می‌کند
+~of your|de tus|از
+~weekly miles (|millas semanales (|مایل هفتگی (
+~mi).|mi).|مایل).
+~Saved to the week of|Guardada en la semana del|ذخیره شد در هفتهٔ
+~mi|mi|مایل
+~/wk|/sem|/هفته`;
+const TR={es:{},fa:{},tr:{},ru:{},uz:{}},FR=[];
+RAW.split("\n").forEach(r=>{const f=r.split("|");let k=f[0];const fr=k[0]==="~";if(fr)k=k.slice(1);TR.es[k]=f[1];TR.fa[k]=f[2];if(fr)FR.push(k)});
+const RAW2=`Share|Paylaş|Поделиться|Ulashish
+MINIMUM|EN AZ|МИНИМУМ|ENG KAM
+GOOD PRICE|İYİ FİYAT|ХОРОШАЯ ЦЕНА|YAXSHI NARX
+Below this you lose money.|Bunun altında zarar edersiniz.|Ниже этой цены вы теряете деньги.|Bundan past boʻlsa zarar koʻrasiz.
+A good price: you reach your target margin.|İyi fiyat: hedef marjınıza ulaşırsınız.|Хорошая цена: вы достигаете целевой маржи.|Yaxshi narx: maqsadli marjaga erishasiz.
+Your offer|Teklifiniz|Ваше предложение|Sizning taklifingiz
+Below break-even|Başabaşın altında|Ниже безубыточности|Zararsizlikdan past
+Between break-even and target|Başabaş ile hedef arası|Между нулём и целью|Zararsizlik va maqsad orasida
+At or above target|Hedefte veya üstünde|В цели или выше|Maqsadda yoki yuqori
+Privacy|Gizlilik|Конфиденциальность|Maxfiylik
+Back|Geri|Назад|Orqaga
+Truck|Kamyon|Грузовик|Yuk mashinasi
+Profit|Kâr|Прибыль|Foyda
+Reset|Sıfırla|Сбросить|Tiklash
+Summary|Özet|Итоги|Xulosa
+Inputs|Girdiler|Данные|Maʼlumotlar
+Costs|Giderler|Расходы|Xarajatlar
+Loads|Yükler|Грузы|Yuklar
+NET PROFIT|NET KÂR|ЧИСТАЯ ПРИБЫЛЬ|SOF FOYDA
+MARGIN|MARJ|МАРЖА|MARJA
+RATE/MI|ÜCRET/MİL|СТАВКА/МИЛЯ|NARX/MIL
+BREAK-EVEN|BAŞABAŞ|БЕЗУБЫТОЧНОСТЬ|ZARARSIZLIK
+PROFIT/MI|KÂR/MİL|ПРИБЫЛЬ/МИЛЯ|FOYDA/MIL
+Take it|Al|Берите|Oling
+On target|Hedefte|В цели|Maqsadda
+Negotiate|Pazarlık et|Торгуйтесь|Kelishing
+Below target|Hedefin altında|Ниже цели|Maqsaddan past
+Break-even|Başabaş|Ноль|Zararsiz
+No profit|Kâr yok|Нет прибыли|Foyda yoʻq
+Pass|Geç|Откажитесь|Rad eting
+Loss|Zarar|Убыток|Zarar
+VS B/E|FARK|РАЗНИЦА|FARQ
+FUEL|YAKIT|ТОПЛИВО|YOQILGʻI
+DEADHEAD|BOŞ|ПОРОЖНИЙ|BOʻSH
+DRIVER|ŞOFÖR|ВОДИТЕЛЬ|HAYDOVCHI
+DRIVER PAY|ŞOFÖR ÜCRETİ|ОПЛАТА ВОДИТЕЛЮ|HAYDOVCHI HAQI
+Save this load|Bu yükü kaydet|Сохранить груз|Yukni saqlash
+Load or broker|Yük veya broker|Груз или брокер|Yuk yoki broker
+Save to Loads|Yüklere kaydet|Сохранить в Грузы|Yuklarga saqlash
+What to counter with|Karşı teklif|Встречное предложение|Qarshi taklif
+Break-even price|Başabaş fiyatı|Цена безубыточности|Zararsizlik narxi
+Projections|Tahminler|Прогнозы|Prognozlar
+Loads like this per week|Haftada bu tür yük sayısı|Таких грузов в неделю|Haftasiga shunday yuklar soni
+Weekly revenue|Haftalık gelir|Недельная выручка|Haftalik daromad
+Weekly profit|Haftalık kâr|Недельная прибыль|Haftalik foyda
+Monthly revenue|Aylık gelir|Месячная выручка|Oylik daromad
+Monthly profit|Aylık kâr|Месячная прибыль|Oylik foyda
+Fixed costs are entered per week. Each load is charged its share: total miles (loaded + deadhead) divided by your weekly miles. Driver pay, fuel, maintenance and tires use loaded + deadhead miles. Dispatch % comes out of gross revenue. Estimates only, not financial advice.|Sabit giderler haftalık girilir. Her yük kendi payını öder: toplam mil (dolu + boş) ÷ haftalık mil. Şoför ücreti, yakıt, bakım ve lastik dolu + boş mil üzerinden hesaplanır. Dispeçer yüzdesi brüt gelirden düşülür. Yalnızca tahmindir, mali tavsiye değildir.|Постоянные расходы вводятся за неделю. Каждый груз оплачивает свою долю: общие мили (с грузом + порожние) ÷ мили за неделю. Оплата водителя, топливо, обслуживание и шины считаются по милям с грузом + порожним. Процент диспетчера вычитается из валовой выручки. Только оценка, не финансовый совет.|Doimiy xarajatlar haftalik kiritiladi. Har bir yuk oʻz ulushini toʻlaydi: umumiy mil (yuk bilan + boʻsh) ÷ haftalik mil. Haydovchi haqi, yoqilgʻi, taʼmirlash va shinalar yuk bilan + boʻsh mil boʻyicha hisoblanadi. Dispetcher foizi yalpi daromaddan ayiriladi. Faqat taxminiy hisob, moliyaviy maslahat emas.
+Cost breakdown|Gider dağılımı|Структура расходов|Xarajatlar taqsimoti
+Weekly report|Haftalık rapor|Недельный отчёт|Haftalik hisobot
+Auto archived|Otomatik arşivlendi|Авто-архив|Avto-arxivlangan
+Archived on|Arşiv tarihi|Архивировано|Arxivlangan sana
+This week is already archived.|Bu hafta zaten arşivlendi.|Эта неделя уже в архиве.|Bu hafta allaqachon arxivlangan.
+This week isn't finished yet. It will be archived automatically after Sunday.|Bu hafta henüz bitmedi. Pazar gününden sonra otomatik arşivlenecek.|Эта неделя ещё не закончилась. Она будет архивирована автоматически после воскресенья.|Bu hafta hali tugamagan. Yakshanbadan keyin avtomatik arxivlanadi.
+Week archived.|Hafta arşivlendi.|Неделя архивирована.|Hafta arxivlandi.
+That week is already archived. Choose a date in the current week.|O hafta zaten arşivlendi. Geçerli haftadan bir tarih seçin.|Эта неделя уже в архиве. Выберите дату текущей недели.|U hafta allaqachon arxivlangan. Joriy haftadan sana tanlang.
+Profit per day (7-day average)|Günlük kâr (7 gün ortalaması)|Прибыль в день (среднее за 7 дней)|Kunlik foyda (7 kun oʻrtachasi)
+Target met|Hedefe ulaşıldı|Цель достигнута|Maqsadga erishildi
+Above target|Hedefin üstünde|Выше цели|Maqsaddan yuqori
+Meets your target|Hedefinizi karşılıyor|Соответствует цели|Maqsadingizga mos
+Good to go|Kabul edilebilir|Можно брать|Qabul qilish mumkin
+Your current offer already meets or exceeds your target.|Mevcut teklifiniz hedefinize ulaşıyor veya aşıyor.|Текущее предложение уже достигает или превышает вашу цель.|Joriy taklifingiz allaqachon maqsadingizga yetgan yoki undan oshgan.
+No broker negotiation needed.|Brokerla pazarlık gerekmiyor.|Торговаться с брокером не нужно.|Broker bilan muzokara kerak emas.
+On target|Hedefte|На цели|Maqsadda
+Monthly fixed costs|Aylık sabit giderler|Ежемесячные постоянные расходы|Oylik doimiy xarajatlar
+Fixed cost allocation|Sabit gider dağıtımı|Распределение постоянных расходов|Doimiy xarajatlarni taqsimlash
+Bobtail / physical damage insurance|Bobtail / fiziksel hasar sigortası|Страховка bobtail / физ. ущерб|Bobtail / jismoniy zarar sugʻurtasi
+Trailer payment|Römork ödemesi|Платёж за прицеп|Tirkama toʻlovi
+Other monthly costs|Diğer aylık giderler|Прочие ежемесячные расходы|Boshqa oylik xarajatlar
+Cargo insurance|Yük sigortası|Страховка груза|Yuk sugʻurtasi
+Weekly company/admin charges|Haftalık şirket/idari ücretler|Еженедельные сборы компании/админ.|Haftalik kompaniya/maʼmuriy toʻlovlar
+Other weekly costs|Diğer haftalık giderler|Прочие еженедельные расходы|Boshqa haftalik xarajatlar
+Bobtail insurance|Bobtail sigortası|Страховка bobtail|Bobtail sugʻurtasi
+Weekly company/admin|Haftalık şirket/idari|Компания/админ. (нед.)|Kompaniya/maʼmuriy (haftalik)
+Monthly|Aylık|Ежемесячно|Oylik
+Weekly|Haftalık|Еженедельно|Haftalik
+Monthly amounts are converted to a weekly equivalent (monthly ÷ 4.345).|Aylık tutarlar haftalık karşılığa çevrilir (aylık ÷ 4,345).|Месячные суммы пересчитываются в недельный эквивалент (месяц ÷ 4,345).|Oylik summalar haftalik ekvivalentga aylantiriladi (oylik ÷ 4,345).
+Total weekly fixed cost|Toplam haftalık sabit gider|Итого постоянные расходы за неделю|Jami haftalik doimiy xarajat
+Monthly costs — weekly equivalent|Aylık giderler — haftalık karşılık|Месячные расходы — недельный эквивалент|Oylik xarajatlar — haftalik ekvivalent
+Weekly costs|Haftalık giderler|Еженедельные расходы|Haftalik xarajatlar
+Estimated fixed cost share|Tahmini sabit gider payı|Расчётная доля постоянных расходов|Taxminiy doimiy xarajat ulushi
+Estimated fixed cost share: a mileage-based share of your recurring fixed costs (weekly equivalent). It is not a cost that belongs to this specific load.|Tahmini sabit gider payı: yinelenen sabit giderlerinizin (haftalık karşılık) mil bazlı payı. Bu yüke özgü bir gider değildir.|Расчётная доля постоянных расходов: доля ваших регулярных постоянных расходов (недельный эквивалент) по милям. Это не расход именно этого груза.|Taxminiy doimiy xarajat ulushi: takroriy doimiy xarajatlaringizning (haftalik ekvivalent) milga asoslangan ulushi. Bu aynan shu yukka tegishli xarajat emas.
+Fixed costs are counted once for the whole week. Monthly costs use their weekly equivalent.|Sabit giderler tüm hafta için bir kez sayılır. Aylık giderler haftalık karşılıklarıyla kullanılır.|Постоянные расходы учитываются один раз за неделю. Месячные берутся в недельном эквиваленте.|Doimiy xarajatlar butun hafta uchun bir marta hisoblanadi. Oylik xarajatlar haftalik ekvivalentida olinadi.
+Load Profit & Rate Calculator|Yük Kâr ve Ücret Hesaplayıcı|Калькулятор прибыли и ставки груза|Yuk foydasi va narx kalkulyatori
+Current offer|Mevcut teklif|Текущее предложение|Joriy taklif
+Minimum|Minimum|Минимум|Minimum
+Copy|Kopyala|Копировать|Nusxa
+Copied|Kopyalandı|Скопировано|Nusxalandi
+Net / all mile|Net / toplam mil|Чистая / все мили|Sof / jami mil
+Net|Net|Чистая|Sof
+All-mile|Tüm mil|Все мили|Barcha mil
+Quick input|Hızlı giriş|Быстрый ввод|Tez kiritish
+Trip time|Sefer zamanı|Время рейса|Reys vaqti
+Load health|Yük durumu|Состояние груза|Yuk holati
+Driver|Şoför|Водитель|Haydovchi
+Fees|Ücretler|Комиссии|Haqlar
+Fixed cost share|Sabit gider payı|Доля постоянных расходов|Doimiy xarajat ulushi
+Trip expenses|Sefer giderleri|Расходы рейса|Reys xarajatlari
+Details|Ayrıntılar|Детали|Tafsilotlar
+Miles|Mil|Мили|Mil
+Gross|Brüt|Валовый|Yalpi
+Delete|Sil|Удалить|Oʻchirish
+Loads|Yükler|Грузы|Yuklar
+Amounts next to each load are that load's estimate.|Her yükün yanındaki tutar o yükün tahminidir.|Суммы рядом с грузами — оценка по каждому грузу.|Har bir yuk yonidagi summa shu yukning taxminiy hisobi.
+Pickup date/time|Yükleme tarihi/saati|Погрузка (дата/время)|Yuklash sanasi/vaqti
+Delivery date/time|Teslimat tarihi/saati|Выгрузка (дата/время)|Yetkazish sanasi/vaqti
+Trip expenses (this load)|Sefer giderleri (bu yük)|Расходы рейса (этот груз)|Reys xarajatlari (shu yuk)
+Tolls for this load|Bu yükün geçiş ücretleri|Дорожные сборы за этот груз|Shu yuk uchun yoʻl toʻlovlari
+Parking|Park|Парковка|Parking
+Scale|Kantar|Весы|Tarozi
+Lumper|Yükleme-boşaltma (lumper)|Грузчики (lumper)|Yuk tushirish (lumper)
+Washout|Yıkama|Мойка|Yuvish
+Other trip expense|Diğer sefer gideri|Прочие расходы рейса|Boshqa reys xarajati
+Company fee %|Şirket ücreti %|Комиссия компании %|Kompaniya haqi %
+Dispatch fee %|Dispeçer ücreti %|Комиссия диспетчера %|Dispetcher haqi %
+Factoring / Quick Pay %|Faktoring / Hızlı ödeme %|Факторинг / Быстрая выплата %|Faktoring / Tez toʻlov %
+Pay & fees|Ödeme ve ücretler|Оплата и комиссии|Toʻlov va haqlar
+Loaded RPM|Yüklü RPM|RPM с грузом|Yuk bilan RPM
+All-mile RPM|Tüm mil RPM|RPM за все мили|Barcha mil RPM
+Net profit / all mile|Net kâr / toplam mil|Чистая прибыль / все мили|Sof foyda / jami mil
+Net profit / mile|Net kâr / mil|Чистая прибыль / миля|Sof foyda / mil
+Profit margin|Kâr marjı|Маржа прибыли|Foyda marjasi
+Profit per day|Günlük kâr|Прибыль в день|Kunlik foyda
+Trip duration|Sefer süresi|Длительность рейса|Reys davomiyligi
+ALL-MILE RPM|TÜM MİL RPM|RPM ВСЕ МИЛИ|BARCHA MIL RPM
+NET/ALL MILE|NET/TOPLAM MİL|ЧИСТ./МИЛЯ|SOF/MIL
+Negotiation|Pazarlık|Переговоры|Muzokara
+Minimum I should take|Kabul etmem gereken minimum|Минимум, который стоит принять|Qabul qilishim kerak boʻlgan minimum
+Good price|İyi fiyat|Хорошая цена|Yaxshi narx
+ASK BROKER|BROKERDEN İSTE|ЗАПРОС|SOʻRANG
+Suggested broker counter offer|Önerilen broker karşı teklifi|Рекомендуемое встречное предложение брокеру|Brokerga tavsiya etilgan qarshi taklif
+About 5% above your good price, so you have room to negotiate.|İyi fiyatınızın yaklaşık %5 üstü; pazarlık payı kalır.|Около 5% выше хорошей цены — остаётся запас для торга.|Yaxshi narxdan taxminan 5% yuqori — kelishuv uchun joy qoladi.
+Variable costs|Değişken giderler|Переменные расходы|Oʻzgaruvchan xarajatlar
+Fixed costs|Sabit giderler|Постоянные расходы|Doimiy xarajatlar
+Fixed costs here are estimated by this load's share of your weekly miles.|Sabit giderler, bu yükün haftalık millerinizdeki payına göre tahmin edilir.|Постоянные расходы здесь оцениваются по доле этого груза в недельных милях.|Doimiy xarajatlar shu yukning haftalik millardagi ulushiga qarab baholanadi.
+Weekly fixed costs are counted once for the whole week.|Haftalık sabit giderler tüm hafta için yalnızca bir kez sayılır.|Недельные постоянные расходы учитываются один раз за всю неделю.|Haftalik doimiy xarajatlar butun hafta uchun faqat bir marta hisoblanadi.
+Number of loads|Yük sayısı|Количество грузов|Yuklar soni
+Company fee|Şirket ücreti|Комиссия компании|Kompaniya haqi
+Dispatch fee|Dispeçer ücreti|Комиссия диспетчера|Dispetcher haqi
+Factoring|Faktoring|Факторинг|Faktoring
+Add pickup and delivery times in Inputs to see profit per day.|Günlük kârı görmek için Inputs'ta yükleme ve teslimat zamanını girin.|Укажите время погрузки и выгрузки во вкладке Inputs, чтобы увидеть прибыль в день.|Kunlik foydani koʻrish uchun Inputs boʻlimida yuklash va yetkazish vaqtini kiriting.
+This load|Bu yük|Этот груз|Bu yuk
+This week|Bu hafta|Эта неделя|Shu hafta
+Week cost breakdown|Haftalık gider dağılımı|Расходы за неделю|Haftalik xarajatlar
+Earlier loads (no breakdown)|Önceki yükler (dökümsüz)|Прежние грузы (без разбивки)|Oldingi yuklar (tafsilotsiz)
+No loads saved this week yet.|Bu hafta henüz kayıtlı yük yok.|На этой неделе пока нет сохранённых грузов.|Bu hafta hali saqlangan yuk yoʻq.
+Loads saved|Kayıtlı yükler|Сохранённые грузы|Saqlangan yuklar
+Only saved loads are counted. Save a load on the Summary tab to add it to the week.|Yalnızca kayıtlı yükler sayılır. Haftaya eklemek için Summary sekmesinde bir yükü kaydedin.|Учитываются только сохранённые грузы. Сохраните груз на вкладке Summary, чтобы добавить его в неделю.|Faqat saqlangan yuklar hisobga olinadi. Haftaga qoʻshish uchun Summary boʻlimida yukni saqlang.
+Weekly fixed costs|Haftalık sabit giderler|Постоянные расходы за неделю|Haftalik doimiy xarajatlar
+Numbers|Rakamlar|Цифры|Raqamlar
+Total operating cost|Toplam işletme gideri|Общие операционные расходы|Umumiy operatsion xarajat
+Cost per mile|Mil başına gider|Расходы на милю|Bir mil xarajati
+Rate per mile|Mil başına ücret|Ставка за милю|Bir mil narxi
+Break-even RPM|Başabaş RPM|RPM безубыточности|Zararsizlik RPM
+Profit per mile|Mil başına kâr|Прибыль за милю|Bir mil foydasi
+Total miles|Toplam mil|Всего миль|Jami mil
+Fuel|Yakıt|Топливо|Yoqilgʻi
+Driver pay|Şoför ücreti|Оплата водителя|Haydovchi haqi
+Dispatch|Dispeçer|Диспетчер|Dispetcher
+Maintenance|Bakım|Обслуживание|Taʼmirlash
+Tires|Lastik|Шины|Shinalar
+Misc|Çeşitli|Прочее|Boshqa
+Active|Aktif|Активные|Faol
+Archived|Arşiv|Архив|Arxiv
+Print all|Tümünü yazdır|Печать всего|Hammasini chop etish
+Export CSV|CSV dışa aktar|Экспорт CSV|CSV eksport
+Truck Profit weekly report|Truck Profit haftalık rapor|Недельный отчёт Truck Profit|Truck Profit haftalik hisobot
+Print|Yazdır|Печать|Chop etish
+Archive|Arşivle|В архив|Arxivlash
+Restore|Geri yükle|Вернуть|Qaytarish
+Revenue|Gelir|Выручка|Daromad
+Net profit|Net kâr|Чистая прибыль|Sof foyda
+Margin|Marj|Маржа|Marja
+Miles · loads|Mil · yük|Мили · грузы|Mil · yuk
+Sure?|Emin misin?|Точно?|Aniqmi?
+No archived weeks yet.|Henüz arşivlenmiş hafta yok.|Архивных недель пока нет.|Hali arxivlangan hafta yoʻq.
+No saved loads yet. Enter a load, then tap Save to Loads on the Summary tab.|Henüz kayıtlı yük yok. Bir yük girin, sonra Özet sekmesinde Yüklere kaydet düğmesine dokunun.|Сохранённых грузов пока нет. Введите груз и нажмите «Сохранить в Грузы» на вкладке «Итоги».|Hali saqlangan yuk yoʻq. Yukni kiriting va Xulosa boʻlimida «Yuklarga saqlash» tugmasini bosing.
+Load|Yük|Груз|Yuk
+Pay|Ücret|Оплата|Haq
+Fixed costs (per week)|Sabit giderler (haftalık)|Постоянные расходы (в неделю)|Doimiy xarajatlar (haftalik)
+Wear (per mile)|Aşınma (mil başına)|Износ (за милю)|Eskirish (bir mil)
+Target|Hedef|Цель|Maqsad
+Gross revenue|Brüt gelir|Валовая выручка|Yalpi daromad
+Loaded miles|Dolu mil|Мили с грузом|Yuk bilan mil
+Deadhead miles|Boş mil|Порожние мили|Boʻsh mil
+Diesel price|Dizel fiyatı|Цена дизеля|Dizel narxi
+Truck MPG|Kamyon MPG|MPG грузовика|Mashina MPG
+Driver pay per mile|Mil başına şoför ücreti|Оплата водителя за милю|Haydovchi haqi (bir mil)
+Company / dispatch %|Şirket / dispeçer %|Компания / диспетчер %|Kompaniya / dispetcher %
+Miles per week|Haftalık mil|Миль в неделю|Haftasiga mil
+Truck payment|Kamyon taksiti|Платёж за грузовик|Mashina toʻlovi
+Insurance|Sigorta|Страховка|Sugʻurta
+Trailer rental|Römork kirası|Аренда прицепа|Tirkama ijarasi
+Tolls|Geçiş ücretleri|Платные дороги|Yoʻl toʻlovlari
+Miscellaneous|Çeşitli|Прочее|Boshqa
+Target profit margin|Hedef kâr marjı|Целевая маржа|Maqsadli foyda marjasi
+loaded mi · target|dolu mil · hedef|миль с грузом · цель|yuk bilan mil · maqsad
+load ·|yük ·|груз ·|yuk ·
+For|İçin|Для|Uchun
+margin|marj|маржа|marja
+Cost|Gider|Расходы|Xarajat
+rate|ücret|ставка|narx
+/mi loaded · profit|/mil dolu · kâr|/миля с грузом · прибыль|/mil yuk bilan · foyda
+/mi total|/mil toplam|/миля всего|/mil jami
+This load uses|Bu yükün payı:|Доля груза:|Yuk ulushi:
+of your|·|·|·
+weekly miles (|haftalık mil (|миль в неделю (|haftalik mil (
+mi).|mil).|миль).|mil).
+Saved to the week of|Şu haftaya kaydedildi:|Сохранено в неделю с|Hafta uchun saqlandi:
+mi|mil|миль|mil
+/wk|/hf|/нед|/hafta`;
+RAW2.split("\n").forEach(r=>{const f=r.split("|"),k=f[0].replace(/^~/,"");TR.tr[k]=f[1];TR.ru[k]=f[2];TR.uz[k]=f[3]});
+FR.sort((a,b)=>b.length-a.length);
+const FRE=new RegExp(FR.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
+let lang="en";
+try{lang=localStorage.getItem("tplang")||((navigator.language||"").slice(0,2))}catch(e){}
+if(!["en","es","fa","tr","ru","uz"].includes(lang))lang="en";
+function tx(o){
+  if(lang==="en")return o;
+  const L=TR[lang],t=o.trim();if(!t)return o;
+  if(L[t]!=null)return o.replace(t,()=>L[t]);
+  return o.replace(FRE,m=>L[m]||m);
+}
+function applyLang(){
+  document.documentElement.lang=lang;document.documentElement.dir=lang==="fa"?"rtl":"ltr";
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+  while(n=w.nextNode()){
+    const p=n.parentElement;if(!p||p.closest(".u,script,style,textarea"))continue;
+    if(n._o===undefined)n._o=n.nodeValue;
+    const v=tx(n._o);if(n.nodeValue!==v)n.nodeValue=v;
+  }
+  $("lname").placeholder=tx("Load or broker");
+}
+let qd=0;
+new MutationObserver(()=>{if(!qd){qd=1;requestAnimationFrame(()=>{qd=0;applyLang()})}}).observe(document.body,{childList:true,subtree:true});
+$("lang").value=lang;
+$("lang").onchange=e=>{lang=e.target.value;try{localStorage.setItem("tplang",lang)}catch(x){}applyLang();render();renderLoads()};
+const SB_URL="https://wduvyqhvvcxalrtcedhc.supabase.co",SB_KEY="sb_publishable_0pLjDM3yDUpnmbpeuAuv0A_IdP3pKYN";
+const PRIV_EMAIL="";
+const PV={en:`<h3>Privacy</h3><p>Last updated: October 20, 2026</p><h3>What this app does</h3><p>Truck Profit &amp; Rate Calculator helps you estimate the profit on a load. The figures are estimates, not financial or legal advice.</p><h3>What we store</h3><ul><li>On your device: your inputs, saved loads (date, name, revenue, costs, miles) and language choice, in your browser’s local storage.</li><li>If you create an account: your email address and password, plus a copy of your inputs and saved loads so they follow you to other devices.</li></ul><h3>What we do not collect</h3><p>No location, contacts, photos, advertising or analytics trackers. We do not sell your data or share it for advertising.</p><h3>Who handles your data</h3><ul><li>Supabase hosts sign-in and the database. Passwords are handled by Supabase and are never visible to the app owner. Each account can only read and write its own data.</li><li>GitHub Pages hosts the app and may log visitor IP addresses.</li><li>Google Fonts supplies the typeface and receives your IP address when it loads.</li></ul><h3>Your choices</h3><ul><li>Delete any load in the Loads tab at any time.</li><li>Download your data with Export CSV.</li><li>Sign out to stop syncing. Local data stays on your device until you clear the site data in your browser.</li><li>To delete your account and cloud data, contact the app owner.{C}</li></ul><h3>Security</h3><p>Data is sent over HTTPS. No online service is perfectly secure, so do not type sensitive details such as bank or ID numbers into load names.</p><h3>Children</h3><p>The app is for business use by adults and is not directed to children under 13.</p><h3>Changes</h3><p>This page may be updated. The date above shows the latest version.</p>`,
+fa:`<h3>حریم خصوصی</h3><p>آخرین به‌روزرسانی: ۲۰ اکتبر ۲۰۲۶</p><h3>این اپ چه می‌کند</h3><p>اپ Truck Profit &amp; Rate Calculator به شما کمک می‌کند سود هر بار را تخمین بزنید. اعداد فقط تخمینی‌اند و مشاورهٔ مالی یا حقوقی نیستند.</p><h3>چه چیزی ذخیره می‌شود</h3><ul><li>روی دستگاه شما: ورودی‌ها، بارهای ذخیره‌شده (تاریخ، نام، درآمد، هزینه‌ها، مایل) و زبان انتخابی، در حافظهٔ محلی مرورگر.</li><li>اگر حساب بسازید: ایمیل و رمز عبور، به‌علاوهٔ یک نسخه از ورودی‌ها و بارهای ذخیره‌شده تا روی دستگاه‌های دیگر هم در دسترس باشند.</li></ul><h3>چه چیزی جمع‌آوری نمی‌شود</h3><p>موقعیت مکانی، مخاطبین، عکس، تبلیغات یا ابزار ردیابی و تحلیل نداریم. داده‌های شما فروخته یا برای تبلیغات به اشتراک گذاشته نمی‌شود.</p><h3>چه کسانی داده را نگه می‌دارند</h3><ul><li>Supabase ورود و پایگاه‌داده را میزبانی می‌کند. رمز عبور را Supabase مدیریت می‌کند و صاحب اپ آن را نمی‌بیند. هر حساب فقط به دادهٔ خودش دسترسی دارد.</li><li>GitHub Pages اپ را میزبانی می‌کند و ممکن است آدرس IP بازدیدکنندگان را ثبت کند.</li><li>Google Fonts فونت را می‌دهد و هنگام بارگذاری، آدرس IP شما را دریافت می‌کند.</li></ul><h3>اختیارات شما</h3><ul><li>هر زمان می‌توانید یک بار را در تب بارها حذف کنید.</li><li>با Export CSV از اطلاعات خود خروجی بگیرید.</li><li>با Sign out همگام‌سازی متوقف می‌شود. دادهٔ محلی روی دستگاه می‌ماند تا دادهٔ سایت را پاک کنید.</li><li>برای حذف حساب و داده‌های آنلاین، با صاحب اپ تماس بگیرید.{C}</li></ul><h3>امنیت</h3><p>داده‌ها از طریق HTTPS ارسال می‌شوند. هیچ سرویس آنلاینی کاملاً بی‌خطر نیست، پس اطلاعات حساس مثل شمارهٔ بانکی یا مدارک را در نام بار ننویسید.</p><h3>کودکان</h3><p>این اپ برای استفادهٔ تجاری بزرگسالان است و برای کودکان زیر ۱۳ سال نیست.</p><h3>تغییرات</h3><p>این صفحه ممکن است به‌روزرسانی شود و تاریخ بالا آخرین نسخه را نشان می‌دهد.</p>`};
+function renderPv(){$("pv").innerHTML=PV[lang==="fa"?"fa":"en"].replace("{C}",PRIV_EMAIL?" "+PRIV_EMAIL:"")}
+$("pvl").onclick=e=>{e.preventDefault();show("p5")};
+$("pvb").onclick=()=>show("p1");
+if(location.hash==="#privacy")show("p5");
+const SB=!!(SB_URL&&SB_KEY);
+let ses=null,syncT=0;
+try{ses=JSON.parse(localStorage.getItem("tpses")||"null")}catch(e){}
+const sbh=t=>{const h={apikey:SB_KEY,"Content-Type":"application/json"};if(t)h.Authorization="Bearer "+t;return h};
+const st=m=>{$("acs").textContent=m};
+async function sbAuth(p,b){const r=await fetch(SB_URL+"/auth/v1/"+p,{method:"POST",headers:sbh(),body:JSON.stringify(b)});const j=await r.json();if(!r.ok)throw new Error(j.msg||j.error_description||j.message||"Error");return j}
+function setSes(j){ses={at:j.access_token,rt:j.refresh_token,uid:j.user.id,em:j.user.email,exp:Date.now()+(j.expires_in-60)*1000};try{localStorage.setItem("tpses",JSON.stringify(ses))}catch(e){}}
+async function tok(){if(!ses)return null;if(Date.now()>ses.exp){try{setSes(await sbAuth("token?grant_type=refresh_token",{refresh_token:ses.rt}))}catch(e){ses=null;try{localStorage.removeItem("tpses")}catch(x){}acUI();return null}}return ses.at}
+async function push(){
+  const t=await tok();if(!t)return;const o={};document.querySelectorAll("#form input,#form select").forEach(e=>o[e.id]=e.value);
+  const now=new Date().toISOString();
+  const r=await fetch(SB_URL+"/rest/v1/app_data?on_conflict=user_id",{method:"POST",headers:Object.assign(sbh(t),{Prefer:"resolution=merge-duplicates"}),body:JSON.stringify({user_id:ses.uid,data:{loads:loads,inp:o,snaps:snaps},updated_at:now})});
+  if(!r.ok)throw new Error("Sync failed");
+  try{localStorage.setItem("tpsync",String(Date.parse(now)))}catch(e){}
+}
+async function pull(){
+  const t=await tok();if(!t)return;
+  const r=await fetch(SB_URL+"/rest/v1/app_data?select=data,updated_at&user_id=eq."+ses.uid,{headers:sbh(t)});
+  if(!r.ok)throw new Error("Sync failed");
+  const a=await r.json(),lu=+localStorage.getItem("tpsync")||0;
+  if(a[0]&&Date.parse(a[0].updated_at)>lu){
+    const d=a[0].data||{};loads=d.loads||[];(d.snaps||[]).forEach(x=>{if(!snaps.some(y=>y.wid===x.wid))snaps.push(x)});snaps.sort((x,y)=>x.start<y.start?-1:1);
+    if(d.inp)for(const k in d.inp){const e=document.getElementById(k);if(e)e.value=d.inp[k]}
+    try{localStorage.setItem("tpl3",JSON.stringify(loads));localStorage.setItem("tpa3",JSON.stringify(snaps));localStorage.setItem("tpsync",String(Date.parse(a[0].updated_at)))}catch(e){}
+    render();autoArchive();renderLoads();
+  }else await push();
+}
+function qpush(){if(!SB||!ses)return;clearTimeout(syncT);syncT=setTimeout(()=>push().then(()=>st("Synced ✓"),()=>st("Sync failed")),1500)}
+function acUI(){
+  $("acc").classList.toggle("hide",!SB);
+  $("acf").classList.toggle("hide",!!ses);$("so").classList.toggle("hide",!ses);
+  if(ses)st("Signed in as "+ses.em);else if(!$("acs").textContent)st("Sign in to keep your loads on every device.");
+}
+async function auth(kind){
+  const em=$("em").value.trim(),pw=$("pw").value;st("…");
+  try{
+    const j=kind==="up"?await sbAuth("signup",{email:em,password:pw}):await sbAuth("token?grant_type=password",{email:em,password:pw});
+    if(!j.access_token){st("Check your email to confirm, then sign in.");return}
+    setSes(j);$("pw").value="";await pull();acUI();st("Signed in · synced ✓");
+  }catch(e){st(e.message)}
+}
+$("si").onclick=()=>auth("in");$("su").onclick=()=>auth("up");
+$("so").onclick=()=>{ses=null;try{localStorage.removeItem("tpses");localStorage.removeItem("tpsync")}catch(e){}$("acs").textContent="";acUI()};
+document.querySelectorAll("input").forEach(e=>e.addEventListener("input",qpush));
+acUI();
+if(SB&&ses)pull().then(()=>st("Synced ✓"),()=>st("Sync failed"));
+render();
+autoArchive();
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)autoArchive()});
+addEventListener("pageshow",autoArchive);addEventListener("focus",autoArchive);setInterval(autoArchive,60000);
+applyLang();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
