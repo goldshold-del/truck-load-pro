@@ -1,5 +1,5 @@
 // Truck Profit service worker: network-first, falls back to cache when offline.
-const CACHE = "truck-profit-v7";
+const CACHE = "truck-profit-v8";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(CORE.map(u => c.add(u)))).then(() => self.skipWaiting()));
