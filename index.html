@@ -21,7 +21,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
 body{margin:0;min-height:100vh;background:radial-gradient(900px 420px at 50% -80px,rgba(47,217,196,.09),transparent 70%) no-repeat,var(--bg);color:var(--tx);font:14px/1.45 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
 .app{max-width:1120px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom,0px))}
-#p1,#p2,#p3,#p4,#p5,#snav{max-width:680px;margin-left:auto;margin-right:auto}#p2{max-width:920px}#p4{max-width:820px}
+#p1,#p2,#p3,#p4,#p5,#p6,#p7,#snav{max-width:680px;margin-left:auto;margin-right:auto}#p2{max-width:920px}#p4{max-width:820px}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin:2px 0 16px}
 h1{font-size:22px;font-weight:800;margin:0;letter-spacing:-.4px;line-height:1.1}h1 span{color:var(--teal)}
 .sub{margin:4px 0 0;font-size:12px;color:var(--mu)}
@@ -331,7 +331,10 @@ body.revpad #p2{padding-bottom:76px}
 .dvp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .dvp>div{background:var(--card2);border-radius:12px;padding:10px}
 .dvp small{display:block;font-size:11px;color:var(--mu);line-height:1.25}.dvp b{display:block;font-size:20px;margin-top:4px;font-variant-numeric:tabular-nums}.dvp i{display:block;font-style:normal;font-size:10.5px;color:var(--mu);margin-top:2px}
-.snav.hide{display:none}.snav{display:grid;grid-template-columns:44px repeat(5,minmax(0,1fr));gap:6px;margin-bottom:14px}
+
+.snav{display:flex!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 8px}.snav::-webkit-scrollbar{display:none}.snav .pill{flex:0 0 auto;padding:0 13px;font-size:12px;overflow:visible}.snav .pill[data-go=p0]{width:42px;padding:0}.snav.hide{display:none!important}
+.drh .brbig b{font-size:36px}
+.snav.hide{display:none}.snav{display:grid;grid-template-columns:40px repeat(6,minmax(0,1fr));gap:6px;margin-bottom:14px}
 .pill{min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mu);font:700 12px Manrope,sans-serif;cursor:pointer;display:grid;place-items:center;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background var(--motion-fast) ease,color var(--motion-fast) ease,border-color var(--motion-fast) ease}
 .pill svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .pill.on{color:var(--teal);border-color:rgba(47,217,196,.5);background:rgba(47,217,196,.1)}
@@ -491,7 +494,7 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 <div class="app">
 <div class="top"><div><h1 data-no-translate="true" translate="no">Truck <span>Profit</span></h1><p class="sub">Load Profit &amp; Rate Calculator</p></div><div class="ctl"><button class="ghost dz" id="dzb" type="button" aria-label="Diesel prices" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a2 2 0 012-2h6a2 2 0 012 2v16M3 21h12M14 9h2a2 2 0 012 2v5a1.5 1.5 0 003 0V8l-3-3"/><path d="M6.5 7h5"/></svg><span id="dzv" class="u">--</span></button><select id="lang" class="ghost" aria-label="Language"><option value="en">EN</option><option value="es">ES</option><option value="fa">فارسی</option><option value="tr">TR</option><option value="ru">RU</option><option value="uz">UZ</option></select><button class="ghost ic" id="thb" type="button" aria-label="Theme" title="Theme"><svg viewBox="0 0 24 24" aria-hidden="true" id="thi"></svg></button><button class="ghost ic" id="acb" type="button" aria-label="Account" title="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></button></div></div>
 <div class="eb hide" id="eb" role="status"><div class="ebt"><b>Editing Saved Load</b><small class="u" id="ebn"></small></div><p class="note hide" id="ebw" style="margin:6px 0 0"></p><div class="eba"><button class="save" data-ebs type="button">Save Changes</button><button class="ghost" data-ebc type="button">Cancel Edit</button></div><div class="ebd hide" id="ebd"><span>Discard unsaved changes?</span><div class="two"><button class="ghost dl" id="ebdd" type="button">Discard</button><button class="ghost" id="ebdc" type="button">Continue Editing</button></div></div></div>
-<nav class="snav hide" id="snav" aria-label="Sections"><button type="button" class="pill" data-go="p0" aria-label="Dashboard" title="Dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button type="button" class="pill" data-go="p1">Summary</button><button type="button" class="pill" data-go="p2">Inputs</button><button type="button" class="pill" data-go="p3">Costs</button><button type="button" class="pill" data-go="p4">Loads</button><button type="button" class="pill" data-go="p6">News</button></nav>
+<nav class="snav hide" id="snav" aria-label="Sections"><button type="button" class="pill" data-go="p0" aria-label="Dashboard" title="Dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button><button type="button" class="pill" data-go="p1">Summary</button><button type="button" class="pill" data-go="p2">Inputs</button><button type="button" class="pill" data-go="p3">Costs</button><button type="button" class="pill" data-go="p4">Loads</button><button type="button" class="pill" data-go="p7">Driver</button><button type="button" class="pill" data-go="p6">News</button></nav>
 <section id="p0">
 <button type="button" class="cta mi" id="addNew" data-go="p2"><span class="ctai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span class="ctat"><b>Add new load</b><small>Start a new load calculation</small></span><svg class="dchev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
 <div class="dgrid">
@@ -505,8 +508,7 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 <div id="wBody" class="hide"><div class="wp4"><div><small>Net profit</small><b id="wNet"></b></div><div><small>Margin</small><b id="wMg"></b></div><div><small>Gross</small><b id="wGr"></b></div><div><small>Operating cost</small><b id="wCo"></b></div></div>
 <div class="hbr g"><span>Gross</span><div class="bk"><i id="wbG"></i></div><b id="wvG"></b></div>
 <div class="hbr c"><span>Operating cost</span><div class="bk"><i id="wbC"></i></div><b id="wvC"></b></div>
-<div class="hbr n" id="wrN"><span>Net profit</span><div class="bk"><i id="wbN"></i></div><b id="wvN"></b></div>
-<div class="dvp"><div><small>Driver earnings this week</small><b id="wDr"></b></div><div><small>Take-home if you drive your own truck</small><b id="wTk"></b><i>Driver pay + net profit</i></div></div></div>
+<div class="hbr n" id="wrN"><span>Net profit</span><div class="bk"><i id="wbN"></i></div><b id="wvN"></b></div></div>
 <p class="note" id="wEmpty" style="margin:0">Save a load to see your weekly performance.</p></div>
 <div class="card mi"><h3>Recent loads</h3><div id="dRecent"></div></div>
 </div>
@@ -516,6 +518,7 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 <button type="button" class="qb mi" style="--acr:74,168,255" data-go="p4" data-sc="wk"><svg class="qi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg><span>Weekly report</span></button>
 <button type="button" class="qb mi" style="--acr:255,138,76" data-go="p4" data-sc=".tools"><svg class="qi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2"/><path d="M6 14h12v7H6z"/></svg><span>Print / Export</span></button>
 <button type="button" class="qb mi" style="--acr:47,217,196" data-go="p6"><svg class="qi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg><span>Trucking news</span></button>
+<button type="button" class="qb mi" style="--acr:74,168,255" data-go="p7"><svg class="qi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 14.5V21M9.6 11.2 3.4 9.6M14.4 11.2l6.2-1.6"/></svg><span>Driver earnings</span></button>
 </div>
 </section>
 
@@ -557,6 +560,7 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 <p class="note" id="nwF" style="margin:12px 0 0">Headlines are collected from public sources and filtered for drivers. The notes about what this means are automatic and general, so always read the original source.</p>
 </div>
 </section>
+<section id="p7" class="hide"><div id="drv"></div></section>
 <section id="p5" class="hide"><div class="card" id="pv" data-no-translate="true"></div><button class="save" id="pvb">Back</button></section>
 <p class="note" style="text-align:center;margin-top:18px"><a href="#privacy" id="pvl" style="color:var(--mu)">Privacy</a></p>
 </div>
@@ -669,7 +673,7 @@ document.querySelectorAll("input").forEach(e=>e.addEventListener("input",render)
 document.querySelectorAll("#form input").forEach(e=>e.addEventListener("input",touchInp));
 document.querySelectorAll("#form select").forEach(e=>e.addEventListener("change",()=>{touchInp();render();qpush()}));
 $("rst").onclick=()=>{for(const k in D)$(k).value=D[k];touchInp();render();qpush()};
-const SECS=["p0","p1","p2","p3","p4","p5","p6"];
+const SECS=["p0","p1","p2","p3","p4","p5","p6","p7"];
 function setBar(id,p){const e=$(id);p=Math.max(0,Math.min(100,p||0));e.dataset.w=p;e.style.width=p+"%"}
 function barsIn(){document.querySelectorAll("#p0 [data-w]").forEach(b=>{b.style.transition="none";b.style.width="0";void b.offsetWidth;b.style.transition="";requestAnimationFrame(()=>{b.style.width=b.dataset.w+"%"})})}
 function dashIn(){document.querySelectorAll("#p0 .mi").forEach((e,i)=>{e.classList.remove("motion-in");e.style.animationDelay=Math.min(i,10)*60+"ms";void e.offsetWidth;e.classList.add("motion-in")});barsIn()}
@@ -677,7 +681,8 @@ function show(id){
   SECS.forEach(p=>{const e=$(p),h=p!==id;e.classList.toggle("hide",h);if(!h){e.classList.remove("sec-in");void e.offsetWidth;if(p!=="p0")e.classList.add("sec-in")}});
   $("snav").classList.toggle("hide",id==="p0"||id==="p5");
   document.querySelectorAll(".pill").forEach(b=>b.classList.toggle("on",b.dataset.go===id));
-  if(id==="p5")renderPv();if(id==="p4")renderLoads();if(id==="p6"){renderNews();newsLoad()}
+  {const a=document.querySelector(".snav .pill.on");if(a)try{a.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}}
+  if(id==="p5")renderPv();if(id==="p4")renderLoads();if(id==="p6"){renderNews();newsLoad()}if(id==="p7")renderDriver();
   if(id==="p0"){renderDash();dashIn()}
   {const on=id==="p2";$("rvb").classList.toggle("hide",!on);document.body.classList.toggle("revpad",on);if(id!=="p1")$("vil").classList.add("hide")}
   if(!show._k)window.scrollTo(0,0);
@@ -718,7 +723,7 @@ function secHTML(t,a,u,T){a=a.filter(i=>i[1]>0).sort((x,y)=>y[1]-x[1]);return a.
 function wkBK(P){const T=P.tot||1;return secHTML("Variable costs",P.vr,P.vc,T)+secHTML("Monthly costs — weekly equivalent",P.fmM,P.fcM,T)+secHTML("Weekly costs",P.fmW,P.fcW,T)+(P.fc>0?'<div class="row" style="margin-top:14px"><b>Total weekly fixed cost</b><b>'+$$(P.fc)+'</b></div>':'')+(P.oc>0?'<div class="row" style="margin-top:12px"><span>Earlier loads (no breakdown)</span><span>'+$$(P.oc)+'</span></div>':'')+(P.cc>0?'<div class="row" style="margin-top:12px"><span>Cancelled-load costs</span><span>'+$$(P.cc)+'</span></div>':'')}
 function wkTiles(P){
   const c=P.net<0?"var(--orange)":"var(--green)";
-  return '<div class="two" style="margin:12px 0 10px">'+mt("Revenue",$$(P.rev),0,0,"xl")+mt("Net profit",$$(P.net),c,0,"xl")+mt("Profit margin",pc(P.mg))+mt("Total miles",P.M.toLocaleString())+'</div><div class="two">'+mt("Loaded RPM",$$(P.lr,2))+mt("All-mile RPM",$$(P.ar,2),0,1)+mt("Net profit / mile",$$(P.np,2),c,1)+mt("Number of loads",P.n)+'</div><div class="stats">'+stt("Variable costs",$$(P.vc))+stt("Total weekly fixed cost",$$(P.fc))+stt("Total operating cost",$$(P.tot))+stt("Loaded miles",P.L.toLocaleString())+stt("Deadhead miles",P.Dh.toLocaleString())+'</div>'+drvStats(P)+cxStats(P);
+  return '<div class="two" style="margin:12px 0 10px">'+mt("Revenue",$$(P.rev),0,0,"xl")+mt("Net profit",$$(P.net),c,0,"xl")+mt("Profit margin",pc(P.mg))+mt("Total miles",P.M.toLocaleString())+'</div><div class="two">'+mt("Loaded RPM",$$(P.lr,2))+mt("All-mile RPM",$$(P.ar,2),0,1)+mt("Net profit / mile",$$(P.np,2),c,1)+mt("Number of loads",P.n)+'</div><div class="stats">'+stt("Variable costs",$$(P.vc))+stt("Total weekly fixed cost",$$(P.fc))+stt("Total operating cost",$$(P.tot))+stt("Loaded miles",P.L.toLocaleString())+stt("Deadhead miles",P.Dh.toLocaleString())+'</div>'+cxStats(P);
 }
 function drvStats(P){const dv=drvOf(P),tk=dv+P.net;return '<div class="two" style="margin-top:10px">'+mt("Driver earnings",$$(dv),0,1)+mt("Take-home if you drive",$$(tk),tk<0?"var(--orange)":"var(--green)",0)+'</div><p class="note" style="margin:6px 0 0">Take-home = driver pay + net profit, for an owner-operator who drives the truck.</p>'}
 function cxStats(P){if(!P.nc)return"";const c=P.cn<0?"var(--orange)":"var(--green)";return '<div class="sec">Cancelled loads</div><div class="stats">'+stt("Completed loads",P.n)+stt("Cancelled loads",P.nc)+stt("Cancellation revenue",$$(P.cr))+stt("Cancellation cost / loss",$$(P.cc))+'<div><small>Cancellation net</small><b style="color:'+c+'">'+(P.cn>0?"+":"")+$$(P.cn)+'</b></div></div>'}
@@ -977,7 +982,7 @@ function snHTML(sn){
   const P=sn.P,c=P.net<0?"var(--orange)":"var(--green)",vm={};P.vr.forEach(i=>vm[i[0]]=i[1]);
   const T=P.tot||1;
   return '<details class="lc sn wk" data-k="'+sn.start+'" data-id="'+sn.wid+'"'+(opn[sn.wid]?' open':'')+'><summary><div class="lh"><div><b class="u">'+fd(sn.start)+' – '+fdy(sn.end)+'</b><small><span>Archived on</span> <span class="u">'+fdy(sn.at)+'</span></small></div><span class="bd '+(sn.auto?'s-above':'s-ar')+'">'+(sn.auto?emo("✅","Auto archived"):'<span>Archived</span>')+'</span></div><div class="lg l5">'+stt("Gross revenue",$$(P.rev))+'<div><small>Net profit</small><b style="color:'+c+'">'+(P.net>0?"+":"")+$$(P.net)+'</b></div>'+stt("Margin",pc(P.mg))+stt("Total miles",P.M.toLocaleString())+stt("Loads",P.n)+'</div></summary><div class="ld">'+
-  '<div class="sec">Weekly report</div>'+R("Gross revenue",$$(P.rev))+R("Net profit",$$(P.net),c)+R("Driver earnings",$$(drvOf(P)))+R("Take-home if you drive",$$(drvOf(P)+P.net),drvOf(P)+P.net<0?"var(--orange)":"var(--green)")+R("Profit margin",pc(P.mg))+R("Loaded miles",P.L.toLocaleString())+R("Deadhead miles",P.Dh.toLocaleString())+R("Total miles",P.M.toLocaleString())+(P.rec?R("Actual week miles",P.rec.miles.toLocaleString()):"")+R("Loaded RPM",$$(P.lr,2))+R("All-mile RPM",$$(P.ar,2))+R("Net profit / mile",$$(P.np,2),c)+R("Profit per day (7-day average)",$$(P.pd==null?P.net/7:P.pd))+
+  '<div class="sec">Weekly report</div>'+R("Gross revenue",$$(P.rev))+R("Net profit",$$(P.net),c)+R("Profit margin",pc(P.mg))+R("Loaded miles",P.L.toLocaleString())+R("Deadhead miles",P.Dh.toLocaleString())+R("Total miles",P.M.toLocaleString())+(P.rec?R("Actual week miles",P.rec.miles.toLocaleString()):"")+R("Loaded RPM",$$(P.lr,2))+R("All-mile RPM",$$(P.ar,2))+R("Net profit / mile",$$(P.np,2),c)+R("Profit per day (7-day average)",$$(P.pd==null?P.net/7:P.pd))+
   '<div class="sec">Variable costs</div>'+VN.map(k=>R(k,$$(vm[k]||0))).join("")+R("Total variable costs",$$(P.vc))+
   '<div class="sec">Fixed costs</div>'+R("Weekly fixed costs",$$(P.fcW))+R("Monthly costs — weekly equivalent",$$(P.fcM))+R("Total weekly fixed cost",$$(P.fc))+(P.rec?R("Actual fixed cost per mile",$$(P.rec.pm,4)):"")+(P.oc>0?R("Earlier loads (no breakdown)",$$(P.oc)):"")+
   '<div class="row" style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px"><span>Total operating cost</span><b style="font-size:18px">'+$$(P.tot)+'</b></div>'+R("Number of loads",P.n)+(P.nc?R("Completed loads",P.n)+R("Cancelled loads",P.nc)+R("Cancellation revenue",$$(P.cr))+R("Cancellation cost / loss",$$(P.cc))+R("Cancellation net",(P.cn>0?"+":"")+$$(P.cn),P.cn<0?"var(--orange)":"var(--green)"):"")+
@@ -1007,7 +1012,7 @@ function renderLoads(){
   }).join("");
 }
 function repText(P,a,w,e){
-  return fd(w)+" - "+fdy(e)+"\nRevenue "+$$(P.rev)+" | Variable "+$$(P.vc)+" | Fixed "+$$(P.fc)+" | Total cost "+$$(P.tot)+"\nNet "+$$(P.net)+" | Driver pay "+$$(drvOf(P))+" | Take-home "+$$(drvOf(P)+P.net)+" | Margin "+pc(P.mg)+" | Loads "+P.n+(P.nc?" | Cancelled "+P.nc+" | Cancellation net "+$$(P.cn):"")+"\nMiles: loaded "+P.L.toLocaleString()+", deadhead "+P.Dh.toLocaleString()+", total "+P.M.toLocaleString()+"\nRPM: loaded "+$$(P.lr,2)+" | all-mile "+$$(P.ar,2)+" | net/mile "+$$(P.np,2)+"\n"+a.map(l=>l.cancelled?"- "+fd(l.date)+" "+l.name+": CANCELLED "+$$(cxv(l).net):"- "+fd(l.date)+" "+l.name+": "+$$(l.fnet!=null?l.fnet:l.net)+" ("+l.M.toLocaleString()+" mi)").join("\n");
+  return fd(w)+" - "+fdy(e)+"\nRevenue "+$$(P.rev)+" | Variable "+$$(P.vc)+" | Fixed "+$$(P.fc)+" | Total cost "+$$(P.tot)+"\nNet "+$$(P.net)+" | Margin "+pc(P.mg)+" | Loads "+P.n+(P.nc?" | Cancelled "+P.nc+" | Cancellation net "+$$(P.cn):"")+"\nMiles: loaded "+P.L.toLocaleString()+", deadhead "+P.Dh.toLocaleString()+", total "+P.M.toLocaleString()+"\nRPM: loaded "+$$(P.lr,2)+" | all-mile "+$$(P.ar,2)+" | net/mile "+$$(P.np,2)+"\n"+a.map(l=>l.cancelled?"- "+fd(l.date)+" "+l.name+": CANCELLED "+$$(cxv(l).net):"- "+fd(l.date)+" "+l.name+": "+$$(l.fnet!=null?l.fnet:l.net)+" ("+l.M.toLocaleString()+" mi)").join("\n");
 }
 function shareIt(k){
   let t;
@@ -1077,7 +1082,18 @@ $("ex").onclick=()=>{
   $("csv").value=t;$("csv").classList.remove("hide");
   try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-loads-"+iso(new Date())+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
 };
-const RAW=`Driver earnings this week|Ingresos del conductor esta semana|درآمد راننده در این هفته
+const RAW=`Last week|Semana pasada|هفته‌ی قبل
+Miles driven|Millas recorridas|مایل رانده‌شده
+Pay per mile|Pago por milla|دستمزد هر مایل
+Last 8 weeks|Últimas 8 semanas|۸ هفته‌ی اخیر
+By week|Por semana|هفته به هفته
+This week's loads|Cargas de esta semana|بارهای این هفته
+If you drive your own truck|Si manejas tu propio camión|اگر خودت راننده‌ی کامیون خودت هستی
+Take-home this week|Lo que te llevas esta semana|درآمد خالص این هفته
+Driver pay + net profit.|Pago de conductor + ganancia neta.|دستمزد راننده + سود خالص.
+Driver pay per mile now in Inputs|Pago por milla del conductor en Datos|دستمزد راننده به‌ازای هر مایل در Inputs
+Earnings come from the driver pay saved with each load. Cancelled loads are not counted.|Los ingresos salen del pago de conductor guardado con cada carga. No se cuentan las cargas canceladas.|درآمد از دستمزد راننده‌ای می‌آید که با هر بار ذخیره شده است. بارهای کنسل‌شده حساب نمی‌شوند.
+Driver earnings this week|Ingresos del conductor esta semana|درآمد راننده در این هفته
 Take-home if you drive your own truck|Lo que te llevas si manejas tu propio camión|درآمد خالص اگر خودت رانندگی کنی
 Driver pay + net profit|Pago de conductor + ganancia neta|دستمزد راننده + سود خالص
 Driver earnings|Ingresos del conductor|درآمد راننده
@@ -1464,7 +1480,18 @@ Target profit margin|Margen de ganancia meta|حاشیهٔ سود هدف
 ~/wk|/sem|/هفته`;
 const TR={es:{},fa:{},tr:{},ru:{},uz:{}},FR=[];
 RAW.split("\n").forEach(r=>{const f=r.split("|");let k=f[0];const fr=k[0]==="~";if(fr)k=k.slice(1);TR.es[k]=f[1];TR.fa[k]=f[2];if(fr)FR.push(k)});
-const RAW2=`Driver earnings this week|Bu hafta sürücü kazancı|Заработок водителя за неделю|Bu hafta haydovchi daromadi
+const RAW2=`Last week|Geçen hafta|Прошлая неделя|O‘tgan hafta
+Miles driven|Sürülen mil|Пройдено миль|Yurilgan mil
+Pay per mile|Mil başına ücret|Оплата за милю|Mil uchun haq
+Last 8 weeks|Son 8 hafta|Последние 8 недель|So‘nggi 8 hafta
+By week|Haftaya göre|По неделям|Haftalar bo‘yicha
+This week's loads|Bu haftanın yükleri|Грузы этой недели|Bu haftaning yuklari
+If you drive your own truck|Kendi kamyonunuzu sürüyorsanız|Если вы сами водите свой трак|O‘z mashinangizni o‘zingiz haydasangiz
+Take-home this week|Bu hafta elinize geçen|На руки за эту неделю|Bu hafta qo‘lga tegadigani
+Driver pay + net profit.|Sürücü ücreti + net kâr.|Оплата водителя + чистая прибыль.|Haydovchi haqi + sof foyda.
+Driver pay per mile now in Inputs|Girdiler'deki mil başına sürücü ücreti|Оплата водителя за милю во вкладке «Данные»|Ma’lumotlardagi mil uchun haydovchi haqi
+Earnings come from the driver pay saved with each load. Cancelled loads are not counted.|Kazanç, her yükle kaydedilen sürücü ücretinden gelir. İptal edilen yükler sayılmaz.|Заработок берётся из оплаты водителя, сохранённой с каждым грузом. Отменённые грузы не учитываются.|Daromad har bir yuk bilan saqlangan haydovchi haqidan olinadi. Bekor qilingan yuklar hisoblanmaydi.
+Driver earnings this week|Bu hafta sürücü kazancı|Заработок водителя за неделю|Bu hafta haydovchi daromadi
 Take-home if you drive your own truck|Kendi kamyonunuzu sürüyorsanız elinize geçen|На руки, если сами водите свой трак|O‘z mashinangizni haydasangiz qo‘lga tegadigani
 Driver pay + net profit|Sürücü ücreti + net kâr|Оплата водителя + чистая прибыль|Haydovchi haqi + sof foyda
 Driver earnings|Sürücü kazancı|Заработок водителя|Haydovchi daromadi
@@ -1931,7 +1958,6 @@ function renderDash(){
     const nt=(P.net>0?"+":"")+$$(P.net);setT($("wNet"),nt);$("wNet").style.color=P.net<0?"var(--orange)":"var(--green)";
     setT($("wMg"),pc(P.mg));$("wGr").textContent=$$(P.rev);$("wCo").textContent=$$(P.tot);
     const base=Math.max(P.rev,P.tot,1);setBar("wbG",P.rev/base*100);setBar("wbC",P.tot/base*100);setBar("wbN",Math.max(P.net,0)/base*100);
-    {const dv=drvOf(P),tk=dv+P.net;setT($("wDr"),$$(dv));setT($("wTk"),$$(tk));$("wTk").style.color=tk<0?"var(--orange)":"var(--green)"}
     $("wvG").textContent=$$(P.rev);$("wvC").textContent=$$(P.tot);$("wvN").textContent=nt;$("wrN").classList.toggle("ng",P.net<0);
   }
 }
@@ -2001,6 +2027,34 @@ function mkHTML(){
 }
 
 
+
+/* ---------- driver tab ---------- */
+function drvWeeks(){
+  const m=new Map();
+  snaps.forEach(sn=>m.set(sn.start,{k:sn.start,drv:drvOf(sn.P),M:sn.P.M,n:sn.P.n,net:sn.P.net,loads:sn.loads,arch:1}));
+  const g={};loads.filter(l=>!l.arch).forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  Object.keys(g).forEach(k=>{if(m.has(k))return;const P=weekPL(g[k]);m.set(k,{k,drv:drvOf(P),M:P.M,n:P.n,net:P.net,loads:g[k],arch:0})});
+  return m;
+}
+const ldDrv=l=>{if(l.cancelled)return 0;const i=(l.items||[]).find(x=>x[0]==="Driver pay");return i?i[1]:null};
+function renderDriver(){
+  const E=$("drv");if(!E)return;
+  const m=drvWeeks(),cur=wkOf(iso(new Date())),pd=new Date(cur+"T12:00:00");pd.setDate(pd.getDate()-7);const prv=iso(pd);
+  const z={drv:0,M:0,n:0,net:0,loads:[]},w=m.get(cur)||Object.assign({k:cur},z),p=m.get(prv)||Object.assign({k:prv},z);
+  const df=w.drv-p.drv,ppm=w.M>0?w.drv/w.M:0,tk=w.drv+w.net;
+  let h='<div class="card drh"><h3>Driver earnings</h3><small class="note"><span>This week</span> · <span class="u">'+fd(cur)+' – '+fdy(endOf(cur))+'</span></small>'+
+  '<div class="brbig" style="margin-top:8px"><b class="u">'+$$(w.drv)+'</b>'+(p.drv||w.drv?'<span class="u" style="color:'+(df>=0?"var(--green)":"var(--orange)")+'">'+(df>=0?"▲ ":"▼ ")+sg$(df,0)+'</span>':'')+'</div>'+
+  '<p class="note" style="margin:0"><span>Last week</span>: <span class="u">'+$$(p.drv)+'</span></p>'+
+  '<div class="stats">'+stt("Miles driven",'<span class="u">'+w.M.toLocaleString()+'</span>')+stt("Loads",w.n)+stt("Pay per mile",$$(ppm,2))+'</div></div>';
+  const ks=[...m.keys()].sort().slice(-8);
+  if(ks.length){h+='<div class="card"><h3>Last 8 weeks</h3>'+brCols(ks.map(k=>{const v=m.get(k).drv;return{l:(new Date(k+"T12:00:00").getMonth()+1)+"/"+new Date(k+"T12:00:00").getDate(),v,t:"$"+(Math.round(v/100)/10)+"k",c:k===cur?"var(--teal)":"var(--blue)"}}))+
+    '<div class="sec">By week</div>'+ks.slice().reverse().map(k=>{const x=m.get(k);return '<div class="row"><span><span class="u">'+fd(k)+' – '+fd(endOf(k))+'</span><small class="mkm u" dir="ltr" style="text-align:start">'+x.M.toLocaleString()+' mi · 🚚 '+x.n+'</small></span><b>'+$$(x.drv)+'</b></div>'}).join("")+'</div>'}
+  const L=w.loads.slice().sort((a,b)=>a.date<b.date?-1:1);
+  h+='<div class="card"><h3>This week\'s loads</h3>'+(L.length?L.map(l=>{const v=ldDrv(l);return '<div class="row"><span><span class="u">'+fd(l.date)+' · '+esc(l.name)+'</span><small class="mkm u" dir="ltr" style="text-align:start">'+(l.M||0).toLocaleString()+' mi</small>'+(l.cancelled?'<small class="mkm">Cancelled</small>':'')+'</span><b>'+(v==null?"—":$$(v))+'</b></div>'}).join(""):'<p class="note" style="margin:0">No loads saved this week yet.</p>')+'</div>';
+  h+='<div class="card"><h3>If you drive your own truck</h3><div class="two">'+mt("Driver pay",$$(w.drv))+mt("Net profit",$$(w.net),w.net<0?"var(--orange)":"var(--green)")+'</div><div class="m wd" style="margin-top:10px"><small>Take-home this week</small><b style="color:'+(tk<0?"var(--orange)":"var(--green)")+'">'+$$(tk)+'</b><p>Driver pay + net profit.</p></div></div>';
+  h+='<p class="note"><span>Driver pay per mile now in Inputs</span>: <span class="u">$'+(n("driver")||0).toFixed(2)+'</span>. <span>Earnings come from the driver pay saved with each load. Cancelled loads are not counted.</span></p>';
+  E.innerHTML=h;
+}
 /* ---------- weekly market report ---------- */
 let nwView="rep",brEq="van";
 try{nwView=localStorage.getItem("tpnwv")==="news"?"news":"rep";brEq=["van","reefer","flatbed"].includes(localStorage.getItem("tpeq"))?localStorage.getItem("tpeq"):"van"}catch(e){}
@@ -2173,12 +2227,7 @@ function renderBrief(){
     h+=brCols(W.map(([k,v])=>({l:(new Date(k+"T12:00:00").getMonth()+1)+"/"+new Date(k+"T12:00:00").getDate(),v,t:(v<0?"−":"")+"$"+Math.round(Math.abs(v)/100)/10+"k",c:v<0?"var(--orange)":"var(--green)"})));
   }else h+='<p class="bri" data-no-translate="true">'+(bt("w_no"))+'</p>';
   h+='</div>';
-  const DV=brDrv();
-  if(DV.length&&DV.some(x=>x[1]>0)){const lw=DV[DV.length-1],pw=DV.length>1?DV[DV.length-2]:null,tk=lw[1]+(W.length?W[W.length-1][1]:0);
-    h+='<div class="card"><h3>Driver earnings</h3><div class="brbig"><b class="u">'+$$(lw[1])+'</b>'+(pw?'<span class="u" style="color:'+(lw[1]>=pw[1]?"var(--green)":"var(--orange)")+'">'+(lw[1]>=pw[1]?"▲ ":"▼ ")+sg$(lw[1]-pw[1],0)+'</span>':'')+'</div>'+
-    '<p class="bri" data-no-translate="true">'+(bt("d_tk",{x:$$(tk)}))+'</p>'+
-    brCols(DV.map(([k,v])=>({l:(new Date(k+"T12:00:00").getMonth()+1)+"/"+new Date(k+"T12:00:00").getDate(),v,t:"$"+Math.round(v/100)/10+"k",c:"var(--blue)"})))+
-    '<p class="note">From the driver pay per mile in your saved loads. Change it in Inputs.</p></div>'}
+
   // regulations
   const regs=((nw&&nw.items)||[]).filter(x=>x.cat==="reg").sort((a,b)=>a.date<b.date?1:-1).slice(0,3);
   h+='<div class="card"><h3>Regulations</h3>'+(regs.length?regs.map(x=>'<a class="brg" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer"><b class="u">'+esc(x.title)+'</b><small><span class="u">'+(x.date?fdy(x.date):"")+'</span> • <span class="u">'+esc(x.source||"")+'</span></small></a>').join(""):'<p class="note" style="margin:0">No new rules this week.</p>')+'</div>';
