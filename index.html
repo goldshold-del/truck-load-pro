@@ -286,6 +286,51 @@ body.revpad #p2{padding-bottom:76px}
 .mkm{display:block;font-size:11px;font-weight:600;color:var(--mu)}.mkm a{color:var(--teal)}
 .mkd{display:block;font-size:11px;font-weight:700;text-align:right}
 .mkx summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--teal);font-weight:700;font-size:13px}
+
+/* ---------- weekly report ---------- */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:var(--card2);margin-bottom:12px}
+.seg button{min-height:40px;border:0;border-radius:11px;background:transparent;color:var(--mu);font:700 13px Manrope,sans-serif;cursor:pointer;transition:background var(--motion-normal) ease,color var(--motion-normal) ease}
+.seg button.on{background:var(--card);color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.brh .brhl{font-size:18px;font-weight:800;line-height:1.3;margin:10px 0 6px}
+.brs,.bri{margin:6px 0;font-size:13.5px;line-height:1.5}
+.brbadge{font-size:13px;font-weight:800;padding:6px 10px;border-radius:10px;background:var(--card2);white-space:nowrap}
+.breq{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.brk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.brkt{display:flex;flex-direction:column;gap:2px;text-align:start;padding:10px;border-radius:14px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font:inherit;cursor:pointer;min-width:0;transition:border-color var(--motion-normal) ease,transform var(--motion-fast) var(--ease-premium)}
+.brkt:active{transform:scale(.97)}.brkt.on{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}
+.brkt small{font-size:11px;color:var(--mu);font-weight:700}.brkt b{font-size:20px;font-variant-numeric:tabular-nums}.brkt i{font-style:normal;font-size:11px;font-weight:700}
+.brch{margin-top:12px}.brch>small{display:block;font-size:11px;color:var(--mu);font-weight:700;margin-bottom:4px}
+.brl{width:100%;height:auto;display:block;direction:ltr}
+.brl .ax{stroke:var(--line);stroke-width:1}.brl .ln{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:brDraw 1s var(--ease-premium) backwards}
+.brl .ar{animation:fd .9s ease backwards .3s}.brl .pt{fill:var(--card);stroke:var(--teal);stroke-width:2}.brl .lt{fill:var(--teal)}
+.brl text{fill:var(--mu);font:700 10px Manrope,sans-serif}.brl .vl{fill:var(--tx);font-size:12px;font-weight:800}
+@keyframes brDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.brb{display:grid;gap:8px}
+.brr{display:grid;grid-template-columns:minmax(0,9.5em) 1fr auto;align-items:center;gap:8px;font-size:12px}
+.brr>span{color:var(--mu);line-height:1.25}.brr.hl>span{color:var(--tx);font-weight:800}
+.brr>b{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:end}
+.brt{height:10px;border-radius:6px;background:var(--card2);overflow:hidden}
+.brt i{display:block;height:100%;border-radius:6px;transform-origin:left;animation:brGrow .8s var(--ease-premium) backwards}
+[dir=rtl] .brt i{transform-origin:right}
+@keyframes brGrow{from{transform:scaleX(0)}to{transform:none}}
+.brc{display:flex;align-items:flex-end;gap:6px;height:170px;margin-top:10px;direction:ltr}
+.brcc{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;height:100%;gap:4px}
+.brcc b{font-size:10.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.brct{flex:1;width:100%;max-width:38px;display:flex;align-items:flex-end}
+.brct i{display:block;width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:brRise .8s var(--ease-premium) backwards}
+.brcc:nth-child(2) i{animation-delay:60ms}.brcc:nth-child(3) i{animation-delay:120ms}.brcc:nth-child(4) i{animation-delay:180ms}.brcc:nth-child(5) i{animation-delay:240ms}.brcc:nth-child(6) i{animation-delay:300ms}.brcc:nth-child(n+7) i{animation-delay:360ms}
+@keyframes brRise{from{transform:scaleY(0)}to{transform:none}}
+.brcc small{font-size:10px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.brbig{display:flex;align-items:baseline;gap:10px}.brbig b{font-size:30px;font-weight:800;letter-spacing:-.6px;font-variant-numeric:tabular-nums}.brbig span{font-weight:800;font-size:14px}
+.brg{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--tx);text-decoration:none}.brg:first-of-type{border-top:0}
+.brg b{display:block;font-size:14px;line-height:1.35}.brg small{display:block;font-size:11px;color:var(--mu);margin-top:3px}
+.brr>b,.brcc b,.brbig b,.brbig span,.brkt b,.brkt i,.brcc small{direction:ltr;unicode-bidi:isolate}
+.brtip{border-inline-start:4px solid var(--teal)}
+@media (prefers-reduced-motion:reduce){.brl .ln,.brt i,.brct i{animation:none}}
+
+.dvp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.dvp>div{background:var(--card2);border-radius:12px;padding:10px}
+.dvp small{display:block;font-size:11px;color:var(--mu);line-height:1.25}.dvp b{display:block;font-size:20px;margin-top:4px;font-variant-numeric:tabular-nums}.dvp i{display:block;font-style:normal;font-size:10.5px;color:var(--mu);margin-top:2px}
 .snav.hide{display:none}.snav{display:grid;grid-template-columns:44px repeat(5,minmax(0,1fr));gap:6px;margin-bottom:14px}
 .pill{min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mu);font:700 12px Manrope,sans-serif;cursor:pointer;display:grid;place-items:center;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background var(--motion-fast) ease,color var(--motion-fast) ease,border-color var(--motion-fast) ease}
 .pill svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -460,7 +505,8 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 <div id="wBody" class="hide"><div class="wp4"><div><small>Net profit</small><b id="wNet"></b></div><div><small>Margin</small><b id="wMg"></b></div><div><small>Gross</small><b id="wGr"></b></div><div><small>Operating cost</small><b id="wCo"></b></div></div>
 <div class="hbr g"><span>Gross</span><div class="bk"><i id="wbG"></i></div><b id="wvG"></b></div>
 <div class="hbr c"><span>Operating cost</span><div class="bk"><i id="wbC"></i></div><b id="wvC"></b></div>
-<div class="hbr n" id="wrN"><span>Net profit</span><div class="bk"><i id="wbN"></i></div><b id="wvN"></b></div></div>
+<div class="hbr n" id="wrN"><span>Net profit</span><div class="bk"><i id="wbN"></i></div><b id="wvN"></b></div>
+<div class="dvp"><div><small>Driver earnings this week</small><b id="wDr"></b></div><div><small>Take-home if you drive your own truck</small><b id="wTk"></b><i>Driver pay + net profit</i></div></div></div>
 <p class="note" id="wEmpty" style="margin:0">Save a load to see your weekly performance.</p></div>
 <div class="card mi"><h3>Recent loads</h3><div id="dRecent"></div></div>
 </div>
@@ -502,10 +548,14 @@ html[data-theme=blue] .ghost.ed{color:#2f5be8}
 </section>
 <section id="p6" class="hide">
 <div class="card"><div class="verdict"><h3 style="margin:0">Trucking news</h3><button class="ghost" id="nwR" type="button" style="min-height:40px">Refresh</button></div><p class="note" id="nwU" style="margin:8px 0 0"></p></div>
+<div class="seg" id="nwSeg" role="tablist"><button type="button" class="on" data-v="rep">Weekly report</button><button type="button" data-v="news">News</button></div>
+<div id="brf"></div>
+<div id="nwV" class="hide">
 <div class="card" id="nwM"></div>
 <div class="nwch" id="nwCh" role="tablist"></div>
 <div id="nwL"></div>
 <p class="note" id="nwF" style="margin:12px 0 0">Headlines are collected from public sources and filtered for drivers. The notes about what this means are automatic and general, so always read the original source.</p>
+</div>
 </section>
 <section id="p5" class="hide"><div class="card" id="pv" data-no-translate="true"></div><button class="save" id="pvb">Back</button></section>
 <p class="note" style="text-align:center;margin-top:18px"><a href="#privacy" id="pvl" style="color:var(--mu)">Privacy</a></p>
@@ -660,14 +710,17 @@ function weekPL(all,fxo){
   const cx=can.reduce((o,l)=>{const x=cxv(l);o.r+=x.comp;o.c+=x.cost;return o},{r:0,c:0});
   const vr=Object.keys(vm).map(k=>[k,vm[k]]),vc=sm(vr),fc=sm(fm),oc=od.reduce((t,l)=>t+l.cost,0);
   const rg=sf("gross"),rev=rg+cx.r,tot=vc+fc+oc+cx.c,net=rev-tot,L=sf("L"),Dh=sf("Dh"),M=L+Dh;
-  return{n:a.length,nc:can.length,cr:cx.r,cc:cx.c,cn:cx.r-cx.c,rg,rev,vr,fm,fmM,fmW,fcM,fcW,vc,fc,oc,tot,net,mg:rev?net/rev:0,L,Dh,M,lr:L?rg/L:0,ar:M?rg/M:0,np:M?net/M:0};
+  const drv=vm["Driver pay"]||0;
+  return{drv,n:a.length,nc:can.length,cr:cx.r,cc:cx.c,cn:cx.r-cx.c,rg,rev,vr,fm,fmM,fmW,fcM,fcW,vc,fc,oc,tot,net,mg:rev?net/rev:0,L,Dh,M,lr:L?rg/L:0,ar:M?rg/M:0,np:M?net/M:0};
 }
+const drvOf=P=>P.drv!=null?P.drv:((P.vr||[]).find(x=>x[0]==="Driver pay")||[0,0])[1];
 function secHTML(t,a,u,T){a=a.filter(i=>i[1]>0).sort((x,y)=>y[1]-x[1]);return a.length?'<div class="row sh"><b>'+t+'</b><b>'+$$(u)+'</b></div>'+a.map(([k,q])=>'<div class="row"><span>'+k+'</span><span>'+$$(q)+'</span></div><div class="bk"><i style="width:'+(q/T*100)+'%"></i></div>').join(""):""}
 function wkBK(P){const T=P.tot||1;return secHTML("Variable costs",P.vr,P.vc,T)+secHTML("Monthly costs — weekly equivalent",P.fmM,P.fcM,T)+secHTML("Weekly costs",P.fmW,P.fcW,T)+(P.fc>0?'<div class="row" style="margin-top:14px"><b>Total weekly fixed cost</b><b>'+$$(P.fc)+'</b></div>':'')+(P.oc>0?'<div class="row" style="margin-top:12px"><span>Earlier loads (no breakdown)</span><span>'+$$(P.oc)+'</span></div>':'')+(P.cc>0?'<div class="row" style="margin-top:12px"><span>Cancelled-load costs</span><span>'+$$(P.cc)+'</span></div>':'')}
 function wkTiles(P){
   const c=P.net<0?"var(--orange)":"var(--green)";
-  return '<div class="two" style="margin:12px 0 10px">'+mt("Revenue",$$(P.rev),0,0,"xl")+mt("Net profit",$$(P.net),c,0,"xl")+mt("Profit margin",pc(P.mg))+mt("Total miles",P.M.toLocaleString())+'</div><div class="two">'+mt("Loaded RPM",$$(P.lr,2))+mt("All-mile RPM",$$(P.ar,2),0,1)+mt("Net profit / mile",$$(P.np,2),c,1)+mt("Number of loads",P.n)+'</div><div class="stats">'+stt("Variable costs",$$(P.vc))+stt("Total weekly fixed cost",$$(P.fc))+stt("Total operating cost",$$(P.tot))+stt("Loaded miles",P.L.toLocaleString())+stt("Deadhead miles",P.Dh.toLocaleString())+'</div>'+cxStats(P);
+  return '<div class="two" style="margin:12px 0 10px">'+mt("Revenue",$$(P.rev),0,0,"xl")+mt("Net profit",$$(P.net),c,0,"xl")+mt("Profit margin",pc(P.mg))+mt("Total miles",P.M.toLocaleString())+'</div><div class="two">'+mt("Loaded RPM",$$(P.lr,2))+mt("All-mile RPM",$$(P.ar,2),0,1)+mt("Net profit / mile",$$(P.np,2),c,1)+mt("Number of loads",P.n)+'</div><div class="stats">'+stt("Variable costs",$$(P.vc))+stt("Total weekly fixed cost",$$(P.fc))+stt("Total operating cost",$$(P.tot))+stt("Loaded miles",P.L.toLocaleString())+stt("Deadhead miles",P.Dh.toLocaleString())+'</div>'+drvStats(P)+cxStats(P);
 }
+function drvStats(P){const dv=drvOf(P),tk=dv+P.net;return '<div class="two" style="margin-top:10px">'+mt("Driver earnings",$$(dv),0,1)+mt("Take-home if you drive",$$(tk),tk<0?"var(--orange)":"var(--green)",0)+'</div><p class="note" style="margin:6px 0 0">Take-home = driver pay + net profit, for an owner-operator who drives the truck.</p>'}
 function cxStats(P){if(!P.nc)return"";const c=P.cn<0?"var(--orange)":"var(--green)";return '<div class="sec">Cancelled loads</div><div class="stats">'+stt("Completed loads",P.n)+stt("Cancelled loads",P.nc)+stt("Cancellation revenue",$$(P.cr))+stt("Cancellation cost / loss",$$(P.cc))+'<div><small>Cancellation net</small><b style="color:'+c+'">'+(P.cn>0?"+":"")+$$(P.cn)+'</b></div></div>'}
 function renderWeek(){
   $("c1").classList.toggle("on",!cmode);$("c2").classList.toggle("on",!!cmode);
@@ -924,7 +977,7 @@ function snHTML(sn){
   const P=sn.P,c=P.net<0?"var(--orange)":"var(--green)",vm={};P.vr.forEach(i=>vm[i[0]]=i[1]);
   const T=P.tot||1;
   return '<details class="lc sn wk" data-k="'+sn.start+'" data-id="'+sn.wid+'"'+(opn[sn.wid]?' open':'')+'><summary><div class="lh"><div><b class="u">'+fd(sn.start)+' – '+fdy(sn.end)+'</b><small><span>Archived on</span> <span class="u">'+fdy(sn.at)+'</span></small></div><span class="bd '+(sn.auto?'s-above':'s-ar')+'">'+(sn.auto?emo("✅","Auto archived"):'<span>Archived</span>')+'</span></div><div class="lg l5">'+stt("Gross revenue",$$(P.rev))+'<div><small>Net profit</small><b style="color:'+c+'">'+(P.net>0?"+":"")+$$(P.net)+'</b></div>'+stt("Margin",pc(P.mg))+stt("Total miles",P.M.toLocaleString())+stt("Loads",P.n)+'</div></summary><div class="ld">'+
-  '<div class="sec">Weekly report</div>'+R("Gross revenue",$$(P.rev))+R("Net profit",$$(P.net),c)+R("Profit margin",pc(P.mg))+R("Loaded miles",P.L.toLocaleString())+R("Deadhead miles",P.Dh.toLocaleString())+R("Total miles",P.M.toLocaleString())+(P.rec?R("Actual week miles",P.rec.miles.toLocaleString()):"")+R("Loaded RPM",$$(P.lr,2))+R("All-mile RPM",$$(P.ar,2))+R("Net profit / mile",$$(P.np,2),c)+R("Profit per day (7-day average)",$$(P.pd==null?P.net/7:P.pd))+
+  '<div class="sec">Weekly report</div>'+R("Gross revenue",$$(P.rev))+R("Net profit",$$(P.net),c)+R("Driver earnings",$$(drvOf(P)))+R("Take-home if you drive",$$(drvOf(P)+P.net),drvOf(P)+P.net<0?"var(--orange)":"var(--green)")+R("Profit margin",pc(P.mg))+R("Loaded miles",P.L.toLocaleString())+R("Deadhead miles",P.Dh.toLocaleString())+R("Total miles",P.M.toLocaleString())+(P.rec?R("Actual week miles",P.rec.miles.toLocaleString()):"")+R("Loaded RPM",$$(P.lr,2))+R("All-mile RPM",$$(P.ar,2))+R("Net profit / mile",$$(P.np,2),c)+R("Profit per day (7-day average)",$$(P.pd==null?P.net/7:P.pd))+
   '<div class="sec">Variable costs</div>'+VN.map(k=>R(k,$$(vm[k]||0))).join("")+R("Total variable costs",$$(P.vc))+
   '<div class="sec">Fixed costs</div>'+R("Weekly fixed costs",$$(P.fcW))+R("Monthly costs — weekly equivalent",$$(P.fcM))+R("Total weekly fixed cost",$$(P.fc))+(P.rec?R("Actual fixed cost per mile",$$(P.rec.pm,4)):"")+(P.oc>0?R("Earlier loads (no breakdown)",$$(P.oc)):"")+
   '<div class="row" style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px"><span>Total operating cost</span><b style="font-size:18px">'+$$(P.tot)+'</b></div>'+R("Number of loads",P.n)+(P.nc?R("Completed loads",P.n)+R("Cancelled loads",P.nc)+R("Cancellation revenue",$$(P.cr))+R("Cancellation cost / loss",$$(P.cc))+R("Cancellation net",(P.cn>0?"+":"")+$$(P.cn),P.cn<0?"var(--orange)":"var(--green)"):"")+
@@ -954,7 +1007,7 @@ function renderLoads(){
   }).join("");
 }
 function repText(P,a,w,e){
-  return fd(w)+" - "+fdy(e)+"\nRevenue "+$$(P.rev)+" | Variable "+$$(P.vc)+" | Fixed "+$$(P.fc)+" | Total cost "+$$(P.tot)+"\nNet "+$$(P.net)+" | Margin "+pc(P.mg)+" | Loads "+P.n+(P.nc?" | Cancelled "+P.nc+" | Cancellation net "+$$(P.cn):"")+"\nMiles: loaded "+P.L.toLocaleString()+", deadhead "+P.Dh.toLocaleString()+", total "+P.M.toLocaleString()+"\nRPM: loaded "+$$(P.lr,2)+" | all-mile "+$$(P.ar,2)+" | net/mile "+$$(P.np,2)+"\n"+a.map(l=>l.cancelled?"- "+fd(l.date)+" "+l.name+": CANCELLED "+$$(cxv(l).net):"- "+fd(l.date)+" "+l.name+": "+$$(l.fnet!=null?l.fnet:l.net)+" ("+l.M.toLocaleString()+" mi)").join("\n");
+  return fd(w)+" - "+fdy(e)+"\nRevenue "+$$(P.rev)+" | Variable "+$$(P.vc)+" | Fixed "+$$(P.fc)+" | Total cost "+$$(P.tot)+"\nNet "+$$(P.net)+" | Driver pay "+$$(drvOf(P))+" | Take-home "+$$(drvOf(P)+P.net)+" | Margin "+pc(P.mg)+" | Loads "+P.n+(P.nc?" | Cancelled "+P.nc+" | Cancellation net "+$$(P.cn):"")+"\nMiles: loaded "+P.L.toLocaleString()+", deadhead "+P.Dh.toLocaleString()+", total "+P.M.toLocaleString()+"\nRPM: loaded "+$$(P.lr,2)+" | all-mile "+$$(P.ar,2)+" | net/mile "+$$(P.np,2)+"\n"+a.map(l=>l.cancelled?"- "+fd(l.date)+" "+l.name+": CANCELLED "+$$(cxv(l).net):"- "+fd(l.date)+" "+l.name+": "+$$(l.fnet!=null?l.fnet:l.net)+" ("+l.M.toLocaleString()+" mi)").join("\n");
 }
 function shareIt(k){
   let t;
@@ -971,7 +1024,7 @@ function snExport(k){
   const sn=snaps.find(x=>x.start===k);if(!sn)return;const P=sn.P,vm={};P.vr.forEach(i=>vm[i[0]]=i[1]);
   const q=x=>{x=String(x);if(/^[=+\-@]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'};
   const f=v=>(+v).toFixed(2);
-  const L=[["Week ID",sn.wid],["Archived",sn.at.slice(0,10)+(sn.auto?" (auto)":" (manual)")],["Gross revenue",f(P.rev)],["Net profit",f(P.net)],["Profit margin %",(P.mg*100).toFixed(1)],["Loaded miles",P.L],["Deadhead miles",P.Dh],["Total miles",P.M],["Actual week miles",P.rec?P.rec.miles:""],["Actual fixed cost per mile",P.rec?P.rec.pm.toFixed(4):""],["Reconciliation",P.rec?"reconciled":P.legacy?"legacy (unreconciled)":""],["Loaded RPM",f(P.lr)],["All-mile RPM",f(P.ar)],["Net profit per mile",f(P.np)],["Profit per day (7-day avg)",f(P.pd==null?P.net/7:P.pd)]].concat(VN.map(x=>[x,f(vm[x]||0)]),[["Weekly fixed costs",f(P.fcW)],["Monthly fixed costs (weekly equivalent)",f(P.fcM)],["Total weekly fixed cost",f(P.fc)],["Total operating cost",f(P.tot)],["Number of loads",P.n],["Completed loads",P.n],["Cancelled loads",P.nc||0],["Cancellation revenue",f(P.cr||0)],["Cancellation cost",f(P.cc||0)],["Cancellation net",f(P.cn||0)]]);
+  const L=[["Week ID",sn.wid],["Archived",sn.at.slice(0,10)+(sn.auto?" (auto)":" (manual)")],["Gross revenue",f(P.rev)],["Net profit",f(P.net)],["Driver earnings",f(drvOf(P))],["Take-home if you drive (driver pay + net)",f(drvOf(P)+P.net)],["Profit margin %",(P.mg*100).toFixed(1)],["Loaded miles",P.L],["Deadhead miles",P.Dh],["Total miles",P.M],["Actual week miles",P.rec?P.rec.miles:""],["Actual fixed cost per mile",P.rec?P.rec.pm.toFixed(4):""],["Reconciliation",P.rec?"reconciled":P.legacy?"legacy (unreconciled)":""],["Loaded RPM",f(P.lr)],["All-mile RPM",f(P.ar)],["Net profit per mile",f(P.np)],["Profit per day (7-day avg)",f(P.pd==null?P.net/7:P.pd)]].concat(VN.map(x=>[x,f(vm[x]||0)]),[["Weekly fixed costs",f(P.fcW)],["Monthly fixed costs (weekly equivalent)",f(P.fcM)],["Total weekly fixed cost",f(P.fc)],["Total operating cost",f(P.tot)],["Number of loads",P.n],["Completed loads",P.n],["Cancelled loads",P.nc||0],["Cancellation revenue",f(P.cr||0)],["Cancellation cost",f(P.cc||0)],["Cancellation net",f(P.cn||0)]]);
   const t=L.map(r=>q(r[0])+","+q(r[1])).join("\n")+"\n\ndate,name,revenue,est_cost,est_net,loaded_mi,deadhead_mi,total_mi,variable_cost,final_fixed_share,final_cost,final_net,load_status,booked_gross,cancellation_type,cancellation_compensation,cancellation_cost,cancellation_net,cancellation_note\n"+sn.loads.slice().sort((a,b)=>a.date<b.date?-1:1).map(l=>{const x=l.cancelled?cxv(l):null;return [l.date,q(l.name),f(x?x.comp:l.gross),f(l.cost),f(l.net),l.L,l.Dh,l.M,x?"":l.vcost!=null?f(l.vcost):"",x?"":l.ffix!=null?f(l.ffix):"",x?f(x.cost):l.fcost!=null?f(l.fcost):"",x?f(x.net):l.fnet!=null?f(l.fnet):"",l.cancelled?"cancelled":"completed",f(l.gross),x?l.cancelType||"":"",x?f(x.comp):"",x?f(x.cost):"",x?f(x.net):"",x?q(l.cancelNote||""):""].join(",")}).join("\n");
   $("csv").value=t;$("csv").classList.remove("hide");
   try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-week-"+sn.start+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
@@ -1024,7 +1077,36 @@ $("ex").onclick=()=>{
   $("csv").value=t;$("csv").classList.remove("hide");
   try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="truck-loads-"+iso(new Date())+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}
 };
-const RAW=`Market rate per mile|Tarifa de mercado por milla|نرخ بازار برای هر مایل
+const RAW=`Driver earnings this week|Ingresos del conductor esta semana|درآمد راننده در این هفته
+Take-home if you drive your own truck|Lo que te llevas si manejas tu propio camión|درآمد خالص اگر خودت رانندگی کنی
+Driver pay + net profit|Pago de conductor + ganancia neta|دستمزد راننده + سود خالص
+Driver earnings|Ingresos del conductor|درآمد راننده
+Take-home if you drive|Lo que te llevas si manejas|درآمد خالص اگر خودت برانی
+Take-home = driver pay + net profit, for an owner-operator who drives the truck.|Lo que te llevas = pago de conductor + ganancia neta, para un owner-operator que maneja su camión.|درآمد خالص = دستمزد راننده + سود خالص، برای Owner-Operatorی که خودش رانندگی می‌کند.
+From the driver pay per mile in your saved loads. Change it in Inputs.|Según el pago por milla del conductor en tus cargas guardadas. Cámbialo en Datos.|بر اساس دستمزد راننده به‌ازای هر مایل در بارهای ذخیره‌شده. در Inputs قابل تغییر است.
+Weekly market report|Informe semanal del mercado|گزارش هفتگی بازار
+Week of|Semana del|هفته‌ی
+Spot rates|Tarifas spot|نرخ اسپات
+per mile, recent weeks|por milla, últimas semanas|در هر مایل، هفته‌های اخیر
+Linehaul only, no fuel surcharge. National averages from DAT.|Solo linehaul, sin recargo de combustible. Promedios nacionales de DAT.|فقط linehaul، بدون هزینه‌ی سوخت. میانگین ملی از DAT.
+No spot rate data yet. Tap Refresh, or check back after DAT's weekly report.|Aún no hay datos de tarifas spot. Toca Actualizar o vuelve después del informe semanal de DAT.|هنوز داده‌ی نرخ اسپات نیست. «به‌روزرسانی» را بزن یا بعد از گزارش هفتگی DAT دوباره سر بزن.
+Diesel|Diésel|دیزل
+U.S. average, per gallon, from EIA.|Promedio de EE. UU., por galón, de EIA.|میانگین آمریکا، هر گالن، از EIA.
+Last 12 weeks|Últimas 12 semanas|۱۲ هفته‌ی اخیر
+By region|Por región|بر اساس منطقه
+No diesel data yet.|Aún no hay datos de diésel.|هنوز داده‌ی دیزل نیست.
+What it means for you|Qué significa para ti|برای تو چه معنایی دارد
+Per loaded mile|Por milla cargada|برای هر مایل بار
+Your break-even|Tu punto de equilibrio|نقطه‌ی سربه‌سر تو
+Market + your fuel|Mercado + tu combustible|بازار + سوخت تو
+Your rate|Tu tarifa|نرخ تو
+Based on the load in Inputs and your settings (MPG, miles per week). Estimates only.|Basado en la carga de Datos y tu configuración (MPG, millas por semana). Solo estimaciones.|بر اساس باری که در Inputs است و تنظیمات تو (MPG، مایل در هفته). فقط تخمین است.
+Your weekly profit|Tu ganancia semanal|سود هفتگی تو
+Regulations|Regulaciones|قوانین
+No new rules this week.|No hay reglas nuevas esta semana.|این هفته قانون تازه‌ای نیست.
+Tip for this week|Consejo de la semana|پیشنهاد این هفته
+Sources: DAT (spot rates), EIA (diesel), Federal Register (rules). Your numbers come from your own loads and settings.|Fuentes: DAT (tarifas spot), EIA (diésel), Federal Register (reglas). Tus cifras salen de tus propias cargas y configuración.|منابع: DAT (نرخ اسپات)، EIA (دیزل)، Federal Register (قوانین). اعداد مربوط به تو از بارها و تنظیمات خودت می‌آید.
+Market rate per mile|Tarifa de mercado por milla|نرخ بازار برای هر مایل
 Spot rate, national average. Found automatically in published freight reports, so it can be a few days old and may include fuel surcharge.|Tarifa spot, promedio nacional. Se encuentra automáticamente en reportes de carga publicados, así que puede tener algunos días y puede incluir recargo por combustible.|نرخ spot، میانگین ملی. به‌صورت خودکار از گزارش‌های منتشرشده‌ی بازار بار استخراج می‌شود، پس ممکن است چند روز قدیمی باشد و شامل هزینه‌ی سوخت (fuel surcharge) هم باشد.
 Dry van|Dry van|Dry van
 Reefer|Reefer|Reefer
@@ -1382,7 +1464,36 @@ Target profit margin|Margen de ganancia meta|حاشیهٔ سود هدف
 ~/wk|/sem|/هفته`;
 const TR={es:{},fa:{},tr:{},ru:{},uz:{}},FR=[];
 RAW.split("\n").forEach(r=>{const f=r.split("|");let k=f[0];const fr=k[0]==="~";if(fr)k=k.slice(1);TR.es[k]=f[1];TR.fa[k]=f[2];if(fr)FR.push(k)});
-const RAW2=`Market rate per mile|Mil başına piyasa ücreti|Рыночная ставка за милю|Bozor narxi (mil uchun)
+const RAW2=`Driver earnings this week|Bu hafta sürücü kazancı|Заработок водителя за неделю|Bu hafta haydovchi daromadi
+Take-home if you drive your own truck|Kendi kamyonunuzu sürüyorsanız elinize geçen|На руки, если сами водите свой трак|O‘z mashinangizni haydasangiz qo‘lga tegadigani
+Driver pay + net profit|Sürücü ücreti + net kâr|Оплата водителя + чистая прибыль|Haydovchi haqi + sof foyda
+Driver earnings|Sürücü kazancı|Заработок водителя|Haydovchi daromadi
+Take-home if you drive|Sürüyorsanız elinize geçen|На руки, если водите сами|O‘zingiz haydasangiz qo‘lga tegadigani
+Take-home = driver pay + net profit, for an owner-operator who drives the truck.|Elinize geçen = sürücü ücreti + net kâr; kamyonu kendisi süren owner-operator için.|На руки = оплата водителя + чистая прибыль, для owner-operator, который сам водит трак.|Qo‘lga tegadigani = haydovchi haqi + sof foyda, mashinani o‘zi haydaydigan owner-operator uchun.
+From the driver pay per mile in your saved loads. Change it in Inputs.|Kayıtlı yüklerinizdeki mil başına sürücü ücretinden. Girdiler'den değiştirin.|По оплате водителя за милю в сохранённых грузах. Изменить можно во вкладке «Данные».|Saqlangan yuklardagi mil uchun haydovchi haqidan. Ma’lumotlar bo‘limida o‘zgartiring.
+Weekly market report|Haftalık piyasa raporu|Недельный обзор рынка|Haftalik bozor hisoboti
+Week of|Hafta:|Неделя с|Hafta:
+Spot rates|Spot ücretler|Спотовые ставки|Spot narxlar
+per mile, recent weeks|mil başına, son haftalar|за милю, последние недели|mil uchun, so‘nggi haftalar
+Linehaul only, no fuel surcharge. National averages from DAT.|Yalnızca linehaul, yakıt ek ücreti yok. DAT ulusal ortalamaları.|Только linehaul, без топливной надбавки. Средние по стране от DAT.|Faqat linehaul, yoqilg‘i qo‘shimchasisiz. DAT milliy o‘rtachalari.
+No spot rate data yet. Tap Refresh, or check back after DAT's weekly report.|Henüz spot ücret verisi yok. Yenile'ye dokunun ya da DAT'in haftalık raporundan sonra tekrar bakın.|Данных о спотовых ставках пока нет. Нажмите «Обновить» или загляните после недельного отчёта DAT.|Hozircha spot narx ma’lumoti yo‘q. Yangilash tugmasini bosing yoki DAT haftalik hisobotidan keyin qayta qarang.
+Diesel|Dizel|Дизель|Dizel
+U.S. average, per gallon, from EIA.|ABD ortalaması, galon başına, EIA verisi.|Среднее по США за галлон, данные EIA.|AQSh o‘rtachasi, gallon uchun, EIA ma’lumoti.
+Last 12 weeks|Son 12 hafta|Последние 12 недель|So‘nggi 12 hafta
+By region|Bölgeye göre|По регионам|Mintaqa bo‘yicha
+No diesel data yet.|Henüz dizel verisi yok.|Данных о дизеле пока нет.|Hozircha dizel ma’lumoti yo‘q.
+What it means for you|Sizin için anlamı|Что это значит для вас|Siz uchun nimani anglatadi
+Per loaded mile|Yüklü mil başına|За гружёную милю|Yukli mil uchun
+Your break-even|Başa baş noktanız|Ваша безубыточность|Zararsizlik nuqtangiz
+Market + your fuel|Piyasa + yakıtınız|Рынок + ваше топливо|Bozor + yoqilg‘ingiz
+Your rate|Ücretiniz|Ваша ставка|Narxingiz
+Based on the load in Inputs and your settings (MPG, miles per week). Estimates only.|Girdiler'deki yüke ve ayarlarınıza (MPG, haftalık mil) göre. Yalnızca tahmindir.|На основе груза во вкладке «Данные» и ваших настроек (MPG, мили в неделю). Только оценка.|Ma’lumotlar bo‘limidagi yuk va sozlamalaringiz (MPG, haftalik mil) asosida. Faqat taxmin.
+Your weekly profit|Haftalık kârınız|Ваша недельная прибыль|Haftalik foydangiz
+Regulations|Düzenlemeler|Регулирование|Qoidalar
+No new rules this week.|Bu hafta yeni kural yok.|На этой неделе новых правил нет.|Bu hafta yangi qoida yo‘q.
+Tip for this week|Bu haftanın ipucu|Совет недели|Hafta maslahati
+Sources: DAT (spot rates), EIA (diesel), Federal Register (rules). Your numbers come from your own loads and settings.|Kaynaklar: DAT (spot ücretler), EIA (dizel), Federal Register (kurallar). Sizin rakamlarınız kendi yüklerinizden ve ayarlarınızdan gelir.|Источники: DAT (спотовые ставки), EIA (дизель), Federal Register (правила). Ваши цифры — из ваших грузов и настроек.|Manbalar: DAT (spot narxlar), EIA (dizel), Federal Register (qoidalar). Sizning raqamlaringiz o‘z yuklaringiz va sozlamalaringizdan olinadi.
+Market rate per mile|Mil başına piyasa ücreti|Рыночная ставка за милю|Bozor narxi (mil uchun)
 Spot rate, national average. Found automatically in published freight reports, so it can be a few days old and may include fuel surcharge.|Spot ücret, ulusal ortalama. Yayımlanmış yük raporlarından otomatik bulunur; birkaç gün eski olabilir ve yakıt ek ücretini içerebilir.|Спотовая ставка, среднее по стране. Находится автоматически в опубликованных отчётах, поэтому может быть устаревшей на несколько дней и включать топливную надбавку.|Spot narx, mamlakat bo‘yicha o‘rtacha. Nashr etilgan yuk hisobotlaridan avtomatik topiladi, shuning uchun bir necha kun eski bo‘lishi va yoqilg‘i qo‘shimchasini o‘z ichiga olishi mumkin.
 Dry van|Dry van|Dry van|Dry van
 Reefer|Reefer|Reefer|Reefer
@@ -1820,6 +1931,7 @@ function renderDash(){
     const nt=(P.net>0?"+":"")+$$(P.net);setT($("wNet"),nt);$("wNet").style.color=P.net<0?"var(--orange)":"var(--green)";
     setT($("wMg"),pc(P.mg));$("wGr").textContent=$$(P.rev);$("wCo").textContent=$$(P.tot);
     const base=Math.max(P.rev,P.tot,1);setBar("wbG",P.rev/base*100);setBar("wbC",P.tot/base*100);setBar("wbN",Math.max(P.net,0)/base*100);
+    {const dv=drvOf(P),tk=dv+P.net;setT($("wDr"),$$(dv));setT($("wTk"),$$(tk));$("wTk").style.color=tk<0?"var(--orange)":"var(--green)"}
     $("wvG").textContent=$$(P.rev);$("wvC").textContent=$$(P.tot);$("wvN").textContent=nt;$("wrN").classList.toggle("ng",P.net<0);
   }
 }
@@ -1860,7 +1972,7 @@ async function newsLoad(force){
     const r=await fetch(SB_URL+"/functions/v1/news",{signal:ac.signal,headers:{apikey:SB_KEY}});
     if(!r.ok)throw new Error("news "+r.status);
     const j=await r.json();if(!j||!Array.isArray(j.items))throw new Error("bad");
-    nw={at:Date.now(),items:j.items.filter(x=>x&&NW_CATS[x.cat]&&/^https?:\/\//.test(x.url||"")).slice(0,80),market:(j.market&&typeof j.market==="object")?j.market:{}};
+    nw={at:Date.now(),items:j.items.filter(x=>x&&NW_CATS[x.cat]&&/^https?:\/\//.test(x.url||"")).slice(0,80),market:(j.market&&typeof j.market==="object")?j.market:{},briefing:(j.briefing&&typeof j.briefing==="object")?j.briefing:null};
     try{localStorage.setItem("tpnews",JSON.stringify(nw))}catch(e){}
   }catch(e){nwFail=true}finally{clearTimeout(t);nwBusy=false;renderNews()}
 }
@@ -1888,8 +2000,200 @@ function mkHTML(){
   '<details class="mkx"'+(mkOpen?' open':'')+'><summary>Enter market rates yourself</summary><div class="two" style="margin-top:8px">'+MK_EQ.map(([k,lb])=>'<div class="cxf"><span>'+lb+'</span><div class="in" style="width:auto"><span class="u">$</span><input type="number" inputmode="decimal" min="0" step="0.01" data-mk="'+k+'" value="'+(parseFloat(mkU[k])>0?mkU[k]:"")+'" style="text-align:left"></div></div>').join("")+'</div></details>';
 }
 
+
+/* ---------- weekly market report ---------- */
+let nwView="rep",brEq="van";
+try{nwView=localStorage.getItem("tpnwv")==="news"?"news":"rep";brEq=["van","reefer","flatbed"].includes(localStorage.getItem("tpeq"))?localStorage.getItem("tpeq"):"van"}catch(e){}
+let brH={d:{},s:{van:{},reefer:{},flatbed:{}}};try{const h=JSON.parse(localStorage.getItem("tphist")||"null");if(h&&h.d&&h.s)brH=h}catch(e){}
+const BR_EQ={van:"Dry van",reefer:"Reefer",flatbed:"Flatbed"};
+const BRT={
+en:{d_tk:"If you drive your own truck, your take-home last week (driver pay + net profit) was about {x}.",h_ud:"Rates up, diesel down: a better week for carriers.",h_uu:"Rates and diesel both rose. Check that the higher rates cover your fuel.",h_dd:"Rates and diesel both fell. Cheaper fuel softens the weaker rates.",h_du:"Rates down, diesel up: a tough week. Protect your margin.",h_x:"Here is this week's market at a glance.",
+s_spot:"{eq} spot averaged {r}/mi (linehaul, no fuel), {c} vs last week.",s_dsl:"U.S. diesel averaged {d}/gal, {c} vs last week.",
+i_dd:"Diesel fell {c}¢ a gallon. At {mi} miles a week and {mpg} MPG, that saves you about {x} a week.",i_du:"Diesel rose {c}¢ a gallon. At {mi} miles a week and {mpg} MPG, that costs you about {x} more a week.",
+i_ru:"{eq} spot rates rose {c}¢ a mile. On about {mi} loaded miles a week, that is about {x} more a week, before fees.",i_rd:"{eq} spot rates fell {c}¢ a mile. On about {mi} loaded miles a week, that is about {x} less a week, before fees.",i_rf:"{eq} spot rates did not change this week.",
+i_ga:"At the market average plus your own fuel cost, {eq} pays about {m}/mi: {g} above your break-even of {be}/mi.",i_gb:"At the market average plus your own fuel cost, {eq} pays about {m}/mi: {g} below your break-even of {be}/mi.",i_nl:"Enter a load in Inputs to compare the market with your break-even.",
+w_tr:"Your last week: net {x}, {d} vs the week before.",w_one:"Your last week: net {x}.",w_no:"Save loads to see your weekly profit here.",
+t_b:"At the market average, {eq} spot loads do not cover your costs. Ask for at least {be}/mi plus fuel, or look for better lanes and contract freight.",t_a:"The market average covers your break-even of {be}/mi. Don't accept less than that, and always count deadhead to the next load.",t_f:"Compare offers using the full rate with fuel surcharge, and check the price at the pump after discounts."},
+es:{d_tk:"Si manejas tu propio camión, lo que te llevaste la semana pasada (pago de conductor + ganancia neta) fue de unos {x}.",h_ud:"Tarifas arriba, diésel abajo: una mejor semana para los transportistas.",h_uu:"Subieron las tarifas y el diésel. Verifica que las tarifas más altas cubran tu combustible.",h_dd:"Bajaron las tarifas y el diésel. El combustible más barato suaviza las tarifas más bajas.",h_du:"Tarifas abajo, diésel arriba: una semana difícil. Protege tu margen.",h_x:"Así está el mercado esta semana.",
+s_spot:"El spot de {eq} promedió {r}/mi (linehaul, sin combustible), {c} vs la semana pasada.",s_dsl:"El diésel en EE. UU. promedió {d}/gal, {c} vs la semana pasada.",
+i_dd:"El diésel bajó {c}¢ por galón. Con {mi} millas por semana y {mpg} MPG, ahorras unos {x} por semana.",i_du:"El diésel subió {c}¢ por galón. Con {mi} millas por semana y {mpg} MPG, te cuesta unos {x} más por semana.",
+i_ru:"Las tarifas spot de {eq} subieron {c}¢ por milla. Con unas {mi} millas cargadas por semana, son unos {x} más por semana, antes de comisiones.",i_rd:"Las tarifas spot de {eq} bajaron {c}¢ por milla. Con unas {mi} millas cargadas por semana, son unos {x} menos por semana, antes de comisiones.",i_rf:"Las tarifas spot de {eq} no cambiaron esta semana.",
+i_ga:"Con el promedio del mercado más tu propio costo de combustible, {eq} paga unos {m}/mi: {g} por encima de tu punto de equilibrio de {be}/mi.",i_gb:"Con el promedio del mercado más tu propio costo de combustible, {eq} paga unos {m}/mi: {g} por debajo de tu punto de equilibrio de {be}/mi.",i_nl:"Ingresa una carga en Datos para comparar el mercado con tu punto de equilibrio.",
+w_tr:"Tu última semana: neto {x}, {d} vs la semana anterior.",w_one:"Tu última semana: neto {x}.",w_no:"Guarda cargas para ver aquí tu ganancia semanal.",
+t_b:"Al promedio del mercado, las cargas spot de {eq} no cubren tus costos. Pide al menos {be}/mi más combustible, o busca mejores rutas y carga por contrato.",t_a:"El promedio del mercado cubre tu punto de equilibrio de {be}/mi. No aceptes menos y cuenta siempre las millas vacías hasta la siguiente carga.",t_f:"Compara ofertas con la tarifa completa con recargo de combustible y revisa el precio en la bomba después de descuentos."},
+fa:{d_tk:"اگر خودت راننده‌ی کامیون خودت باشی، درآمد واقعی هفته‌ی گذشته‌ات (دستمزد راننده + سود خالص) حدود {x} بود.",h_ud:"نرخ‌ها بالا، دیزل پایین: هفته‌ی بهتری برای حمل‌کننده‌ها.",h_uu:"هم نرخ‌ها و هم دیزل بالا رفتند. مطمئن شو نرخ بالاتر هزینه‌ی سوختت را پوشش می‌دهد.",h_dd:"هم نرخ‌ها و هم دیزل پایین آمدند. سوخت ارزان‌تر افت نرخ را کمی جبران می‌کند.",h_du:"نرخ‌ها پایین، دیزل بالا: هفته‌ی سختی است. مراقب حاشیه‌ی سودت باش.",h_x:"خلاصه‌ی بازار این هفته.",
+s_spot:"میانگین نرخ اسپات {eq} {r} در مایل بود (linehaul، بدون سوخت)؛ {c} نسبت به هفته‌ی قبل.",s_dsl:"میانگین دیزل آمریکا {d} در گالن بود؛ {c} نسبت به هفته‌ی قبل.",
+i_dd:"دیزل {c} سنت در هر گالن ارزان شد. با {mi} مایل در هفته و مصرف {mpg} MPG، حدود {x} در هفته صرفه‌جویی می‌کنی.",i_du:"دیزل {c} سنت در هر گالن گران شد. با {mi} مایل در هفته و مصرف {mpg} MPG، حدود {x} در هفته بیشتر خرج می‌کنی.",
+i_ru:"نرخ اسپات {eq} {c} سنت در مایل بالا رفت. با حدود {mi} مایل بار در هفته، یعنی حدود {x} بیشتر در هفته، قبل از کارمزدها.",i_rd:"نرخ اسپات {eq} {c} سنت در مایل پایین آمد. با حدود {mi} مایل بار در هفته، یعنی حدود {x} کمتر در هفته، قبل از کارمزدها.",i_rf:"نرخ اسپات {eq} این هفته تغییری نکرد.",
+i_ga:"با میانگین بازار به‌اضافه‌ی هزینه‌ی سوخت خودت، {eq} حدود {m} در مایل می‌دهد؛ {g} بالاتر از نقطه‌ی سربه‌سر تو ({be} در مایل).",i_gb:"با میانگین بازار به‌اضافه‌ی هزینه‌ی سوخت خودت، {eq} حدود {m} در مایل می‌دهد؛ {g} پایین‌تر از نقطه‌ی سربه‌سر تو ({be} در مایل).",i_nl:"یک بار در Inputs وارد کن تا بازار با نقطه‌ی سربه‌سرت مقایسه شود.",
+w_tr:"هفته‌ی گذشته‌ی تو: سود خالص {x}؛ {d} نسبت به هفته‌ی قبلش.",w_one:"هفته‌ی گذشته‌ی تو: سود خالص {x}.",w_no:"بارها را ذخیره کن تا سود هفتگی‌ات اینجا دیده شود.",
+t_b:"با میانگین بازار، بارهای اسپات {eq} هزینه‌هایت را پوشش نمی‌دهند. حداقل {be} در مایل به‌اضافه‌ی سوخت بخواه، یا دنبال مسیرهای بهتر و بار قراردادی باش.",t_a:"میانگین بازار نقطه‌ی سربه‌سر تو ({be} در مایل) را پوشش می‌دهد. کمتر از این قبول نکن و همیشه مایل خالی تا بار بعدی را حساب کن.",t_f:"پیشنهادها را با نرخ کامل همراه fuel surcharge مقایسه کن و قیمت پمپ را بعد از تخفیف ببین."},
+tr:{d_tk:"Kendi kamyonunuzu kendiniz sürüyorsanız, geçen hafta elinize geçen (sürücü ücreti + net kâr) yaklaşık {x} oldu.",h_ud:"Ücretler yukarı, dizel aşağı: taşıyıcılar için daha iyi bir hafta.",h_uu:"Ücretler de dizel de yükseldi. Yüksek ücretlerin yakıtınızı karşıladığından emin olun.",h_dd:"Ücretler de dizel de düştü. Ucuz yakıt düşük ücretleri biraz dengeliyor.",h_du:"Ücretler aşağı, dizel yukarı: zor bir hafta. Marjınızı koruyun.",h_x:"Bu haftanın piyasası bir bakışta.",
+s_spot:"{eq} spot ortalaması {r}/mil (linehaul, yakıtsız), geçen haftaya göre {c}.",s_dsl:"ABD dizel ortalaması {d}/galon, geçen haftaya göre {c}.",
+i_dd:"Dizel galon başına {c}¢ düştü. Haftada {mi} mil ve {mpg} MPG ile haftada yaklaşık {x} tasarruf edersiniz.",i_du:"Dizel galon başına {c}¢ arttı. Haftada {mi} mil ve {mpg} MPG ile haftada yaklaşık {x} fazla harcarsınız.",
+i_ru:"{eq} spot ücretleri mil başına {c}¢ arttı. Haftada yaklaşık {mi} yüklü mil ile kesintilerden önce haftada yaklaşık {x} fazla.",i_rd:"{eq} spot ücretleri mil başına {c}¢ düştü. Haftada yaklaşık {mi} yüklü mil ile kesintilerden önce haftada yaklaşık {x} az.",i_rf:"{eq} spot ücretleri bu hafta değişmedi.",
+i_ga:"Piyasa ortalaması artı kendi yakıt maliyetinizle {eq} yaklaşık {m}/mil öder: başa baş noktanız olan {be}/milin {g} üstünde.",i_gb:"Piyasa ortalaması artı kendi yakıt maliyetinizle {eq} yaklaşık {m}/mil öder: başa baş noktanız olan {be}/milin {g} altında.",i_nl:"Piyasayı başa baş noktanızla karşılaştırmak için Girdiler'e bir yük girin.",
+w_tr:"Geçen haftanız: net {x}, önceki haftaya göre {d}.",w_one:"Geçen haftanız: net {x}.",w_no:"Haftalık kârınızı burada görmek için yük kaydedin.",
+t_b:"Piyasa ortalamasında {eq} spot yükleri maliyetlerinizi karşılamıyor. En az {be}/mil artı yakıt isteyin ya da daha iyi güzergâh ve sözleşmeli yük arayın.",t_a:"Piyasa ortalaması {be}/mil olan başa baş noktanızı karşılıyor. Daha azını kabul etmeyin ve bir sonraki yüke boş mili hep hesaba katın.",t_f:"Teklifleri yakıt ek ücreti dahil tam ücretle karşılaştırın ve indirim sonrası pompa fiyatına bakın."},
+ru:{d_tk:"Если вы сами водите свой трак, ваш доход на руки за прошлую неделю (оплата водителя + чистая прибыль) — около {x}.",h_ud:"Ставки выросли, дизель подешевел: неделя лучше для перевозчиков.",h_uu:"Выросли и ставки, и дизель. Проверьте, покрывают ли новые ставки топливо.",h_dd:"Упали и ставки, и дизель. Дешёвое топливо смягчает падение ставок.",h_du:"Ставки вниз, дизель вверх: тяжёлая неделя. Берегите маржу.",h_x:"Рынок этой недели вкратце.",
+s_spot:"Спот {eq} в среднем {r}/миля (linehaul, без топлива), {c} к прошлой неделе.",s_dsl:"Дизель в США в среднем {d}/галлон, {c} к прошлой неделе.",
+i_dd:"Дизель подешевел на {c}¢ за галлон. При {mi} милях в неделю и {mpg} MPG вы экономите около {x} в неделю.",i_du:"Дизель подорожал на {c}¢ за галлон. При {mi} милях в неделю и {mpg} MPG это около {x} лишних расходов в неделю.",
+i_ru:"Спотовые ставки {eq} выросли на {c}¢ за милю. При ~{mi} гружёных милях в неделю это около {x} больше в неделю до комиссий.",i_rd:"Спотовые ставки {eq} упали на {c}¢ за милю. При ~{mi} гружёных милях в неделю это около {x} меньше в неделю до комиссий.",i_rf:"Спотовые ставки {eq} на этой неделе не изменились.",
+i_ga:"Средняя рыночная ставка плюс ваш расход на топливо: {eq} платит около {m}/миля — на {g} выше вашей безубыточности {be}/миля.",i_gb:"Средняя рыночная ставка плюс ваш расход на топливо: {eq} платит около {m}/миля — на {g} ниже вашей безубыточности {be}/миля.",i_nl:"Введите груз во вкладке «Данные», чтобы сравнить рынок с вашей безубыточностью.",
+w_tr:"Ваша прошлая неделя: чистыми {x}, {d} к неделе до неё.",w_one:"Ваша прошлая неделя: чистыми {x}.",w_no:"Сохраняйте грузы, чтобы видеть здесь недельную прибыль.",
+t_b:"По средней рыночной ставке спотовые грузы {eq} не покрывают ваши расходы. Просите минимум {be}/миля плюс топливо или ищите лучшие направления и контрактные грузы.",t_a:"Средняя ставка рынка покрывает вашу безубыточность {be}/миля. Не соглашайтесь на меньшее и всегда считайте холостой пробег до следующего груза.",t_f:"Сравнивайте предложения по полной ставке с топливной надбавкой и проверяйте цену на колонке после скидок."},
+uz:{d_tk:"Agar o‘z mashinangizni o‘zingiz haydasangiz, o‘tgan haftadagi qo‘lingizga tushgan pul (haydovchi haqi + sof foyda) taxminan {x} bo‘ldi.",h_ud:"Narxlar oshdi, dizel arzonladi: tashuvchilar uchun yaxshiroq hafta.",h_uu:"Narxlar ham, dizel ham oshdi. Yuqori narxlar yoqilg‘ini qoplashini tekshiring.",h_dd:"Narxlar ham, dizel ham tushdi. Arzon yoqilg‘i past narxlarni yumshatadi.",h_du:"Narxlar pasaydi, dizel qimmatladi: og‘ir hafta. Marjangizni himoya qiling.",h_x:"Bu haftaning bozori qisqacha.",
+s_spot:"{eq} spot o‘rtacha {r}/mil (linehaul, yoqilg‘isiz), o‘tgan haftaga nisbatan {c}.",s_dsl:"AQSh dizeli o‘rtacha {d}/gallon, o‘tgan haftaga nisbatan {c}.",
+i_dd:"Dizel gallon uchun {c}¢ arzonladi. Haftasiga {mi} mil va {mpg} MPG bilan haftasiga taxminan {x} tejaysiz.",i_du:"Dizel gallon uchun {c}¢ qimmatladi. Haftasiga {mi} mil va {mpg} MPG bilan haftasiga taxminan {x} ko‘proq sarflaysiz.",
+i_ru:"{eq} spot narxlari mil uchun {c}¢ oshdi. Haftasiga taxminan {mi} yukli mil bilan bu to‘lovlardan oldin haftasiga taxminan {x} ko‘proq.",i_rd:"{eq} spot narxlari mil uchun {c}¢ tushdi. Haftasiga taxminan {mi} yukli mil bilan bu to‘lovlardan oldin haftasiga taxminan {x} kamroq.",i_rf:"{eq} spot narxlari bu hafta o‘zgarmadi.",
+i_ga:"Bozor o‘rtachasi va o‘z yoqilg‘i xarajatingiz bilan {eq} taxminan {m}/mil to‘laydi: zararsizlik nuqtangiz {be}/mildan {g} yuqori.",i_gb:"Bozor o‘rtachasi va o‘z yoqilg‘i xarajatingiz bilan {eq} taxminan {m}/mil to‘laydi: zararsizlik nuqtangiz {be}/mildan {g} past.",i_nl:"Bozorni zararsizlik nuqtangiz bilan solishtirish uchun Ma’lumotlar bo‘limiga yuk kiriting.",
+w_tr:"O‘tgan haftangiz: sof {x}, oldingi haftaga nisbatan {d}.",w_one:"O‘tgan haftangiz: sof {x}.",w_no:"Haftalik foydangizni bu yerda ko‘rish uchun yuklarni saqlang.",
+t_b:"Bozor o‘rtachasida {eq} spot yuklari xarajatlaringizni qoplamaydi. Kamida {be}/mil va yoqilg‘i so‘rang yoki yaxshiroq yo‘nalish va shartnomali yuk qidiring.",t_a:"Bozor o‘rtachasi {be}/mil zararsizlik nuqtangizni qoplaydi. Bundan kamiga rozi bo‘lmang va keyingi yukkacha bo‘sh milni doim hisoblang.",t_f:"Takliflarni yoqilg‘i qo‘shimchasi bilan to‘liq narxda solishtiring va chegirmadan keyingi nasos narxini tekshiring."}};
+const bt=(k,o)=>{let t=esc(((BRT[lang]||BRT.en)[k])||BRT.en[k]||"");for(const x in o)t=t.split("{"+x+"}").join('<bdi dir="ltr">'+esc(String(o[x]))+"</bdi>");return t};
+const sg$=(x,d)=>(x>0?"+":x<0?"−":"")+"$"+Math.abs(x).toFixed(d==null?2:d);
+const c2=x=>Math.round(Math.abs(x)*100);
+function brSave(){try{localStorage.setItem("tphist",JSON.stringify(brH))}catch(e){}}
+function brMerge(){
+  const b=nw&&nw.briefing;let ch=false;
+  if(b&&b.diesel&&Array.isArray(b.diesel.hist))b.diesel.hist.forEach(([d,v])=>{if(d&&v>0&&brH.d[d]!==v){brH.d[d]=v;ch=true}});
+  if(dz&&dz.national&&dz.national.updatedAt){const n=dz.national,d=n.updatedAt;if(brH.d[d]!==n.price){brH.d[d]=n.price;ch=true}
+    if(n.previous!=null){const p=new Date(d+"T12:00:00");p.setDate(p.getDate()-7);const pk=iso(p);if(!brH.d[pk]){brH.d[pk]=n.previous;ch=true}}}
+  if(b&&b.spot)for(const eq in BR_EQ){const s=b.spot[eq];if(!s)continue;(s.hist||[]).forEach(([d,v])=>{if(brH.s[eq][d]!==v){brH.s[eq][d]=v;ch=true}});if(s.date&&brH.s[eq][s.date]!==s.rpm){brH.s[eq][s.date]=s.rpm;ch=true}}
+  const trim=o=>Object.keys(o).sort().slice(0,-16).forEach(k=>delete o[k]);
+  trim(brH.d);for(const eq in brH.s)trim(brH.s[eq]);
+  if(ch)brSave();
+}
+function brSpot(eq){
+  const b=nw&&nw.briefing,s=b&&b.spot&&b.spot[eq];
+  if(s&&s.rpm>0)return{rpm:+s.rpm,chg:s.chg==null?null:+s.chg,date:s.date,url:s.url};
+  const k=Object.keys(brH.s[eq]||{}).sort();if(!k.length)return null;
+  const r=brH.s[eq][k[k.length-1]],p=k.length>1?brH.s[eq][k[k.length-2]]:null;return{rpm:r,chg:p==null?null:r-p,date:k[k.length-1],url:""};
+}
+function brDiesel(){
+  if(dz&&dz.national)return{p:dz.national.price,c:dz.national.previous!=null?dz.national.price-dz.national.previous:null,date:dz.national.updatedAt};
+  const k=Object.keys(brH.d).sort();if(!k.length)return null;
+  const p=brH.d[k[k.length-1]],q=k.length>1?brH.d[k[k.length-2]]:null;return{p,c:q==null?null:p-q,date:k[k.length-1]};
+}
+function brLine(pts,fmt){
+  if(pts.length<2)return"";
+  const W=320,H=130,pl=6,pr=6,pt=18,pb=22,vs=pts.map(p=>p[1]),lo=Math.min(...vs),hi=Math.max(...vs),rg=hi-lo||1;
+  const X=i=>pl+i*(W-pl-pr)/(pts.length-1),Y=v=>pt+(1-(v-lo)/rg)*(H-pt-pb);
+  const d=pts.map((p,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(p[1]).toFixed(1)).join(" ");
+  const a=d+" L"+X(pts.length-1).toFixed(1)+" "+(H-pb)+" L"+X(0).toFixed(1)+" "+(H-pb)+" Z";
+  const li=pts.length-1,up=pts[li][1]>=pts[0][1];
+  const md=s=>{const t=new Date(s+"T12:00:00");return(t.getMonth()+1)+"/"+t.getDate()};
+  const xl=[0,Math.floor(li/2),li].filter((v,i,a)=>a.indexOf(v)===i).map(i=>'<text x="'+X(i).toFixed(1)+'" y="'+(H-6)+'" text-anchor="'+(i===0?"start":i===li?"end":"middle")+'">'+md(pts[i][0])+'</text>').join("");
+  return '<svg class="brl" viewBox="0 0 '+W+' '+H+'" role="img" aria-hidden="true" data-no-translate="true"><defs><linearGradient id="brg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--teal)" stop-opacity=".28"/><stop offset="1" stop-color="var(--teal)" stop-opacity="0"/></linearGradient></defs>'+
+  '<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+(H-pb)+'" y2="'+(H-pb)+'" class="ax"/><path d="'+a+'" fill="url(#brg)" class="ar"/><path d="'+d+'" class="ln" pathLength="1"/>'+
+  pts.map((p,i)=>'<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="'+(i===li?4.5:2.5)+'" class="'+(i===li?"pt lt":"pt")+'"/>').join("")+
+  '<text x="'+X(li).toFixed(1)+'" y="'+(Y(pts[li][1])-9).toFixed(1)+'" text-anchor="end" class="vl">'+fmt(pts[li][1])+'</text>'+xl+'</svg>';
+}
+function brBars(rows){
+  const mx=Math.max(...rows.map(r=>Math.abs(r.v)),0.0001);
+  return '<div class="brb">'+rows.map(r=>'<div class="brr'+(r.hl?' hl':'')+'"><span>'+r.l+'</span><div class="brt"><i style="width:'+(Math.abs(r.v)/mx*100).toFixed(1)+'%;background:'+(r.c||"var(--teal)")+'"></i></div><b class="u">'+r.t+'</b></div>').join("")+'</div>';
+}
+function brCols(rows){
+  const mx=Math.max(...rows.map(r=>Math.abs(r.v)),0.0001);
+  return '<div class="brc">'+rows.map(r=>'<div class="brcc"><b class="u" style="color:'+r.c+'">'+r.t+'</b><div class="brct"><i style="height:'+Math.max(3,Math.abs(r.v)/mx*100).toFixed(1)+'%;background:'+r.c+'"></i></div><small class="u">'+r.l+'</small></div>').join("")+'</div>';
+}
+function brWeeks(){
+  const m=new Map();
+  snaps.forEach(sn=>m.set(sn.start,sn.P.net));
+  const g={};loads.filter(l=>!l.arch).forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  Object.keys(g).forEach(k=>{if(!m.has(k))m.set(k,weekPL(g[k]).net)});
+  return [...m.entries()].sort((a,b)=>a[0]<b[0]?-1:1).slice(-8);
+}
+function brDrv(){
+  const m=new Map();snaps.forEach(sn=>m.set(sn.start,drvOf(sn.P)));
+  const g={};loads.filter(l=>!l.arch).forEach(l=>{const k=wkOf(l.date);(g[k]=g[k]||[]).push(l)});
+  Object.keys(g).forEach(k=>{if(!m.has(k))m.set(k,drvOf(weekPL(g[k])))});
+  return [...m.entries()].sort((a,b)=>a[0]<b[0]?-1:1).slice(-8);
+}
+function renderBrief(){
+  const B=$("brf");if(!B)return;
+  $("nwSeg").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.v===nwView));
+  B.classList.toggle("hide",nwView!=="rep");$("nwV").classList.toggle("hide",nwView!=="news");
+  if(nwView!=="rep")return;
+  brMerge();
+  const S=brSpot(brEq),D=brDiesel(),r=calc(),eqn=BR_EQ[brEq],mpg=n("mpg")||6.5,wmi=n("wmi")||0;
+  const wk=wkOf(iso(new Date()));
+  const nt=s=>'<p class="brs" data-no-translate="true">'+s+'</p>';
+  let h='<div class="card brh"><div class="verdict"><div><h3 style="margin:0">Weekly market report</h3><small class="note"><span>Week of</span> <span class="u">'+fdy(wk)+'</span></small></div><span class="brbadge">'+(S&&S.chg!=null&&D&&D.c!=null?(S.chg>=0?"▲":"▼")+" "+(D.c<=0?"⛽▼":"⛽▲"):"📊")+'</span></div>';
+  let hk="h_x";if(S&&S.chg!=null&&D&&D.c!=null)hk=S.chg>=0?(D.c<=0?"h_ud":"h_uu"):(D.c<=0?"h_dd":"h_du");
+  h+='<p class="brhl" data-no-translate="true">'+(bt(hk))+'</p>';
+  if(S)h+=nt(bt("s_spot",{eq:eqn,r:"$"+S.rpm.toFixed(2),c:S.chg==null?"—":sg$(S.chg)}));
+  if(D)h+=nt(bt("s_dsl",{d:"$"+D.p.toFixed(3),c:D.c==null?"—":sg$(D.c,3)}));
+  h+='<div class="breq" role="tablist">'+Object.keys(BR_EQ).map(k=>'<button type="button" class="nwb'+(k===brEq?" on":"")+'" data-eq="'+k+'">'+BR_EQ[k]+'</button>').join("")+'</div></div>';
+  // spot card
+  h+='<div class="card"><h3>Spot rates</h3>';
+  const ks=Object.keys(BR_EQ).map(k=>[k,brSpot(k)]);
+  if(ks.some(x=>x[1])){
+    h+='<div class="brk">'+ks.map(([k,s])=>'<button type="button" class="brkt'+(k===brEq?" on":"")+'" data-eq="'+k+'"><small>'+BR_EQ[k]+'</small><b class="u">'+(s?"$"+s.rpm.toFixed(2):"—")+'</b><i class="u" style="color:'+(!s||s.chg==null?"var(--mu)":s.chg>=0?"var(--green)":"var(--orange)")+'">'+(s&&s.chg!=null?(s.chg>=0?"▲ ":"▼ ")+sg$(s.chg):"")+'</i></button>').join("")+'</div>';
+    const hp=Object.keys(brH.s[brEq]||{}).sort().slice(-10).map(d=>[d,brH.s[brEq][d]]);
+    if(hp.length>=3)h+='<div class="brch"><small><span>'+eqn+'</span> · <span>per mile, recent weeks</span></small>'+brLine(hp,v=>"$"+v.toFixed(2))+'</div>';
+    else h+=brCols(ks.filter(x=>x[1]).flatMap(([k,s])=>s.chg!=null?[{l:BR_EQ[k]+" ‹",v:s.rpm-s.chg,t:"$"+(s.rpm-s.chg).toFixed(2),c:"var(--mu)"},{l:BR_EQ[k],v:s.rpm,t:"$"+s.rpm.toFixed(2),c:"var(--teal)"}]:[{l:BR_EQ[k],v:s.rpm,t:"$"+s.rpm.toFixed(2),c:"var(--teal)"}]));
+    const src=ks.map(x=>x[1]).find(x=>x&&x.url);
+    h+='<p class="note"><span>Linehaul only, no fuel surcharge. National averages from DAT.</span>'+(src?' <a class="u" href="'+esc(src.url)+'" target="_blank" rel="noopener noreferrer">DAT</a>':'')+'</p>';
+  }else h+='<p class="note" style="margin:0">No spot rate data yet. Tap Refresh, or check back after DAT\'s weekly report.</p>';
+  h+='</div>';
+  // diesel card
+  h+='<div class="card"><h3>Diesel</h3>';
+  if(D){
+    h+='<div class="brbig"><b class="u">$'+D.p.toFixed(3)+'</b><span class="u" style="color:'+(D.c==null?"var(--mu)":D.c<=0?"var(--green)":"var(--orange)")+'">'+(D.c==null?"":(D.c<=0?"▼ ":"▲ ")+sg$(D.c,3))+'</span></div><p class="note" style="margin:0 0 6px"><span>U.S. average, per gallon, from EIA.</span> <span class="u">'+(D.date?fdy(D.date):"")+'</span></p>';
+    const dp=Object.keys(brH.d).sort().slice(-12).map(d=>[d,brH.d[d]]);
+    if(dp.length>=2)h+='<div class="brch"><small>Last 12 weeks</small>'+brLine(dp,v=>"$"+v.toFixed(2))+'</div>';
+    if(dz&&dz.states){
+      const REP={R1X:"CT",R1Y:"DE",R1Z:"GA",R20:"IL",R30:"AL",R40:"ID",R5XCA:"AZ",SCA:"CA"},rows=[];
+      for(const a in REP){const st=dz.states[REP[a]];if(st)rows.push({l:DZ_RNAME[a],v:st.price,t:"$"+st.price.toFixed(2)+(st.previous!=null?" ("+sg$(st.price-st.previous)+")":""),c:st.previous!=null&&st.price>st.previous?"var(--orange)":"var(--green)"})}
+      if(rows.length){const lo=Math.min(...rows.map(x=>x.v))-0.4;rows.forEach(x=>x.v=x.v-lo);rows.sort((a,b)=>a.v-b.v);h+='<div class="sec">By region</div>'+brBars(rows)}
+    }
+  }else h+='<p class="note" style="margin:0">No diesel data yet.</p>';
+  h+='</div>';
+  // impact card
+  h+='<div class="card"><h3>What it means for you</h3>';
+  const imp=[];
+  if(D&&D.c!=null&&Math.abs(D.c)>=0.001&&wmi>0)imp.push(bt(D.c<0?"i_dd":"i_du",{c:c2(D.c),mi:Math.round(wmi).toLocaleString("en-US"),mpg:mpg,x:"$"+Math.round(Math.abs(D.c)/mpg*wmi).toLocaleString("en-US")}));
+  const sh=r.M>0?r.L/r.M:0.9,lmi=Math.round(wmi*sh);
+  if(S&&S.chg!=null)imp.push(Math.abs(S.chg)<0.005?bt("i_rf",{eq:eqn}):bt(S.chg>0?"i_ru":"i_rd",{eq:eqn,c:c2(S.chg),mi:lmi.toLocaleString("en-US"),x:"$"+Math.round(Math.abs(S.chg)*lmi).toLocaleString("en-US")}));
+  let be=0,mk=0;
+  if(r.L>0&&r.be>0){be=r.be/r.L;
+    if(S){mk=S.rpm+r.fuel/r.L;const g=mk-be;imp.push(bt(g>=0?"i_ga":"i_gb",{eq:eqn,m:"$"+mk.toFixed(2),g:"$"+Math.abs(g).toFixed(2),be:"$"+be.toFixed(2)}))}
+  }else imp.push(bt("i_nl"));
+  h+=imp.map(x=>'<p class="bri" data-no-translate="true">'+x+'</p>').join("");
+  if(be>0){const rows=[{l:"Your break-even",v:be,t:"$"+be.toFixed(2),c:"var(--orange)"}];
+    if(mk>0)rows.push({l:"Market + your fuel",v:mk,t:"$"+mk.toFixed(2),c:"var(--blue)"});
+    if(r.gross>0)rows.push({l:"Your rate",v:r.gross/r.L,t:"$"+(r.gross/r.L).toFixed(2),c:"var(--teal)",hl:1});
+    h+='<div class="sec">Per loaded mile</div>'+brBars(rows)}
+  h+='<p class="note">Based on the load in Inputs and your settings (MPG, miles per week). Estimates only.</p></div>';
+  // your weeks
+  const W=brWeeks();
+  h+='<div class="card"><h3>Your weekly profit</h3>';
+  if(W.length){const lw=W[W.length-1],pw=W.length>1?W[W.length-2]:null;
+    h+='<p class="bri" data-no-translate="true">'+(pw?bt("w_tr",{x:sg$(lw[1],0),d:sg$(lw[1]-pw[1],0)}):bt("w_one",{x:sg$(lw[1],0)}))+'</p>';
+    h+=brCols(W.map(([k,v])=>({l:(new Date(k+"T12:00:00").getMonth()+1)+"/"+new Date(k+"T12:00:00").getDate(),v,t:(v<0?"−":"")+"$"+Math.round(Math.abs(v)/100)/10+"k",c:v<0?"var(--orange)":"var(--green)"})));
+  }else h+='<p class="bri" data-no-translate="true">'+(bt("w_no"))+'</p>';
+  h+='</div>';
+  const DV=brDrv();
+  if(DV.length&&DV.some(x=>x[1]>0)){const lw=DV[DV.length-1],pw=DV.length>1?DV[DV.length-2]:null,tk=lw[1]+(W.length?W[W.length-1][1]:0);
+    h+='<div class="card"><h3>Driver earnings</h3><div class="brbig"><b class="u">'+$$(lw[1])+'</b>'+(pw?'<span class="u" style="color:'+(lw[1]>=pw[1]?"var(--green)":"var(--orange)")+'">'+(lw[1]>=pw[1]?"▲ ":"▼ ")+sg$(lw[1]-pw[1],0)+'</span>':'')+'</div>'+
+    '<p class="bri" data-no-translate="true">'+(bt("d_tk",{x:$$(tk)}))+'</p>'+
+    brCols(DV.map(([k,v])=>({l:(new Date(k+"T12:00:00").getMonth()+1)+"/"+new Date(k+"T12:00:00").getDate(),v,t:"$"+Math.round(v/100)/10+"k",c:"var(--blue)"})))+
+    '<p class="note">From the driver pay per mile in your saved loads. Change it in Inputs.</p></div>'}
+  // regulations
+  const regs=((nw&&nw.items)||[]).filter(x=>x.cat==="reg").sort((a,b)=>a.date<b.date?1:-1).slice(0,3);
+  h+='<div class="card"><h3>Regulations</h3>'+(regs.length?regs.map(x=>'<a class="brg" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer"><b class="u">'+esc(x.title)+'</b><small><span class="u">'+(x.date?fdy(x.date):"")+'</span> • <span class="u">'+esc(x.source||"")+'</span></small></a>').join(""):'<p class="note" style="margin:0">No new rules this week.</p>')+'</div>';
+  // tip
+  const tips=[];if(be>0&&mk>0)tips.push(bt(mk<be?"t_b":"t_a",{eq:eqn,be:"$"+be.toFixed(2)}));tips.push(bt("t_f"));
+  h+='<div class="card brtip"><h3>Tip for this week</h3>'+tips.map(x=>'<p class="bri" data-no-translate="true">'+x+'</p>').join("")+'</div>';
+  h+='<p class="note">Sources: DAT (spot rates), EIA (diesel), Federal Register (rules). Your numbers come from your own loads and settings.</p>';
+  B.innerHTML=h;
+}
+$("nwSeg").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;nwView=b.dataset.v;try{localStorage.setItem("tpnwv",nwView)}catch(x){}renderNews()});
+$("brf").addEventListener("click",e=>{const b=e.target.closest("[data-eq]");if(!b)return;brEq=b.dataset.eq;try{localStorage.setItem("tpeq",brEq)}catch(x){}renderBrief()});
+
 function renderNews(){
   const L=$("nwL");if(!L)return;
+  try{renderBrief()}catch(e){console.error(e)}
   if(!document.activeElement||!document.activeElement.dataset||!document.activeElement.dataset.mk)$("nwM").innerHTML=mkHTML();
   const all=(nw&&nw.items)||[],cnt={};all.forEach(x=>cnt[x.cat]=(cnt[x.cat]||0)+1);
   if(nwCat!=="all"&&!cnt[nwCat])nwCat="all";
